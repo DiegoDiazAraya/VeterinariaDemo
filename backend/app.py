@@ -15,6 +15,7 @@ CORS(app, supports_credentials=True)
 # ==================== RUTAS PARA SERVIR FRONTEND ====================
 
 @app.route('/')
+@app.route('/index.html')
 def serve_index():
     """Sirve la página principal (panel veterinario)"""
     return send_from_directory(FRONTEND_FOLDER, 'index.html')

@@ -665,8 +665,14 @@
       "sexo": "Macho",
       "fecha_nacimiento": "2022-02-10",
       "edad": "3 años y 10 meses",
-      "peso": "",
-      "historial_peso": [],
+      "peso": "10",
+      "historial_peso": [
+        {
+          "peso": "10",
+          "fecha": "2025-12-17",
+          "registrado_por": "Dr. Carlos Martínez"
+        }
+      ],
       "microchip": "",
       "esterilizado": false,
       "alergias": [],

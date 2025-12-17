@@ -535,7 +535,7 @@
       "id": 12,
       "numero_ticket": "BD-2025-0012",
       "fecha_registro": "2025-12-17T01:20:22",
-      "estado": "en_espera",
+      "estado": "atendida",
       "paciente_id": 13,
       "paciente": {
         "nombre": "Mateo",
@@ -555,12 +555,54 @@
       "motivo_consulta": "Fiebre , sarna , picazon",
       "tipo_consulta": "emergencia",
       "registrado_por": "María López",
-      "atendido_por": null,
-      "diagnostico": null,
-      "tratamiento": null,
-      "medicamentos_recetados": [],
-      "cobro": null,
-      "fecha_atencion": null,
+      "atendido_por": "Dr. Carlos Martínez",
+      "diagnostico": {
+        "id": 43,
+        "nombre": "Leptospirosis",
+        "descripcion": "Enfermedad bacteriana que afecta riñones e hígado, zoonótica.",
+        "gravedad": "Crítica",
+        "porcentaje_coincidencia": 63.7
+      },
+      "tratamiento": {
+        "descripcion": "Antibióticos, fluidoterapia agresiva, diálisis si es necesario.",
+        "indicaciones": "Antibióticos, fluidoterapia agresiva, diálisis si es necesario."
+      },
+      "medicamentos_recetados": [
+        {
+          "id": 379,
+          "nombre": "AMOXICILINA 250MG SUSPENSION 60ML",
+          "categoria": "Antibioticos",
+          "presentacion": "Frasco 60ml",
+          "cantidad": 1,
+          "dosis": "Según indicación médica",
+          "frecuencia": 12,
+          "duracion": "",
+          "via_administracion": "Oral",
+          "instrucciones": "",
+          "precio_unitario": 12500,
+          "subtotal": 12500,
+          "stock_al_recetar": 26,
+          "estado_stock": "disponible",
+          "recetado_por": "Dr. Carlos Martínez",
+          "fecha_receta": "2025-12-17T01:25:40"
+        }
+      ],
+      "cobro": {
+        "consulta": 60000,
+        "medicamentos": 12500,
+        "total": 72500,
+        "pagado": false,
+        "metodo_pago": null,
+        "detalle_medicamentos": [
+          {
+            "nombre": "AMOXICILINA 250MG SUSPENSION 60ML",
+            "cantidad": 1,
+            "precio_unitario": 12500,
+            "subtotal": 12500
+          }
+        ]
+      },
+      "fecha_atencion": "2025-12-17T01:24:20",
       "fecha_cierre": null
     }
   ],
