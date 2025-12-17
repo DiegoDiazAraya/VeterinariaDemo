@@ -1245,9 +1245,19 @@
                                     <button onclick="cerrarBusquedaMed()" style="background: none; border: none; cursor: pointer; font-size: 1rem;">✕</button>
                                 </div>
                                 <div id="lista-medicamentos-busqueda" class="medicamentos-grid"></div>
-                            </div>
-                            <!-- Medicamentos recomendados -->
-                            <div class="medicamentos-grid" id="medicamentos-grid"></div>
+                                            </div>
+                                            
+                                            <!-- Medicamento buscado (tarjeta configurable) -->
+                                            <div id="medicamento-buscado-container" style="display: none;"></div>
+                                            
+                                            <!-- Lista de medicamentos ya seleccionados -->
+                                            <div id="medicamentos-seleccionados-lista" style="background: white; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; border: 1px solid #e2e8f0;">
+                                                <p style="text-align: center; color: #64748b; padding: 0.5rem; font-size: 0.85rem;">No hay medicamentos agregados a la receta</p>
+                                            </div>
+                                            
+                                            <!-- Medicamentos recomendados -->
+                                            <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 0.5rem;">💊 Medicamentos recomendados para el diagnóstico:</p>
+                                            <div class="medicamentos-grid" id="medicamentos-grid"></div>
                         </div>
                     </div>
                 </div>
@@ -1683,13 +1693,181 @@
         function seleccionarMedicamento(medId) {
             const med = medicamentosDisponibles.find(m => m.id === medId);
             if (med) {
-                agregarMedicamentoDirecto(med);
+                // Mostrar el medicamento como tarjeta configurable
+                mostrarMedicamentoBuscado(med);
             }
             document.getElementById('buscar-med-input').value = '';
             cerrarDropdown('medicamentos');
         }
         
-        // Agregar medicamento directo desde autocompletado
+        // Mostrar medicamento buscado como tarjeta configurable
+        function mostrarMedicamentoBuscado(med) {
+            const container = document.getElementById('medicamento-buscado-container');
+            if (!container) return;
+            
+            const isDisabled = med.stock <= 0;
+            const yaAgregado = medicamentosSeleccionados.some(m => m.id === med.id);
+            
+            if (yaAgregado) {
+                mostrarNotificacion('Este medicamento ya está en la receta', 'warning');
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="medicamento-buscado-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid #3b82f6; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                        <div>
+                            <h4 style="font-size: 0.95rem; font-weight: 600; color: #1e40af; margin-bottom: 0.25rem;">${med.nombre}</h4>
+                            <span style="font-size: 0.75rem; color: #3b82f6;">${med.categoria}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="background: ${med.stock > 10 ? '#22c55e' : med.stock > 0 ? '#f59e0b' : '#ef4444'}; color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">
+                                Stock: ${med.stock}
+                            </span>
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #1e40af; margin-top: 0.25rem;">💰 $${med.precio?.toLocaleString('es-CL') || 'N/A'}</div>
+                        </div>
+                        <button onclick="cerrarMedicamentoBuscado()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #64748b;">✕</button>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; font-size: 0.8rem; margin-bottom: 0.75rem;">
+                        <div>
+                            <label style="color: #64748b; display: block; margin-bottom: 0.2rem;">Cantidad total:</label>
+                            <div style="display: flex; align-items: center; gap: 0.25rem;">
+                                <input type="number" id="busq-cant-${med.id}" value="1" min="1" max="${med.stock}" 
+                                       style="width: 50px; padding: 0.3rem; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center;"
+                                       onchange="actualizarResumenBuscado(${med.id})">
+                                <span>unidades</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label style="color: #64748b; display: block; margin-bottom: 0.2rem;">Dosis:</label>
+                            <div style="display: flex; align-items: center; gap: 0.25rem;">
+                                <input type="number" id="busq-dosis-${med.id}" value="1" min="1" 
+                                       style="width: 50px; padding: 0.3rem; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center;"
+                                       onchange="actualizarResumenBuscado(${med.id})">
+                                <span>unidad(es) cada</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label style="color: #64748b; display: block; margin-bottom: 0.2rem;">Frecuencia:</label>
+                            <select id="busq-freq-${med.id}" style="padding: 0.3rem; border: 1px solid #cbd5e1; border-radius: 6px;" onchange="actualizarResumenBuscado(${med.id})">
+                                <option value="8">8 horas</option>
+                                <option value="12" selected>12 horas</option>
+                                <option value="24">24 horas</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <label style="color: #64748b; font-size: 0.8rem;">Durante:</label>
+                        <input type="number" id="busq-dias-${med.id}" value="7" min="1" 
+                               style="width: 50px; padding: 0.3rem; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center;"
+                               onchange="actualizarResumenBuscado(${med.id})">
+                        <span style="font-size: 0.8rem;">días</span>
+                    </div>
+                    
+                    <div id="busq-resumen-${med.id}" style="font-size: 0.75rem; color: #3b82f6; background: white; padding: 0.4rem 0.6rem; border-radius: 6px; margin-bottom: 0.75rem;">
+                        📋 1 unidad cada 12h por 7 días
+                    </div>
+                    
+                    <button onclick="agregarMedicamentoBuscado(${med.id}, '${med.nombre.replace(/'/g, "\\'")}', ${med.precio || 0}, '${med.categoria}')"
+                            style="width: 100%; padding: 0.6rem; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.85rem;"
+                            ${isDisabled ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                        ${isDisabled ? '❌ Sin stock disponible' : '➕ Agregar a receta'}
+                    </button>
+                </div>
+            `;
+            container.style.display = 'block';
+        }
+        
+        function cerrarMedicamentoBuscado() {
+            const container = document.getElementById('medicamento-buscado-container');
+            if (container) {
+                container.innerHTML = '';
+                container.style.display = 'none';
+            }
+        }
+        
+        function actualizarResumenBuscado(medId) {
+            const dosis = document.getElementById(`busq-dosis-${medId}`)?.value || 1;
+            const freq = document.getElementById(`busq-freq-${medId}`)?.value || 12;
+            const dias = document.getElementById(`busq-dias-${medId}`)?.value || 7;
+            const resumen = document.getElementById(`busq-resumen-${medId}`);
+            if (resumen) {
+                resumen.innerHTML = `📋 ${dosis} unidad(es) cada ${freq}h por ${dias} días`;
+            }
+        }
+        
+        function agregarMedicamentoBuscado(medId, nombre, precio, categoria) {
+            const cantidad = parseInt(document.getElementById(`busq-cant-${medId}`)?.value) || 1;
+            const dosis = document.getElementById(`busq-dosis-${medId}`)?.value || '1';
+            const frecuencia = document.getElementById(`busq-freq-${medId}`)?.value || '12';
+            const dias = document.getElementById(`busq-dias-${medId}`)?.value || '7';
+            
+            const medData = {
+                id: medId,
+                nombre: nombre,
+                precio: precio,
+                categoria: categoria,
+                cantidad: cantidad,
+                dosis: dosis,
+                frecuencia: frecuencia,
+                dias: dias,
+                indicaciones: `${dosis} unidad(es) cada ${frecuencia} horas durante ${dias} días`
+            };
+            
+            medicamentosSeleccionados.push(medData);
+            document.getElementById('count-medicamentos').textContent = medicamentosSeleccionados.length;
+            
+            cerrarMedicamentoBuscado();
+            renderizarMedicamentosSeleccionados();
+            mostrarNotificacion(`✓ ${nombre} agregado a la receta`, 'success');
+        }
+        
+        // Renderizar medicamentos seleccionados en una lista visible
+        function renderizarMedicamentosSeleccionados() {
+            const container = document.getElementById('medicamentos-seleccionados-lista');
+            if (!container) return;
+            
+            if (medicamentosSeleccionados.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #64748b; padding: 1rem; font-size: 0.85rem;">No hay medicamentos agregados a la receta</p>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <h5 style="font-size: 0.85rem; color: #059669; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                    💊 Medicamentos en la receta (${medicamentosSeleccionados.length})
+                </h5>
+                ${medicamentosSeleccionados.map((m, idx) => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem; background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; margin-bottom: 0.5rem;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; font-size: 0.85rem; color: #166534;">${m.nombre}</div>
+                            <div style="font-size: 0.75rem; color: #15803d;">${m.indicaciones} • Cantidad: ${m.cantidad}</div>
+                        </div>
+                        <div style="text-align: right; margin-right: 0.75rem;">
+                            <div style="font-weight: 600; color: #166534;">$${(m.precio * m.cantidad).toLocaleString('es-CL')}</div>
+                        </div>
+                        <button onclick="quitarMedicamentoSeleccionado(${idx})" 
+                                style="background: #fee2e2; border: none; color: #dc2626; padding: 0.3rem 0.5rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem;">
+                            ✕
+                        </button>
+                    </div>
+                `).join('')}
+                <div style="text-align: right; padding-top: 0.5rem; border-top: 1px dashed #86efac; margin-top: 0.5rem;">
+                    <strong style="color: #166534;">Total medicamentos: $${medicamentosSeleccionados.reduce((sum, m) => sum + (m.precio * m.cantidad), 0).toLocaleString('es-CL')}</strong>
+                </div>
+            `;
+        }
+        
+        function quitarMedicamentoSeleccionado(index) {
+            const med = medicamentosSeleccionados[index];
+            medicamentosSeleccionados.splice(index, 1);
+            document.getElementById('count-medicamentos').textContent = medicamentosSeleccionados.length;
+            renderizarMedicamentosSeleccionados();
+            mostrarNotificacion(`${med.nombre} removido de la receta`, 'info');
+        }
+        
+        // DEPRECATED - Mantener por compatibilidad pero no usar
         function agregarMedicamentoDirecto(med) {
             if (med.stock <= 0) {
                 alert('Este medicamento está agotado');
@@ -2312,6 +2490,8 @@
                     </div>
                 `;
                 medicamentosSeleccionados = [];
+                renderizarMedicamentosSeleccionados();
+                cerrarMedicamentoBuscado();
                 return;
             }
             
@@ -2390,6 +2570,8 @@
             `;
             
             medicamentosSeleccionados = [];
+            renderizarMedicamentosSeleccionados();
+            cerrarMedicamentoBuscado();
         }
         
         async function cargarTodosMedicamentos() {
@@ -2622,6 +2804,8 @@
             consultaActual = null;
             diagnosticoSeleccionado = null;
             medicamentosSeleccionados = [];
+            renderizarMedicamentosSeleccionados();
+            cerrarMedicamentoBuscado();
             document.getElementById('panel-atencion').classList.remove('active');
             document.getElementById('panel-bienvenida').style.display = 'block';
             cargarColaEspera();
