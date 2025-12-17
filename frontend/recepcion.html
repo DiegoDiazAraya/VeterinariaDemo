@@ -938,7 +938,8 @@
     <div class="print-section" id="print-section"></div>
 
     <script>
-        const API_URL = 'http://localhost:5000';
+        // Usar ruta relativa para producción, localhost para desarrollo
+        const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : '';
         let sintomasSeleccionados = [];
         let currentUser = null;
         let pacienteSeleccionado = null;

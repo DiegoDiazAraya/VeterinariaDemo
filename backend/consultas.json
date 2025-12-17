@@ -530,9 +530,41 @@
       "cobro": null,
       "fecha_atencion": "2025-12-16T22:08:51",
       "fecha_cierre": null
+    },
+    {
+      "id": 12,
+      "numero_ticket": "BD-2025-0012",
+      "fecha_registro": "2025-12-17T01:20:22",
+      "estado": "en_espera",
+      "paciente_id": 13,
+      "paciente": {
+        "nombre": "Mateo",
+        "especie": "perro",
+        "raza": "boliviana",
+        "edad": "3 años y 10 meses",
+        "peso": "",
+        "propietario": "Javier Ignacio Fuica Brevis",
+        "telefono": "+56 9 7884 2850"
+      },
+      "sintomas": [
+        "Fiebre alta",
+        "Costras en la piel",
+        "Vómitos severos",
+        "Sangrado nasal"
+      ],
+      "motivo_consulta": "Fiebre , sarna , picazon",
+      "tipo_consulta": "emergencia",
+      "registrado_por": "María López",
+      "atendido_por": null,
+      "diagnostico": null,
+      "tratamiento": null,
+      "medicamentos_recetados": [],
+      "cobro": null,
+      "fecha_atencion": null,
+      "fecha_cierre": null
     }
   ],
-  "ultimo_ticket": 11,
+  "ultimo_ticket": 12,
   "precios": {
     "consulta_general": 35000,
     "consulta_emergencia": 60000,
@@ -540,4 +572,3 @@
     "consulta_control": 35000
   }
 }
-
