@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetterDoctor - Consulta Veterinaria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0f1419;
+            --color-bg-card: #1a2332;
+            --color-bg-input: #232d3f;
+            --color-primary: #4ade80;
+            --color-primary-hover: #22c55e;
+            --color-accent: #f472b6;
+            --color-text: #e8eaed;
+            --color-text-muted: #9ca3af;
+            --color-border: #2d3a4f;
+            --gradient-hero: linear-gradient(135deg, #1a2332 0%, #0f1419 50%, #1a1f2e 100%);
+            --gradient-accent: linear-gradient(135deg, #4ade80 0%, #22d3ee 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--gradient-hero);
+            color: var(--color-text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Fondo con patrón geométrico sutil */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(74, 222, 128, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(244, 114, 182, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(34, 211, 238, 0.03) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(74, 222, 128, 0.3);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--color-text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+
+        /* Card del formulario */
+        .card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .card-header-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Formulario */
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        label span {
+            color: var(--color-accent);
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--color-bg-input);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            color: var(--color-text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.15);
+        }
+
+        input[type="text"]::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.25rem;
+        }
+
+        select option {
+            background: var(--color-bg-card);
+            color: var(--color-text);
+        }
+
+        /* Botón */
+        .btn-primary {
+            width: 100%;
+            padding: 1.1rem 2rem;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 12px;
+            color: #0f1419;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(74, 222, 128, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Sección de síntomas (checklist) */
+        #sintomas-checklist {
+            margin-top: 3rem;
+            padding-top: 2rem;
+        }
+
+        .checklist-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .checklist-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .checklist-header-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(244, 114, 182, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .checklist-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .checklist-description {
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .checklist-placeholder {
+            background: var(--color-bg-input);
+            border: 2px dashed var(--color-border);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--color-text-muted);
+        }
+
+        .checklist-placeholder-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .card,
+            .checklist-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🐾</div>
+                <h1>BetterDoctor</h1>
+            </div>
+            <p class="subtitle">Nueva Consulta</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-icon">📋</div>
+                    <h2 class="card-title">Datos del Paciente</h2>
+                </div>
+
+                <form id="consulta-form">
+                    <div class="form-group">
+                        <label for="nombre-paciente">
+                            Nombre del Paciente <span>*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="nombre-paciente" 
+                            name="nombre_paciente" 
+                            placeholder="Ej: Max, Luna, Rocky..."
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="especie">
+                            Especie <span>*</span>
+                        </label>
+                        <select id="especie" name="especie" required>
+                            <option value="" disabled selected>Seleccione una especie</option>
+                            <option value="perro">🐕 Perro</option>
+                            <option value="gato">🐈 Gato</option>
+                        </select>
+                    </div>
+
+                    <a href="#sintomas-checklist" class="btn-primary">
+                        <span>Comenzar Consulta</span>
+                        <span class="btn-icon">→</span>
+                    </a>
+                </form>
+            </div>
+
+            <!-- Sección de síntomas -->
+            <section id="sintomas-checklist">
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <div class="checklist-header-icon">🩺</div>
+                        <h2 class="checklist-title">Checklist de Síntomas</h2>
+                    </div>
+                    <p class="checklist-description">
+                        Seleccione los síntomas que presenta el paciente para obtener un diagnóstico preliminar.
+                    </p>
+                    <div class="checklist-placeholder">
+                        <div class="checklist-placeholder-icon">📝</div>
+                        <p>Los síntomas disponibles se mostrarán aquí</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>BetterDoctor © 2024 — Sistema de Diagnóstico Veterinario</p>
+        </footer>
+    </div>
+</body>
+</html>
+

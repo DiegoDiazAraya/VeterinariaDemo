@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "usuario": "dr.martinez",
+    "password": "vet2024",
+    "nombre": "Dr. Carlos Martínez",
+    "rol": "veterinario",
+    "email": "carlos.martinez@vetclinic.com",
+    "especialidad": "Medicina General",
+    "activo": true
+  },
+  {
+    "id": 2,
+    "usuario": "dra.rodriguez",
+    "password": "vet2024",
+    "nombre": "Dra. María Rodríguez",
+    "rol": "veterinario",
+    "email": "maria.rodriguez@vetclinic.com",
+    "especialidad": "Cirugía",
+    "activo": true
+  },
+  {
+    "id": 3,
+    "usuario": "admin",
+    "password": "admin2024",
+    "nombre": "Ana García",
+    "rol": "administracion",
+    "email": "admin@vetclinic.com",
+    "departamento": "Administración General",
+    "activo": true
+  },
+  {
+    "id": 4,
+    "usuario": "recepcion",
+    "password": "recep2024",
+    "nombre": "María López",
+    "rol": "recepcionista",
+    "email": "recepcion@vetclinic.com",
+    "departamento": "Recepción",
+    "activo": true
+  },
+  {
+    "id": 5,
+    "usuario": "inventario",
+    "password": "inv2024",
+    "nombre": "Luis Pérez",
+    "rol": "inventario",
+    "email": "inventario@vetclinic.com",
+    "departamento": "Control de Stock",
+    "activo": true
+  },
+  {
+    "id": 6,
+    "usuario": "peluqueria",
+    "password": "pelu2024",
+    "nombre": "Carmen Soto",
+    "rol": "peluqueria",
+    "email": "peluqueria@vetclinic.com",
+    "departamento": "Peluquería",
+    "activo": true
+  }
+]

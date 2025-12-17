@@ -1,0 +1,1179 @@
+{
+  "perros": [
+    {
+      "id": 1,
+      "nombre": "Labrador Retriever",
+      "tamaño": "Grande",
+      "peso_promedio": "25-36 kg",
+      "esperanza_vida": "10-12 años",
+      "temperamento": [
+        "Amigable",
+        "Activo",
+        "Inteligente",
+        "Sociable"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Obesidad",
+        "Otitis",
+        "Atrofia retiniana progresiva"
+      ],
+      "cuidados_especiales": "Ejercicio diario, control de peso, revisión de oídos"
+    },
+    {
+      "id": 2,
+      "nombre": "Pastor Alemán",
+      "tamaño": "Grande",
+      "peso_promedio": "30-40 kg",
+      "esperanza_vida": "9-13 años",
+      "temperamento": [
+        "Leal",
+        "Inteligente",
+        "Protector",
+        "Valiente"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Mielopatía degenerativa",
+        "Torsión gástrica",
+        "Dermatitis"
+      ],
+      "cuidados_especiales": "Socialización temprana, ejercicio regular, cepillado frecuente"
+    },
+    {
+      "id": 3,
+      "nombre": "Golden Retriever",
+      "tamaño": "Grande",
+      "peso_promedio": "25-34 kg",
+      "esperanza_vida": "10-12 años",
+      "temperamento": [
+        "Amigable",
+        "Confiable",
+        "Tolerante",
+        "Inteligente"
+      ],
+      "predisposiciones": [
+        "Cáncer",
+        "Displasia de cadera",
+        "Problemas cardíacos",
+        "Alergias"
+      ],
+      "cuidados_especiales": "Cepillado regular, ejercicio diario, control oncológico"
+    },
+    {
+      "id": 4,
+      "nombre": "Bulldog Francés",
+      "tamaño": "Pequeño",
+      "peso_promedio": "8-14 kg",
+      "esperanza_vida": "10-14 años",
+      "temperamento": [
+        "Juguetón",
+        "Adaptable",
+        "Sociable",
+        "Alerta"
+      ],
+      "predisposiciones": [
+        "Síndrome braquicefálico",
+        "Problemas de columna",
+        "Alergias cutáneas",
+        "Luxación de rótula"
+      ],
+      "cuidados_especiales": "Evitar calor extremo, limpieza de pliegues, control de peso"
+    },
+    {
+      "id": 5,
+      "nombre": "Bulldog Inglés",
+      "tamaño": "Mediano",
+      "peso_promedio": "18-25 kg",
+      "esperanza_vida": "8-10 años",
+      "temperamento": [
+        "Dócil",
+        "Determinado",
+        "Amigable",
+        "Valiente"
+      ],
+      "predisposiciones": [
+        "Síndrome braquicefálico",
+        "Problemas de piel",
+        "Displasia de cadera",
+        "Problemas cardíacos"
+      ],
+      "cuidados_especiales": "Limpieza de pliegues diaria, evitar ejercicio intenso, control de temperatura"
+    },
+    {
+      "id": 6,
+      "nombre": "Poodle (Caniche)",
+      "tamaño": "Variable (Toy, Miniatura, Estándar)",
+      "peso_promedio": "2-32 kg según variedad",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Inteligente",
+        "Activo",
+        "Alerta",
+        "Entrenable"
+      ],
+      "predisposiciones": [
+        "Enfermedad de Addison",
+        "Torsión gástrica",
+        "Displasia de cadera",
+        "Problemas oculares"
+      ],
+      "cuidados_especiales": "Corte de pelo regular, limpieza de oídos, ejercicio mental"
+    },
+    {
+      "id": 7,
+      "nombre": "Beagle",
+      "tamaño": "Mediano",
+      "peso_promedio": "9-11 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Amigable",
+        "Curioso",
+        "Alegre",
+        "Determinado"
+      ],
+      "predisposiciones": [
+        "Epilepsia",
+        "Hipotiroidismo",
+        "Discopatía",
+        "Glaucoma"
+      ],
+      "cuidados_especiales": "Control de peso, ejercicio regular, revisión de oídos"
+    },
+    {
+      "id": 8,
+      "nombre": "Rottweiler",
+      "tamaño": "Grande",
+      "peso_promedio": "35-60 kg",
+      "esperanza_vida": "8-10 años",
+      "temperamento": [
+        "Leal",
+        "Protector",
+        "Confiado",
+        "Obediente"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Osteosarcoma",
+        "Estenosis aórtica",
+        "Hipotiroidismo"
+      ],
+      "cuidados_especiales": "Socialización temprana, ejercicio moderado, control cardíaco"
+    },
+    {
+      "id": 9,
+      "nombre": "Yorkshire Terrier",
+      "tamaño": "Pequeño",
+      "peso_promedio": "2-3 kg",
+      "esperanza_vida": "12-16 años",
+      "temperamento": [
+        "Vivaz",
+        "Valiente",
+        "Inteligente",
+        "Afectuoso"
+      ],
+      "predisposiciones": [
+        "Luxación de rótula",
+        "Colapso traqueal",
+        "Problemas dentales",
+        "Hipoglucemia"
+      ],
+      "cuidados_especiales": "Cuidado dental, cepillado diario, comidas frecuentes"
+    },
+    {
+      "id": 10,
+      "nombre": "Boxer",
+      "tamaño": "Grande",
+      "peso_promedio": "25-32 kg",
+      "esperanza_vida": "10-12 años",
+      "temperamento": [
+        "Juguetón",
+        "Leal",
+        "Enérgico",
+        "Protector"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía",
+        "Cáncer",
+        "Torsión gástrica",
+        "Displasia de cadera"
+      ],
+      "cuidados_especiales": "Ejercicio diario, evitar calor extremo, control cardíaco"
+    },
+    {
+      "id": 11,
+      "nombre": "Dachshund (Teckel)",
+      "tamaño": "Pequeño",
+      "peso_promedio": "4-9 kg",
+      "esperanza_vida": "12-16 años",
+      "temperamento": [
+        "Valiente",
+        "Curioso",
+        "Vivaz",
+        "Obstinado"
+      ],
+      "predisposiciones": [
+        "Hernia discal",
+        "Obesidad",
+        "Problemas dentales",
+        "Diabetes"
+      ],
+      "cuidados_especiales": "Evitar saltos, control de peso estricto, ejercicio moderado"
+    },
+    {
+      "id": 12,
+      "nombre": "Siberian Husky",
+      "tamaño": "Grande",
+      "peso_promedio": "20-27 kg",
+      "esperanza_vida": "12-14 años",
+      "temperamento": [
+        "Amigable",
+        "Gentil",
+        "Alerta",
+        "Independiente"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Problemas oculares",
+        "Hipotiroidismo",
+        "Epilepsia"
+      ],
+      "cuidados_especiales": "Mucho ejercicio, cepillado frecuente, ambiente fresco"
+    },
+    {
+      "id": 13,
+      "nombre": "Doberman",
+      "tamaño": "Grande",
+      "peso_promedio": "30-45 kg",
+      "esperanza_vida": "10-13 años",
+      "temperamento": [
+        "Leal",
+        "Alerta",
+        "Intrépido",
+        "Obediente"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía dilatada",
+        "Enfermedad de Von Willebrand",
+        "Hipotiroidismo",
+        "Displasia de cadera"
+      ],
+      "cuidados_especiales": "Control cardíaco regular, ejercicio diario, socialización"
+    },
+    {
+      "id": 14,
+      "nombre": "Shih Tzu",
+      "tamaño": "Pequeño",
+      "peso_promedio": "4-7 kg",
+      "esperanza_vida": "10-16 años",
+      "temperamento": [
+        "Afectuoso",
+        "Juguetón",
+        "Amigable",
+        "Alerta"
+      ],
+      "predisposiciones": [
+        "Problemas respiratorios",
+        "Luxación de rótula",
+        "Problemas oculares",
+        "Otitis"
+      ],
+      "cuidados_especiales": "Cepillado diario, limpieza facial, evitar calor"
+    },
+    {
+      "id": 15,
+      "nombre": "Pomerania",
+      "tamaño": "Pequeño",
+      "peso_promedio": "1.5-3 kg",
+      "esperanza_vida": "12-16 años",
+      "temperamento": [
+        "Vivaz",
+        "Inteligente",
+        "Sociable",
+        "Activo"
+      ],
+      "predisposiciones": [
+        "Luxación de rótula",
+        "Colapso traqueal",
+        "Alopecia X",
+        "Problemas dentales"
+      ],
+      "cuidados_especiales": "Cepillado frecuente, cuidado dental, ejercicio moderado"
+    },
+    {
+      "id": 16,
+      "nombre": "Chihuahua",
+      "tamaño": "Muy Pequeño",
+      "peso_promedio": "1.5-3 kg",
+      "esperanza_vida": "14-18 años",
+      "temperamento": [
+        "Alerta",
+        "Vivaz",
+        "Leal",
+        "Valiente"
+      ],
+      "predisposiciones": [
+        "Luxación de rótula",
+        "Problemas cardíacos",
+        "Hipoglucemia",
+        "Hidrocefalia"
+      ],
+      "cuidados_especiales": "Protección del frío, comidas frecuentes, cuidado dental"
+    },
+    {
+      "id": 17,
+      "nombre": "Schnauzer",
+      "tamaño": "Variable (Mini, Estándar, Gigante)",
+      "peso_promedio": "4-35 kg según variedad",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Alerta",
+        "Inteligente",
+        "Amigable",
+        "Valiente"
+      ],
+      "predisposiciones": [
+        "Pancreatitis",
+        "Diabetes",
+        "Cataratas",
+        "Hipotiroidismo"
+      ],
+      "cuidados_especiales": "Dieta baja en grasa, stripping o corte regular, ejercicio"
+    },
+    {
+      "id": 18,
+      "nombre": "Border Collie",
+      "tamaño": "Mediano",
+      "peso_promedio": "14-20 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Inteligente",
+        "Enérgico",
+        "Alerta",
+        "Trabajador"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Epilepsia",
+        "Anomalía del ojo del Collie",
+        "Atrofia retiniana progresiva"
+      ],
+      "cuidados_especiales": "Mucho ejercicio físico y mental, estimulación constante"
+    },
+    {
+      "id": 19,
+      "nombre": "Gran Danés",
+      "tamaño": "Gigante",
+      "peso_promedio": "45-90 kg",
+      "esperanza_vida": "7-10 años",
+      "temperamento": [
+        "Amigable",
+        "Paciente",
+        "Dependiente",
+        "Gentil"
+      ],
+      "predisposiciones": [
+        "Torsión gástrica",
+        "Cardiomiopatía",
+        "Displasia de cadera",
+        "Osteosarcoma"
+      ],
+      "cuidados_especiales": "Alimentación elevada, ejercicio moderado, control cardíaco"
+    },
+    {
+      "id": 20,
+      "nombre": "Cocker Spaniel",
+      "tamaño": "Mediano",
+      "peso_promedio": "12-15 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Alegre",
+        "Amigable",
+        "Activo",
+        "Gentil"
+      ],
+      "predisposiciones": [
+        "Otitis crónica",
+        "Cataratas",
+        "Glaucoma",
+        "Displasia de cadera"
+      ],
+      "cuidados_especiales": "Limpieza de oídos frecuente, cepillado regular"
+    },
+    {
+      "id": 21,
+      "nombre": "Maltés",
+      "tamaño": "Pequeño",
+      "peso_promedio": "3-4 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Gentil",
+        "Juguetón",
+        "Cariñoso",
+        "Inteligente"
+      ],
+      "predisposiciones": [
+        "Luxación de rótula",
+        "Problemas dentales",
+        "Shunt hepático",
+        "Manchas de lágrimas"
+      ],
+      "cuidados_especiales": "Cepillado diario, limpieza ocular, cuidado dental"
+    },
+    {
+      "id": 22,
+      "nombre": "Bichón Frisé",
+      "tamaño": "Pequeño",
+      "peso_promedio": "3-5 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Alegre",
+        "Juguetón",
+        "Sociable",
+        "Sensible"
+      ],
+      "predisposiciones": [
+        "Luxación de rótula",
+        "Cataratas",
+        "Alergias",
+        "Problemas dentales"
+      ],
+      "cuidados_especiales": "Corte profesional regular, limpieza ocular, ejercicio moderado"
+    },
+    {
+      "id": 23,
+      "nombre": "Pug (Carlino)",
+      "tamaño": "Pequeño",
+      "peso_promedio": "6-8 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Encantador",
+        "Travieso",
+        "Cariñoso",
+        "Sociable"
+      ],
+      "predisposiciones": [
+        "Síndrome braquicefálico",
+        "Luxación de rótula",
+        "Encefalitis del Pug",
+        "Problemas oculares"
+      ],
+      "cuidados_especiales": "Evitar calor, control de peso, limpieza de pliegues"
+    },
+    {
+      "id": 24,
+      "nombre": "Jack Russell Terrier",
+      "tamaño": "Pequeño",
+      "peso_promedio": "5-8 kg",
+      "esperanza_vida": "13-16 años",
+      "temperamento": [
+        "Enérgico",
+        "Inteligente",
+        "Audaz",
+        "Alegre"
+      ],
+      "predisposiciones": [
+        "Luxación de rótula",
+        "Sordera",
+        "Problemas oculares",
+        "Ataxia"
+      ],
+      "cuidados_especiales": "Mucho ejercicio, estimulación mental, socialización"
+    },
+    {
+      "id": 25,
+      "nombre": "Pitbull Terrier Americano",
+      "tamaño": "Mediano a Grande",
+      "peso_promedio": "14-27 kg",
+      "esperanza_vida": "12-16 años",
+      "temperamento": [
+        "Leal",
+        "Amigable",
+        "Determinado",
+        "Valiente"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Alergias cutáneas",
+        "Hipotiroidismo",
+        "Problemas cardíacos"
+      ],
+      "cuidados_especiales": "Socialización, ejercicio intenso, control de piel"
+    },
+    {
+      "id": 26,
+      "nombre": "Akita Inu",
+      "tamaño": "Grande",
+      "peso_promedio": "32-50 kg",
+      "esperanza_vida": "10-13 años",
+      "temperamento": [
+        "Leal",
+        "Reservado",
+        "Valiente",
+        "Dignificado"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Hipotiroidismo",
+        "Adenitis sebácea",
+        "Torsión gástrica"
+      ],
+      "cuidados_especiales": "Socialización temprana, cepillado frecuente"
+    },
+    {
+      "id": 27,
+      "nombre": "Basset Hound",
+      "tamaño": "Mediano",
+      "peso_promedio": "20-29 kg",
+      "esperanza_vida": "10-12 años",
+      "temperamento": [
+        "Gentil",
+        "Tenaz",
+        "Amigable",
+        "Relajado"
+      ],
+      "predisposiciones": [
+        "Otitis",
+        "Problemas de espalda",
+        "Torsión gástrica",
+        "Glaucoma"
+      ],
+      "cuidados_especiales": "Limpieza de oídos, control de peso, evitar escaleras"
+    },
+    {
+      "id": 28,
+      "nombre": "Boston Terrier",
+      "tamaño": "Pequeño",
+      "peso_promedio": "4.5-11 kg",
+      "esperanza_vida": "11-13 años",
+      "temperamento": [
+        "Amigable",
+        "Vivaz",
+        "Inteligente",
+        "Gentil"
+      ],
+      "predisposiciones": [
+        "Síndrome braquicefálico",
+        "Luxación de rótula",
+        "Cataratas",
+        "Sordera"
+      ],
+      "cuidados_especiales": "Evitar calor, control de peso, ejercicio moderado"
+    },
+    {
+      "id": 29,
+      "nombre": "Weimaraner",
+      "tamaño": "Grande",
+      "peso_promedio": "25-40 kg",
+      "esperanza_vida": "10-13 años",
+      "temperamento": [
+        "Enérgico",
+        "Inteligente",
+        "Obediente",
+        "Amigable"
+      ],
+      "predisposiciones": [
+        "Torsión gástrica",
+        "Displasia de cadera",
+        "Tumores mastocíticos",
+        "Disrafismo espinal"
+      ],
+      "cuidados_especiales": "Mucho ejercicio, no dejar solo por mucho tiempo"
+    },
+    {
+      "id": 30,
+      "nombre": "San Bernardo",
+      "tamaño": "Gigante",
+      "peso_promedio": "55-90 kg",
+      "esperanza_vida": "8-10 años",
+      "temperamento": [
+        "Gentil",
+        "Paciente",
+        "Amigable",
+        "Vigilante"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Torsión gástrica",
+        "Entropión",
+        "Epilepsia"
+      ],
+      "cuidados_especiales": "Alimentación controlada, ejercicio moderado, limpieza de babas"
+    },
+    {
+      "id": 31,
+      "nombre": "Shar Pei",
+      "tamaño": "Mediano",
+      "peso_promedio": "18-25 kg",
+      "esperanza_vida": "9-11 años",
+      "temperamento": [
+        "Leal",
+        "Independiente",
+        "Reservado",
+        "Protector"
+      ],
+      "predisposiciones": [
+        "Fiebre del Shar Pei",
+        "Entropión",
+        "Problemas de piel",
+        "Otitis"
+      ],
+      "cuidados_especiales": "Limpieza de pliegues, control de piel, chequeos oculares"
+    },
+    {
+      "id": 32,
+      "nombre": "Cavalier King Charles Spaniel",
+      "tamaño": "Pequeño",
+      "peso_promedio": "5-8 kg",
+      "esperanza_vida": "9-14 años",
+      "temperamento": [
+        "Afectuoso",
+        "Gentil",
+        "Gracioso",
+        "Sociable"
+      ],
+      "predisposiciones": [
+        "Enfermedad valvular mitral",
+        "Siringomielia",
+        "Luxación de rótula",
+        "Cataratas"
+      ],
+      "cuidados_especiales": "Control cardíaco regular, cepillado frecuente"
+    },
+    {
+      "id": 33,
+      "nombre": "Australian Shepherd",
+      "tamaño": "Mediano",
+      "peso_promedio": "18-29 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Inteligente",
+        "Trabajador",
+        "Enérgico",
+        "Protector"
+      ],
+      "predisposiciones": [
+        "Displasia de cadera",
+        "Epilepsia",
+        "Cataratas",
+        "Sensibilidad a medicamentos (MDR1)"
+      ],
+      "cuidados_especiales": "Mucho ejercicio, estimulación mental, cepillado regular"
+    },
+    {
+      "id": 34,
+      "nombre": "Bullmastiff",
+      "tamaño": "Gigante",
+      "peso_promedio": "45-60 kg",
+      "esperanza_vida": "8-10 años",
+      "temperamento": [
+        "Leal",
+        "Protector",
+        "Tranquilo",
+        "Valiente"
+      ],
+      "predisposiciones": [
+        "Torsión gástrica",
+        "Displasia de cadera",
+        "Entropión",
+        "Hipotiroidismo"
+      ],
+      "cuidados_especiales": "Alimentación elevada, ejercicio moderado, control de peso"
+    },
+    {
+      "id": 35,
+      "nombre": "Quiltro (Mestizo)",
+      "tamaño": "Variable",
+      "peso_promedio": "Variable",
+      "esperanza_vida": "12-16 años",
+      "temperamento": [
+        "Variable",
+        "Generalmente adaptable",
+        "Inteligente",
+        "Leal"
+      ],
+      "predisposiciones": [
+        "Generalmente más resistentes",
+        "Variable según ancestros"
+      ],
+      "cuidados_especiales": "Vacunación, desparasitación, esterilización recomendada"
+    }
+  ],
+  "gatos": [
+    {
+      "id": 1,
+      "nombre": "Persa",
+      "tamaño": "Mediano a Grande",
+      "peso_promedio": "3-6 kg",
+      "esperanza_vida": "12-17 años",
+      "temperamento": [
+        "Tranquilo",
+        "Cariñoso",
+        "Gentil",
+        "Independiente"
+      ],
+      "predisposiciones": [
+        "Enfermedad renal poliquística",
+        "Problemas respiratorios",
+        "Problemas oculares",
+        "Cardiomiopatía hipertrófica"
+      ],
+      "cuidados_especiales": "Cepillado diario, limpieza facial, ambiente fresco"
+    },
+    {
+      "id": 2,
+      "nombre": "Siamés",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-5 kg",
+      "esperanza_vida": "15-20 años",
+      "temperamento": [
+        "Vocal",
+        "Inteligente",
+        "Sociable",
+        "Activo"
+      ],
+      "predisposiciones": [
+        "Estrabismo",
+        "Amiloidosis",
+        "Asma felino",
+        "Megaesófago"
+      ],
+      "cuidados_especiales": "Estimulación social, ejercicio, control dental"
+    },
+    {
+      "id": 3,
+      "nombre": "Maine Coon",
+      "tamaño": "Grande a Gigante",
+      "peso_promedio": "5-10 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Amigable",
+        "Gentil",
+        "Inteligente",
+        "Juguetón"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Displasia de cadera",
+        "Atrofia muscular espinal",
+        "Polidactilia"
+      ],
+      "cuidados_especiales": "Cepillado frecuente, control cardíaco, dieta controlada"
+    },
+    {
+      "id": 4,
+      "nombre": "Ragdoll",
+      "tamaño": "Grande",
+      "peso_promedio": "4-9 kg",
+      "esperanza_vida": "12-17 años",
+      "temperamento": [
+        "Dócil",
+        "Calmado",
+        "Cariñoso",
+        "Relajado"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Enfermedad renal poliquística",
+        "Obesidad"
+      ],
+      "cuidados_especiales": "Cepillado regular, control de peso, ambiente interior"
+    },
+    {
+      "id": 5,
+      "nombre": "Bengalí",
+      "tamaño": "Mediano a Grande",
+      "peso_promedio": "4-7 kg",
+      "esperanza_vida": "12-16 años",
+      "temperamento": [
+        "Activo",
+        "Juguetón",
+        "Inteligente",
+        "Curioso"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Luxación de rótula",
+        "Atrofia retiniana progresiva"
+      ],
+      "cuidados_especiales": "Mucho ejercicio, estimulación mental, espacios verticales"
+    },
+    {
+      "id": 6,
+      "nombre": "British Shorthair",
+      "tamaño": "Mediano a Grande",
+      "peso_promedio": "4-8 kg",
+      "esperanza_vida": "12-20 años",
+      "temperamento": [
+        "Tranquilo",
+        "Independiente",
+        "Leal",
+        "Reservado"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Enfermedad renal poliquística",
+        "Hemofilia B"
+      ],
+      "cuidados_especiales": "Control de peso, cepillado semanal, ejercicio"
+    },
+    {
+      "id": 7,
+      "nombre": "Abisinio",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-5 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Activo",
+        "Curioso",
+        "Inteligente",
+        "Sociable"
+      ],
+      "predisposiciones": [
+        "Amiloidosis renal",
+        "Deficiencia de piruvato quinasa",
+        "Luxación de rótula",
+        "Atrofia retiniana progresiva"
+      ],
+      "cuidados_especiales": "Mucho ejercicio, estimulación, compañía"
+    },
+    {
+      "id": 8,
+      "nombre": "Scottish Fold",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-6 kg",
+      "esperanza_vida": "11-14 años",
+      "temperamento": [
+        "Dulce",
+        "Adaptable",
+        "Afectuoso",
+        "Tranquilo"
+      ],
+      "predisposiciones": [
+        "Osteocondrodisplasia",
+        "Artritis",
+        "Cardiomiopatía"
+      ],
+      "cuidados_especiales": "Control articular, evitar cruzas fold x fold"
+    },
+    {
+      "id": 9,
+      "nombre": "Sphynx",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-6 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Afectuoso",
+        "Enérgico",
+        "Sociable",
+        "Curioso"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Problemas de piel",
+        "Sensibilidad al frío",
+        "Urticaria pigmentosa"
+      ],
+      "cuidados_especiales": "Baños regulares, protección del sol y frío, ropa en invierno"
+    },
+    {
+      "id": 10,
+      "nombre": "Exótico de Pelo Corto",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-6 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Tranquilo",
+        "Afectuoso",
+        "Juguetón",
+        "Leal"
+      ],
+      "predisposiciones": [
+        "Enfermedad renal poliquística",
+        "Problemas respiratorios",
+        "Problemas oculares"
+      ],
+      "cuidados_especiales": "Limpieza facial diaria, ambiente fresco"
+    },
+    {
+      "id": 11,
+      "nombre": "Birmano",
+      "tamaño": "Mediano",
+      "peso_promedio": "4-6 kg",
+      "esperanza_vida": "12-16 años",
+      "temperamento": [
+        "Cariñoso",
+        "Gentil",
+        "Curioso",
+        "Sociable"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Problemas renales"
+      ],
+      "cuidados_especiales": "Cepillado regular, control cardíaco"
+    },
+    {
+      "id": 12,
+      "nombre": "Burmés",
+      "tamaño": "Mediano",
+      "peso_promedio": "4-6 kg",
+      "esperanza_vida": "10-16 años",
+      "temperamento": [
+        "Cariñoso",
+        "Curioso",
+        "Juguetón",
+        "Social"
+      ],
+      "predisposiciones": [
+        "Diabetes mellitus",
+        "Hipopotasemia",
+        "Meningoencefalocele"
+      ],
+      "cuidados_especiales": "Control de peso, ejercicio, dieta balanceada"
+    },
+    {
+      "id": 13,
+      "nombre": "Noruego del Bosque",
+      "tamaño": "Grande",
+      "peso_promedio": "4-9 kg",
+      "esperanza_vida": "14-16 años",
+      "temperamento": [
+        "Amigable",
+        "Gentil",
+        "Activo",
+        "Independiente"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Displasia de cadera",
+        "Enfermedad por almacenamiento de glucógeno tipo IV"
+      ],
+      "cuidados_especiales": "Cepillado frecuente, espacios para trepar"
+    },
+    {
+      "id": 14,
+      "nombre": "Ruso Azul",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-5 kg",
+      "esperanza_vida": "15-20 años",
+      "temperamento": [
+        "Reservado",
+        "Gentil",
+        "Inteligente",
+        "Leal"
+      ],
+      "predisposiciones": [
+        "Urolitiasis",
+        "Obesidad"
+      ],
+      "cuidados_especiales": "Cepillado semanal, control de peso, ambiente tranquilo"
+    },
+    {
+      "id": 15,
+      "nombre": "Angora Turco",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-5 kg",
+      "esperanza_vida": "12-18 años",
+      "temperamento": [
+        "Inteligente",
+        "Activo",
+        "Sociable",
+        "Curioso"
+      ],
+      "predisposiciones": [
+        "Sordera (en blancos con ojos azules)",
+        "Cardiomiopatía hipertrófica",
+        "Ataxia"
+      ],
+      "cuidados_especiales": "Cepillado regular, estimulación mental"
+    },
+    {
+      "id": 16,
+      "nombre": "Devon Rex",
+      "tamaño": "Pequeño a Mediano",
+      "peso_promedio": "2.5-4 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Activo",
+        "Juguetón",
+        "Cariñoso",
+        "Sociable"
+      ],
+      "predisposiciones": [
+        "Miopatía hereditaria",
+        "Luxación de rótula",
+        "Displasia de cadera"
+      ],
+      "cuidados_especiales": "Protección del frío, limpieza de oídos"
+    },
+    {
+      "id": 17,
+      "nombre": "Cornish Rex",
+      "tamaño": "Pequeño a Mediano",
+      "peso_promedio": "2.5-4 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Activo",
+        "Curioso",
+        "Afectuoso",
+        "Juguetón"
+      ],
+      "predisposiciones": [
+        "Hipotricosis",
+        "Hipertrofia muscular",
+        "Sensibilidad al frío"
+      ],
+      "cuidados_especiales": "Ambiente cálido, baños ocasionales"
+    },
+    {
+      "id": 18,
+      "nombre": "Himalayo",
+      "tamaño": "Mediano a Grande",
+      "peso_promedio": "4-6 kg",
+      "esperanza_vida": "9-15 años",
+      "temperamento": [
+        "Gentil",
+        "Tranquilo",
+        "Cariñoso",
+        "Dulce"
+      ],
+      "predisposiciones": [
+        "Enfermedad renal poliquística",
+        "Problemas respiratorios",
+        "Problemas oculares",
+        "Dermatitis facial"
+      ],
+      "cuidados_especiales": "Cepillado diario, limpieza facial, ambiente fresco"
+    },
+    {
+      "id": 19,
+      "nombre": "American Shorthair",
+      "tamaño": "Mediano a Grande",
+      "peso_promedio": "4-6 kg",
+      "esperanza_vida": "15-20 años",
+      "temperamento": [
+        "Adaptable",
+        "Amigable",
+        "Independiente",
+        "Tranquilo"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Obesidad"
+      ],
+      "cuidados_especiales": "Control de peso, cepillado semanal"
+    },
+    {
+      "id": 20,
+      "nombre": "Munchkin",
+      "tamaño": "Pequeño a Mediano",
+      "peso_promedio": "2-4 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Sociable",
+        "Juguetón",
+        "Curioso",
+        "Cariñoso"
+      ],
+      "predisposiciones": [
+        "Lordosis",
+        "Pectus excavatum",
+        "Artrosis"
+      ],
+      "cuidados_especiales": "Control de peso, evitar obesidad, superficies bajas"
+    },
+    {
+      "id": 21,
+      "nombre": "Savannah",
+      "tamaño": "Grande",
+      "peso_promedio": "5-11 kg",
+      "esperanza_vida": "12-20 años",
+      "temperamento": [
+        "Activo",
+        "Curioso",
+        "Inteligente",
+        "Leal"
+      ],
+      "predisposiciones": [
+        "Cardiomiopatía hipertrófica",
+        "Problemas digestivos con alimentos comerciales"
+      ],
+      "cuidados_especiales": "Mucho espacio, ejercicio, estimulación"
+    },
+    {
+      "id": 22,
+      "nombre": "Balinés",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-5 kg",
+      "esperanza_vida": "15-20 años",
+      "temperamento": [
+        "Vocal",
+        "Inteligente",
+        "Cariñoso",
+        "Activo"
+      ],
+      "predisposiciones": [
+        "Amiloidosis",
+        "Estrabismo",
+        "Asma felino"
+      ],
+      "cuidados_especiales": "Cepillado regular, estimulación social"
+    },
+    {
+      "id": 23,
+      "nombre": "Oriental",
+      "tamaño": "Mediano",
+      "peso_promedio": "3-5 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Activo",
+        "Vocal",
+        "Inteligente",
+        "Sociable"
+      ],
+      "predisposiciones": [
+        "Amiloidosis",
+        "Cardiomiopatía dilatada",
+        "Megaesófago"
+      ],
+      "cuidados_especiales": "Compañía constante, estimulación mental"
+    },
+    {
+      "id": 24,
+      "nombre": "Chartreux",
+      "tamaño": "Mediano a Grande",
+      "peso_promedio": "3-7 kg",
+      "esperanza_vida": "12-15 años",
+      "temperamento": [
+        "Tranquilo",
+        "Leal",
+        "Observador",
+        "Gentil"
+      ],
+      "predisposiciones": [
+        "Luxación de rótula",
+        "Urolitiasis"
+      ],
+      "cuidados_especiales": "Cepillado semanal, control de peso"
+    },
+    {
+      "id": 25,
+      "nombre": "Gato Común (Mestizo)",
+      "tamaño": "Variable",
+      "peso_promedio": "3-6 kg",
+      "esperanza_vida": "12-18 años",
+      "temperamento": [
+        "Variable",
+        "Generalmente adaptable",
+        "Inteligente"
+      ],
+      "predisposiciones": [
+        "Generalmente más resistentes",
+        "Variable según ancestros"
+      ],
+      "cuidados_especiales": "Vacunación, desparasitación, esterilización recomendada"
+    }
+  ]
+}
+

@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetterDoctor - Recepción</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #f0f5fa;
+            --color-bg-white: #ffffff;
+            --color-primary: #0891b2;
+            --color-primary-dark: #0e7490;
+            --color-secondary: #3b82f6;
+            --color-text: #1e293b;
+            --color-text-muted: #64748b;
+            --color-border: #e2e8f0;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #0891b2 100%);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .logo h1 { font-size: 1.25rem; font-weight: 700; }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+        }
+
+        .btn-logout {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .btn-logout:hover { background: rgba(255,255,255,0.3); }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--color-bg);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10b981 0%, #0891b2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .card-title { font-size: 1.1rem; font-weight: 600; }
+
+        /* Búsqueda de pacientes */
+        .search-paciente-section {
+            background: linear-gradient(135deg, #ecfeff 0%, #f0fdf4 100%);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--color-primary);
+        }
+
+        .search-paciente-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary-dark);
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid var(--color-border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .search-wrapper input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .search-wrapper .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--color-border);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .search-results.active { display: block; }
+
+        .search-result-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-result-item:hover { background: var(--color-bg); }
+
+        .search-result-item .pet-icon {
+            font-size: 1.5rem;
+        }
+
+        .search-result-item .pet-info {
+            flex: 1;
+        }
+
+        .search-result-item .pet-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .search-result-item .owner-name {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .paciente-seleccionado {
+            background: #d1fae5;
+            border: 2px solid var(--color-success);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        .paciente-seleccionado.active { display: block; }
+
+        .paciente-seleccionado-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .paciente-seleccionado .info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .paciente-seleccionado .nombre {
+            font-weight: 600;
+        }
+
+        .paciente-seleccionado .detalle {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .btn-deseleccionar {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--color-text-muted);
+        }
+
+        .btn-nuevo-paciente {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--color-text);
+        }
+        .form-group label span { color: var(--color-danger); }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #0891b2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success { background: var(--color-success); color: white; }
+        .btn-warning { background: var(--color-warning); color: white; }
+        .btn-danger { background: var(--color-danger); color: white; }
+        .btn-secondary { background: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-border); }
+
+        /* Síntomas */
+        .sintomas-section { margin-top: 1rem; }
+        .sintomas-search {
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+        .sintomas-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--color-primary);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: var(--shadow-lg);
+        }
+        .sintomas-dropdown.active { display: block; }
+        .sintoma-option {
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--color-border);
+            transition: all 0.15s;
+        }
+        .sintoma-option:hover { 
+            background: var(--color-primary-light, #ecfeff); 
+            color: var(--color-primary-dark);
+        }
+        .sintoma-option mark {
+            background: #fef08a;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .sintomas-selected {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            min-height: 50px;
+            padding: 0.5rem;
+            background: var(--color-bg);
+            border-radius: 8px;
+        }
+        .sintoma-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.6rem;
+            background: white;
+            border: 1px solid var(--color-primary);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: var(--color-primary-dark);
+        }
+        .sintoma-tag-remove {
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.6;
+        }
+        .sintoma-tag-remove:hover { opacity: 1; }
+
+        .sintomas-hint {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-top: 0.25rem;
+            font-style: italic;
+        }
+
+        /* Consultas */
+        .consultas-list { margin-top: 1rem; }
+        .consulta-item {
+            background: var(--color-bg);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid var(--color-warning);
+            transition: all 0.2s;
+        }
+        .consulta-item:hover { box-shadow: var(--shadow-md); }
+        .consulta-item.en_espera { border-left-color: var(--color-warning); }
+        .consulta-item.en_atencion { border-left-color: var(--color-primary); }
+        .consulta-item.atendida { border-left-color: var(--color-success); }
+        .consulta-item.completada { border-left-color: #94a3b8; }
+
+        .consulta-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .consulta-ticket {
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            font-size: 0.9rem;
+        }
+        .consulta-estado {
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .estado-en_espera { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+        .estado-en_atencion { background: rgba(8, 145, 178, 0.1); color: var(--color-primary); }
+        .estado-atendida { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
+        .estado-completada { background: rgba(148, 163, 184, 0.1); color: #64748b; }
+
+        .consulta-paciente {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        .consulta-info {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+        .consulta-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        .btn-sm {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .tab {
+            padding: 0.6rem 1.25rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .tab.active {
+            background: var(--color-primary);
+            color: white;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.show { display: flex; }
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .modal-title { font-size: 1.25rem; font-weight: 600; }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-text-muted);
+        }
+
+        /* Cobro */
+        .cobro-detalle {
+            background: var(--color-bg);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .cobro-linea {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 0.9rem;
+        }
+        .cobro-linea:last-child { border-bottom: none; }
+        .cobro-total {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--color-primary-dark);
+        }
+
+        /* Ficha paciente */
+        .ficha-section {
+            background: #f0fdf4;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .ficha-section h4 {
+            color: var(--color-success);
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        .ficha-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        .ficha-item {
+            font-size: 0.85rem;
+        }
+        .ficha-item strong {
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+        .alerta-alergias {
+            background: #fef2f2;
+            border: 1px solid var(--color-danger);
+            border-radius: 8px;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--color-danger);
+        }
+
+        /* Impresión */
+        .print-section { display: none; }
+
+        @media print {
+            body * { visibility: hidden; }
+            .print-section, .print-section * { visibility: visible; }
+            .print-section {
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+
+        .documento-print {
+            font-family: 'Courier New', monospace;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            font-size: 12px;
+        }
+        .doc-header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #000;
+        }
+        .doc-header h1 { font-size: 18px; margin-bottom: 5px; }
+        .doc-header p { margin: 2px 0; font-size: 11px; }
+        .doc-section { margin: 10px 0; }
+        .doc-section-title {
+            font-weight: bold;
+            border-bottom: 1px solid #000;
+            margin-bottom: 5px;
+            padding-bottom: 3px;
+        }
+        .doc-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+        }
+        .doc-total {
+            border-top: 2px dashed #000;
+            margin-top: 10px;
+            padding-top: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .doc-footer {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 2px dashed #000;
+            font-size: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-muted);
+        }
+        .empty-icon { font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.5; }
+
+        @media (max-width: 1024px) {
+            .main-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🏥</div>
+                <div>
+                    <h1>BetterDoctor</h1>
+                    <small style="opacity: 0.8; font-size: 0.7rem;">Panel de Recepción</small>
+                </div>
+            </div>
+            <div class="user-info">
+                <span>📋 <span id="user-name">Recepcionista</span></span>
+                <button class="btn-logout" onclick="logout()">🚪 Salir</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Formulario de registro -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">📝</div>
+                <h2 class="card-title">Registrar Nueva Consulta</h2>
+            </div>
+
+            <!-- Búsqueda de paciente existente -->
+            <div class="search-paciente-section">
+                <label>🔍 Buscar Paciente Existente</label>
+                <div class="search-wrapper">
+                    <span class="search-icon">🔎</span>
+                    <input type="text" id="buscar-paciente" placeholder="Nombre mascota o dueño..." autocomplete="off">
+                    <div class="search-results" id="search-results"></div>
+                </div>
+                <div class="paciente-seleccionado" id="paciente-seleccionado">
+                    <div class="paciente-seleccionado-header">
+                        <div class="info">
+                            <span class="icono">🐾</span>
+                            <span class="nombre" id="sel-nombre"></span>
+                            <span class="detalle" id="sel-detalle"></span>
+                        </div>
+                        <button class="btn-deseleccionar" onclick="deseleccionarPaciente()">✕</button>
+                    </div>
+                </div>
+                <button class="btn-nuevo-paciente" onclick="toggleFormularioNuevo()">
+                    ➕ Registrar Paciente Nuevo
+                </button>
+            </div>
+
+            <form id="form-consulta" onsubmit="registrarConsulta(event)">
+                <input type="hidden" id="paciente_id" value="">
+
+                <!-- Datos del paciente (colapsable si es existente) -->
+                <div id="datos-paciente">
+                    <div class="form-group">
+                        <label>Nombre de la Mascota <span>*</span></label>
+                        <input type="text" id="nombre_mascota" required placeholder="Ej: Max, Luna...">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Especie <span>*</span></label>
+                            <select id="especie" required>
+                                <option value="">Seleccione...</option>
+                                <option value="perro">🐕 Perro</option>
+                                <option value="gato">🐈 Gato</option>
+                                <option value="conejo">🐰 Conejo</option>
+                                <option value="hamster">🐹 Hámster</option>
+                                <option value="ave">🦜 Ave</option>
+                                <option value="reptil">🦎 Reptil</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Raza</label>
+                            <input type="text" id="raza" placeholder="Ej: Labrador, Siamés...">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Edad</label>
+                            <input type="text" id="edad" placeholder="Ej: 3 años">
+                        </div>
+                        <div class="form-group">
+                            <label>Peso</label>
+                            <input type="text" id="peso" placeholder="Ej: 15 kg">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Propietario <span>*</span></label>
+                        <input type="text" id="propietario" required placeholder="Nombre del dueño">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="telefono" placeholder="+56 9 1234 5678">
+                    </div>
+                </div>
+
+                <!-- Ficha del paciente seleccionado -->
+                <div id="ficha-paciente" style="display: none;">
+                    <div class="ficha-section">
+                        <h4>📋 Ficha del Paciente</h4>
+                        <div class="ficha-grid" id="ficha-datos"></div>
+                        <div id="ficha-alergias"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo de Consulta</label>
+                    <select id="tipo_consulta">
+                        <option value="general">Consulta General - $25.000</option>
+                        <option value="emergencia">Emergencia - $45.000</option>
+                        <option value="especialidad">Especialidad - $35.000</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Motivo de Consulta</label>
+                    <textarea id="motivo_consulta" rows="2" placeholder="Descripción breve..."></textarea>
+                </div>
+
+                <div class="sintomas-section">
+                    <label>Síntomas Observados</label>
+                    <div class="sintomas-search">
+                        <input type="text" id="sintoma-search" placeholder="Escriba para buscar síntomas (ej: vomit, fiebre, tos...)" autocomplete="off">
+                        <div class="sintomas-dropdown" id="sintomas-dropdown"></div>
+                    </div>
+                    <p class="sintomas-hint">💡 Escriba al menos 2 letras para ver sugerencias de la base de datos</p>
+                    <div class="sintomas-selected" id="sintomas-selected">
+                        <span style="color: var(--color-text-muted); font-size: 0.8rem; font-style: italic;" id="sintomas-placeholder">
+                            Los síntomas seleccionados aparecerán aquí...
+                        </span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">
+                    ✅ Registrar y Generar Ticket
+                </button>
+            </form>
+        </div>
+
+        <!-- Lista de consultas -->
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <h2 class="card-title">Consultas del Día</h2>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="cambiarTab('pendientes')">⏳ En Espera</button>
+                    <button class="tab" onclick="cambiarTab('por-cobrar')">💰 Por Cobrar</button>
+                    <button class="tab" onclick="cambiarTab('completadas')">✅ Completadas</button>
+                </div>
+
+                <div class="tab-content active" id="tab-pendientes">
+                    <div class="consultas-list" id="lista-pendientes"></div>
+                </div>
+
+                <div class="tab-content" id="tab-por-cobrar">
+                    <div class="consultas-list" id="lista-por-cobrar"></div>
+                </div>
+
+                <div class="tab-content" id="tab-completadas">
+                    <div class="consultas-list" id="lista-completadas"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Cobro -->
+    <div class="modal" id="modal-cobro">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">💰 Cobrar Consulta</h3>
+                <button class="modal-close" onclick="cerrarModal('modal-cobro')">&times;</button>
+            </div>
+            <div id="cobro-contenido"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Ticket -->
+    <div class="modal" id="modal-ticket">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🎫 Ticket Generado</h3>
+                <button class="modal-close" onclick="cerrarModal('modal-ticket')">&times;</button>
+            </div>
+            <div id="ticket-contenido" style="text-align: center; padding: 2rem;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🎫</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--color-primary);" id="ticket-numero"></div>
+                <p style="margin-top: 0.5rem; color: var(--color-text-muted);">Entregar al cliente</p>
+                <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="cerrarModal('modal-ticket')">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nuevo Paciente -->
+    <div class="modal" id="modal-nuevo-paciente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🐾 Registrar Nuevo Paciente</h3>
+                <button class="modal-close" onclick="cerrarModal('modal-nuevo-paciente')">&times;</button>
+            </div>
+            <form id="form-nuevo-paciente" onsubmit="crearNuevoPaciente(event)">
+                <h4 style="margin-bottom: 1rem; color: var(--color-primary);">Datos de la Mascota</h4>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre <span>*</span></label>
+                        <input type="text" id="np-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Especie <span>*</span></label>
+                        <select id="np-especie" required>
+                            <option value="">Seleccione...</option>
+                            <option value="perro">Perro</option>
+                            <option value="gato">Gato</option>
+                            <option value="conejo">Conejo</option>
+                            <option value="hamster">Hámster</option>
+                            <option value="ave">Ave</option>
+                            <option value="reptil">Reptil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Raza</label>
+                        <input type="text" id="np-raza">
+                    </div>
+                    <div class="form-group">
+                        <label>Sexo</label>
+                        <select id="np-sexo">
+                            <option value="">Seleccione...</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Hembra">Hembra</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha Nacimiento</label>
+                        <input type="date" id="np-fecha-nacimiento">
+                    </div>
+                    <div class="form-group">
+                        <label>Color</label>
+                        <input type="text" id="np-color">
+                    </div>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 1rem; color: var(--color-primary);">Datos del Propietario</h4>
+
+                <div class="form-group">
+                    <label>Nombre Completo <span>*</span></label>
+                    <input type="text" id="np-prop-nombre" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>RUT</label>
+                        <input type="text" id="np-prop-rut" placeholder="12.345.678-9">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono <span>*</span></label>
+                        <input type="tel" id="np-prop-telefono" required placeholder="+56 9 1234 5678">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="np-prop-email">
+                </div>
+
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <input type="text" id="np-prop-direccion">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    💾 Guardar Paciente
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sección de impresión -->
+    <div class="print-section" id="print-section"></div>
+
+    <script>
+        const API_URL = 'http://localhost:5000';
+        let sintomasSeleccionados = [];
+        let currentUser = null;
+        let pacienteSeleccionado = null;
+        let searchTimeout = null;
+
+        // Formatear pesos chilenos
+        function formatCLP(valor) {
+            return '$' + Math.round(valor).toLocaleString('es-CL');
+        }
+
+        // Auth
+        function checkAuth() {
+            try {
+                const user = JSON.parse(localStorage.getItem('vetclinic_user') || 'null');
+                if (!user) {
+                    window.location.href = 'login.html';
+                    return null;
+                }
+                if (user.rol !== 'recepcionista') {
+                    if (user.rol === 'veterinario') window.location.href = 'index.html';
+                    else if (user.rol === 'administracion') window.location.href = 'superadmin.html';
+                    return null;
+                }
+                document.getElementById('user-name').textContent = user.nombre;
+                currentUser = user;
+                return user;
+            } catch (error) {
+                console.error('Error en checkAuth:', error);
+                window.location.href = 'login.html';
+                return null;
+            }
+        }
+
+        function logout() {
+            console.log('Cerrando sesión...');
+            localStorage.removeItem('vetclinic_user');
+            window.location.href = 'login.html';
+        }
+        
+        // Hacer logout global para que funcione desde onclick
+        window.logout = logout;
+
+        // Tabs
+        function cambiarTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ==================== BÚSQUEDA DE PACIENTES ====================
+        
+        const buscarPacienteInput = document.getElementById('buscar-paciente');
+        const searchResults = document.getElementById('search-results');
+
+        buscarPacienteInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            
+            clearTimeout(searchTimeout);
+            
+            if (query.length < 2) {
+                searchResults.classList.remove('active');
+                return;
+            }
+
+            searchTimeout = setTimeout(async () => {
+                try {
+                    const res = await fetch(`${API_URL}/api/pacientes/buscar?q=${encodeURIComponent(query)}`);
+                    const data = await res.json();
+                    
+                    if (data.pacientes && data.pacientes.length > 0) {
+                        searchResults.innerHTML = data.pacientes.map(p => `
+                            <div class="search-result-item" onclick="seleccionarPaciente(${p.id})">
+                                <span class="pet-icon">${p.especie === 'perro' ? '🐕' : p.especie === 'gato' ? '🐈' : '🐾'}</span>
+                                <div class="pet-info">
+                                    <div class="pet-name">${p.nombre} ${p.raza ? `(${p.raza})` : ''}</div>
+                                    <div class="owner-name">👤 ${p.propietario} · 📞 ${p.telefono || 'N/A'}</div>
+                                </div>
+                            </div>
+                        `).join('');
+                        searchResults.classList.add('active');
+                    } else {
+                        searchResults.innerHTML = `
+                            <div style="padding: 1rem; text-align: center; color: var(--color-text-muted);">
+                                No se encontraron pacientes
+                            </div>
+                        `;
+                        searchResults.classList.add('active');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }, 300);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-wrapper')) {
+                searchResults.classList.remove('active');
+            }
+        });
+
+        async function seleccionarPaciente(id) {
+            try {
+                const res = await fetch(`${API_URL}/api/pacientes/${id}`);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    pacienteSeleccionado = data.paciente;
+                    
+                    // Mostrar paciente seleccionado
+                    document.getElementById('paciente-seleccionado').classList.add('active');
+                    document.getElementById('sel-nombre').textContent = pacienteSeleccionado.nombre;
+                    document.getElementById('sel-detalle').textContent = 
+                        `(${pacienteSeleccionado.especie}) - ${pacienteSeleccionado.propietario.nombre}`;
+                    
+                    // Ocultar formulario de datos y mostrar ficha
+                    document.getElementById('datos-paciente').style.display = 'none';
+                    document.getElementById('ficha-paciente').style.display = 'block';
+                    document.getElementById('paciente_id').value = pacienteSeleccionado.id;
+                    
+                    // Rellenar campos ocultos para que pasen la validación del formulario
+                    document.getElementById('nombre_mascota').value = pacienteSeleccionado.nombre;
+                    document.getElementById('especie').value = pacienteSeleccionado.especie;
+                    document.getElementById('propietario').value = pacienteSeleccionado.propietario.nombre;
+                    
+                    // Llenar ficha (usar edad_calculada del servidor si existe)
+                    const edadMostrar = pacienteSeleccionado.edad_calculada || pacienteSeleccionado.edad || 'N/A';
+                    document.getElementById('ficha-datos').innerHTML = `
+                        <div class="ficha-item"><strong>Nombre:</strong> ${pacienteSeleccionado.nombre}</div>
+                        <div class="ficha-item"><strong>Especie:</strong> ${pacienteSeleccionado.especie}</div>
+                        <div class="ficha-item"><strong>Raza:</strong> ${pacienteSeleccionado.raza || 'N/A'}</div>
+                        <div class="ficha-item"><strong>Edad:</strong> ${edadMostrar}</div>
+                        <div class="ficha-item"><strong>Peso:</strong> ${pacienteSeleccionado.peso || 'N/A'}</div>
+                        <div class="ficha-item"><strong>Sexo:</strong> ${pacienteSeleccionado.sexo || 'N/A'}</div>
+                        <div class="ficha-item"><strong>Propietario:</strong> ${pacienteSeleccionado.propietario.nombre}</div>
+                        <div class="ficha-item"><strong>Teléfono:</strong> ${pacienteSeleccionado.propietario.telefono}</div>
+                    `;
+                    
+                    // Mostrar alergias si hay
+                    if (pacienteSeleccionado.alergias && pacienteSeleccionado.alergias.length > 0) {
+                        document.getElementById('ficha-alergias').innerHTML = `
+                            <div class="alerta-alergias">
+                                ⚠️ <strong>ALERGIAS:</strong> ${pacienteSeleccionado.alergias.join(', ')}
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('ficha-alergias').innerHTML = '';
+                    }
+                    
+                    // Limpiar búsqueda
+                    buscarPacienteInput.value = '';
+                    searchResults.classList.remove('active');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function deseleccionarPaciente() {
+            pacienteSeleccionado = null;
+            document.getElementById('paciente-seleccionado').classList.remove('active');
+            document.getElementById('datos-paciente').style.display = 'block';
+            document.getElementById('ficha-paciente').style.display = 'none';
+            document.getElementById('paciente_id').value = '';
+            
+            // Limpiar campos ocultos
+            document.getElementById('nombre_mascota').value = '';
+            document.getElementById('especie').value = '';
+            document.getElementById('propietario').value = '';
+        }
+
+        function toggleFormularioNuevo() {
+            document.getElementById('modal-nuevo-paciente').classList.add('show');
+        }
+
+        async function crearNuevoPaciente(e) {
+            e.preventDefault();
+            
+            const data = {
+                nombre: document.getElementById('np-nombre').value,
+                especie: document.getElementById('np-especie').value,
+                raza: document.getElementById('np-raza').value,
+                sexo: document.getElementById('np-sexo').value,
+                fecha_nacimiento: document.getElementById('np-fecha-nacimiento').value,
+                color: document.getElementById('np-color').value,
+                propietario_nombre: document.getElementById('np-prop-nombre').value,
+                propietario_rut: document.getElementById('np-prop-rut').value,
+                propietario_telefono: document.getElementById('np-prop-telefono').value,
+                propietario_email: document.getElementById('np-prop-email').value,
+                propietario_direccion: document.getElementById('np-prop-direccion').value
+            };
+            
+            try {
+                const res = await fetch(`${API_URL}/api/pacientes/nuevo`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                
+                if (result.exito) {
+                    alert('✅ Paciente registrado exitosamente');
+                    cerrarModal('modal-nuevo-paciente');
+                    document.getElementById('form-nuevo-paciente').reset();
+                    
+                    // Seleccionar el paciente recién creado
+                    seleccionarPaciente(result.paciente.id);
+                }
+            } catch (error) {
+                alert('Error al registrar paciente');
+            }
+        }
+
+        // ==================== SÍNTOMAS CON AUTOCOMPLETADO ====================
+        
+        const sintomaSearchInput = document.getElementById('sintoma-search');
+        const sintomasDropdown = document.getElementById('sintomas-dropdown');
+
+        sintomaSearchInput.addEventListener('input', async (e) => {
+            const query = e.target.value.trim();
+            
+            if (query.length < 2) {
+                sintomasDropdown.classList.remove('active');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/api/sintomas/buscar?q=${encodeURIComponent(query)}&limite=10`);
+                const data = await res.json();
+                
+                if (data.sintomas && data.sintomas.length > 0) {
+                    // Filtrar síntomas ya seleccionados
+                    const disponibles = data.sintomas.filter(s => !sintomasSeleccionados.includes(s));
+                    
+                    if (disponibles.length > 0) {
+                        // Resaltar coincidencia
+                        const regex = new RegExp(`(${query})`, 'gi');
+                        sintomasDropdown.innerHTML = disponibles.map(s => {
+                            const highlighted = s.replace(regex, '<mark>$1</mark>');
+                            return `<div class="sintoma-option" onclick="agregarSintoma('${s.replace(/'/g, "\\'")}')">${highlighted}</div>`;
+                        }).join('');
+                        sintomasDropdown.classList.add('active');
+                    } else {
+                        sintomasDropdown.classList.remove('active');
+                    }
+                } else {
+                    // Permitir agregar síntoma personalizado
+                    sintomasDropdown.innerHTML = `
+                        <div class="sintoma-option" onclick="agregarSintoma('${query.replace(/'/g, "\\'")}')">
+                            ➕ Agregar "${query}" como síntoma
+                        </div>
+                    `;
+                    sintomasDropdown.classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.sintomas-search')) {
+                sintomasDropdown.classList.remove('active');
+            }
+        });
+
+        function agregarSintoma(sintoma) {
+            if (!sintomasSeleccionados.includes(sintoma)) {
+                sintomasSeleccionados.push(sintoma);
+                renderizarSintomas();
+            }
+            sintomaSearchInput.value = '';
+            sintomasDropdown.classList.remove('active');
+        }
+
+        function quitarSintoma(sintoma) {
+            sintomasSeleccionados = sintomasSeleccionados.filter(s => s !== sintoma);
+            renderizarSintomas();
+        }
+
+        function renderizarSintomas() {
+            const container = document.getElementById('sintomas-selected');
+            const placeholder = document.getElementById('sintomas-placeholder');
+            
+            if (sintomasSeleccionados.length === 0) {
+                container.innerHTML = `
+                    <span style="color: var(--color-text-muted); font-size: 0.8rem; font-style: italic;" id="sintomas-placeholder">
+                        Los síntomas seleccionados aparecerán aquí...
+                    </span>
+                `;
+            } else {
+                container.innerHTML = sintomasSeleccionados.map(s => `
+                    <span class="sintoma-tag">
+                        ${s}
+                        <span class="sintoma-tag-remove" onclick="quitarSintoma('${s.replace(/'/g, "\\'")}')">&times;</span>
+                    </span>
+                `).join('');
+            }
+        }
+
+        // ==================== REGISTRO DE CONSULTA ====================
+        
+        async function registrarConsulta(e) {
+            e.preventDefault();
+            
+            let data;
+            
+            if (pacienteSeleccionado) {
+                // Usar datos del paciente seleccionado (preferir edad calculada)
+                const edadUsar = pacienteSeleccionado.edad_calculada || pacienteSeleccionado.edad;
+                data = {
+                    paciente_id: pacienteSeleccionado.id,
+                    nombre_mascota: pacienteSeleccionado.nombre,
+                    especie: pacienteSeleccionado.especie,
+                    raza: pacienteSeleccionado.raza,
+                    edad: edadUsar,
+                    peso: pacienteSeleccionado.peso,
+                    propietario: pacienteSeleccionado.propietario.nombre,
+                    telefono: pacienteSeleccionado.propietario.telefono,
+                    tipo_consulta: document.getElementById('tipo_consulta').value,
+                    motivo_consulta: document.getElementById('motivo_consulta').value,
+                    sintomas: sintomasSeleccionados,
+                    registrado_por: currentUser?.nombre || 'Recepción'
+                };
+            } else {
+                // Usar datos del formulario
+                data = {
+                    nombre_mascota: document.getElementById('nombre_mascota').value,
+                    especie: document.getElementById('especie').value,
+                    raza: document.getElementById('raza').value,
+                    edad: document.getElementById('edad').value,
+                    peso: document.getElementById('peso').value,
+                    propietario: document.getElementById('propietario').value,
+                    telefono: document.getElementById('telefono').value,
+                    tipo_consulta: document.getElementById('tipo_consulta').value,
+                    motivo_consulta: document.getElementById('motivo_consulta').value,
+                    sintomas: sintomasSeleccionados,
+                    registrado_por: currentUser?.nombre || 'Recepción'
+                };
+            }
+
+            try {
+                console.log('Enviando datos de consulta:', data);
+                
+                const response = await fetch(`${API_URL}/api/consultas/nueva`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('Response status:', response.status);
+                const result = await response.json();
+                console.log('Resultado:', result);
+                
+                if (result.exito) {
+                    // Si hay paciente seleccionado, agregar consulta a su historial
+                    if (pacienteSeleccionado) {
+                        try {
+                            await fetch(`${API_URL}/api/pacientes/${pacienteSeleccionado.id}/agregar-consulta`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ consulta_id: result.consulta.id })
+                            });
+                        } catch (e) {
+                            console.error('Error al agregar consulta al historial:', e);
+                        }
+                    }
+                    
+                    document.getElementById('ticket-numero').textContent = result.numero_ticket;
+                    document.getElementById('modal-ticket').classList.add('show');
+                    
+                    // Limpiar formulario
+                    document.getElementById('form-consulta').reset();
+                    sintomasSeleccionados = [];
+                    renderizarSintomas();
+                    deseleccionarPaciente();
+                    cargarConsultas();
+                } else {
+                    alert('Error: ' + (result.mensaje || 'Error desconocido'));
+                    console.error('Error del servidor:', result);
+                }
+            } catch (error) {
+                console.error('Error de conexión:', error);
+                alert('Error de conexión: ' + error.message);
+            }
+        }
+
+        // ==================== CONSULTAS ====================
+        
+        async function cargarConsultas() {
+            try {
+                const resPend = await fetch(`${API_URL}/api/consultas/pendientes`);
+                const dataPend = await resPend.json();
+                renderizarLista('lista-pendientes', dataPend.consultas, 'pendiente');
+
+                const resCobrar = await fetch(`${API_URL}/api/consultas/por-cobrar`);
+                const dataCobrar = await resCobrar.json();
+                renderizarLista('lista-por-cobrar', dataCobrar.consultas, 'cobrar');
+
+                const resAll = await fetch(`${API_URL}/api/consultas?estado=completada`);
+                const dataAll = await resAll.json();
+                renderizarLista('lista-completadas', dataAll.consultas.slice(0, 10), 'completada');
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function renderizarLista(containerId, consultas, tipo) {
+            const container = document.getElementById(containerId);
+            
+            if (!consultas || consultas.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <p>No hay consultas</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = consultas.map(c => `
+                <div class="consulta-item ${c.estado}">
+                    <div class="consulta-header">
+                        <span class="consulta-ticket">${c.numero_ticket}</span>
+                        <span class="consulta-estado estado-${c.estado}">
+                            ${c.estado === 'en_espera' ? '⏳ En Espera' : 
+                              c.estado === 'en_atencion' ? '🩺 En Atención' : 
+                              c.estado === 'atendida' ? '✅ Atendida' : '✓ Completada'}
+                        </span>
+                    </div>
+                    <div class="consulta-paciente">🐾 ${c.paciente.nombre} (${c.paciente.especie})</div>
+                    <div class="consulta-info">
+                        👤 ${c.paciente.propietario} · 📞 ${c.paciente.telefono || 'N/A'}
+                    </div>
+                    ${c.diagnostico ? `<div class="consulta-info" style="margin-top: 0.3rem;">📋 ${c.diagnostico.nombre}</div>` : ''}
+                    <div class="consulta-actions">
+                        ${tipo === 'cobrar' ? `
+                            <button class="btn btn-sm btn-success" onclick="abrirCobro(${c.id})">💰 Cobrar</button>
+                            <button class="btn btn-sm btn-secondary" onclick="imprimirReceta(${c.id})">📄 Receta</button>
+                        ` : ''}
+                        ${tipo === 'completada' ? `
+                            <button class="btn btn-sm btn-secondary" onclick="imprimirBoleta(${c.id})">🧾 Boleta</button>
+                            <button class="btn btn-sm btn-secondary" onclick="imprimirReceta(${c.id})">📄 Receta</button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== COBRO ====================
+        
+        let cobroActual = null;
+        let medicamentosParaCobro = [];
+        let inventarioDisponible = [];
+        
+        async function abrirCobro(id) {
+            try {
+                // Cargar consulta y inventario
+                const [resConsulta, resInventario] = await Promise.all([
+                    fetch(`${API_URL}/api/consultas/${id}`),
+                    fetch(`${API_URL}/api/inventario`)
+                ]);
+                
+                const dataConsulta = await resConsulta.json();
+                const dataInventario = await resInventario.json();
+                
+                cobroActual = dataConsulta.consulta;
+                inventarioDisponible = dataInventario.medicamentos || [];
+                
+                // Copiar medicamentos recetados con precios
+                medicamentosParaCobro = (cobroActual.medicamentos_recetados || []).map(m => {
+                    const medInventario = inventarioDisponible.find(inv => inv.id === m.id);
+                    return {
+                        ...m,
+                        precio: medInventario?.precio_unitario || m.precio || 0,
+                        incluido: true
+                    };
+                });
+                
+                renderizarCobro();
+                document.getElementById('modal-cobro').classList.add('show');
+            } catch (error) {
+                alert('Error al cargar datos');
+                console.error(error);
+            }
+        }
+        
+        function renderizarCobro() {
+            const c = cobroActual;
+            const totalMeds = medicamentosParaCobro
+                .filter(m => m.incluido)
+                .reduce((sum, m) => sum + (m.cantidad * m.precio), 0);
+            const totalGeneral = c.cobro.consulta + totalMeds;
+            
+            let html = `
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0;">
+                    <strong>Paciente:</strong> ${c.paciente.nombre} (${c.paciente.especie})<br>
+                    <strong>Propietario:</strong> ${c.paciente.propietario}<br>
+                    <strong>Diagnóstico:</strong> ${c.diagnostico?.nombre || 'N/A'}
+                </div>
+                
+                <div class="cobro-detalle">
+                    <div class="cobro-linea">
+                        <span>Consulta (${c.tipo_consulta})</span>
+                        <span>${formatCLP(c.cobro.consulta)}</span>
+                    </div>
+                </div>
+                
+                <div style="margin: 1rem 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <h4 style="margin: 0;">💊 Medicamentos Recetados</h4>
+                        <button class="btn btn-sm btn-secondary" onclick="mostrarAgregarMedicamento()">
+                            ➕ Agregar
+                        </button>
+                    </div>
+                    
+                    <div id="lista-medicamentos-cobro">
+                        ${medicamentosParaCobro.length === 0 ? `
+                            <p style="color: #666; font-style: italic;">No hay medicamentos recetados</p>
+                        ` : medicamentosParaCobro.map((m, idx) => `
+                            <div class="med-cobro-item ${m.incluido ? '' : 'med-excluido'}" style="
+                                display: flex; 
+                                align-items: center; 
+                                gap: 0.75rem; 
+                                padding: 0.75rem; 
+                                background: ${m.incluido ? '#f0fdf4' : '#fef2f2'}; 
+                                border-radius: 8px; 
+                                margin-bottom: 0.5rem;
+                                border: 1px solid ${m.incluido ? '#86efac' : '#fecaca'};
+                            ">
+                                <input type="checkbox" 
+                                       ${m.incluido ? 'checked' : ''} 
+                                       onchange="toggleMedicamentoCobro(${idx})"
+                                       style="width: 18px; height: 18px; cursor: pointer;">
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600;">${m.nombre}</div>
+                                    ${m.dosis ? `<div style="font-size: 0.8rem; color: #666;">📋 ${m.dosis}${m.dias ? ` por ${m.dias} días` : ''}</div>` : ''}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <button onclick="cambiarCantidadCobro(${idx}, -1)" 
+                                            style="width: 28px; height: 28px; border: 1px solid #ccc; border-radius: 5px; background: white; cursor: pointer;"
+                                            ${!m.incluido ? 'disabled' : ''}>−</button>
+                                    <span style="min-width: 30px; text-align: center; font-weight: 600;">${m.cantidad}</span>
+                                    <button onclick="cambiarCantidadCobro(${idx}, 1)" 
+                                            style="width: 28px; height: 28px; border: 1px solid #ccc; border-radius: 5px; background: white; cursor: pointer;"
+                                            ${!m.incluido ? 'disabled' : ''}>+</button>
+                                </div>
+                                <div style="min-width: 80px; text-align: right; font-weight: 600; color: ${m.incluido ? '#059669' : '#dc2626'};">
+                                    ${m.incluido ? formatCLP(m.cantidad * m.precio) : 'Excluido'}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <!-- Agregar medicamento adicional -->
+                    <div id="agregar-med-section" style="display: none; margin-top: 1rem; padding: 1rem; background: #f1f5f9; border-radius: 8px;">
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: flex-end;">
+                            <div style="flex: 2; min-width: 150px;">
+                                <label style="font-size: 0.8rem;">Medicamento</label>
+                                <select id="nuevo-med-select" style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 5px;">
+                                    <option value="">Seleccionar...</option>
+                                    ${inventarioDisponible.filter(inv => inv.stock > 0).map(inv => `
+                                        <option value="${inv.id}" data-precio="${inv.precio_unitario}" data-nombre="${inv.nombre}">
+                                            ${inv.nombre} - ${formatCLP(inv.precio_unitario)}
+                                        </option>
+                                    `).join('')}
+                                </select>
+                            </div>
+                            <div style="flex: 1; min-width: 80px;">
+                                <label style="font-size: 0.8rem;">Cantidad</label>
+                                <input type="number" id="nuevo-med-cant" value="1" min="1" 
+                                       style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 5px;">
+                            </div>
+                            <button class="btn btn-primary btn-sm" onclick="agregarMedicamentoCobro()" style="padding: 0.5rem 1rem;">
+                                ✓ Agregar
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="ocultarAgregarMedicamento()" style="padding: 0.5rem;">
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cobro-detalle" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #e2e8f0;">
+                    <div class="cobro-linea">
+                        <span>Subtotal Medicamentos</span>
+                        <span>${formatCLP(totalMeds)}</span>
+                    </div>
+                    <div class="cobro-linea cobro-total" style="font-size: 1.2rem; margin-top: 0.5rem;">
+                        <span>TOTAL A PAGAR</span>
+                        <span style="color: #059669;">${formatCLP(totalGeneral)}</span>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label>Método de Pago</label>
+                    <select id="metodo-pago">
+                        <option value="Efectivo">💵 Efectivo</option>
+                        <option value="Tarjeta Débito">💳 Tarjeta Débito</option>
+                        <option value="Tarjeta Crédito">💳 Tarjeta Crédito</option>
+                        <option value="Transferencia">🏦 Transferencia</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-success" style="width: 100%; margin-top: 1rem;" onclick="procesarCobro(${cobroActual.id})">
+                    ✅ Confirmar Cobro - ${formatCLP(totalGeneral)}
+                </button>
+            `;
+            
+            document.getElementById('cobro-contenido').innerHTML = html;
+        }
+        
+        function toggleMedicamentoCobro(idx) {
+            medicamentosParaCobro[idx].incluido = !medicamentosParaCobro[idx].incluido;
+            renderizarCobro();
+        }
+        
+        function cambiarCantidadCobro(idx, delta) {
+            const nuevaCant = medicamentosParaCobro[idx].cantidad + delta;
+            if (nuevaCant >= 1) {
+                medicamentosParaCobro[idx].cantidad = nuevaCant;
+                renderizarCobro();
+            }
+        }
+        
+        function mostrarAgregarMedicamento() {
+            document.getElementById('agregar-med-section').style.display = 'block';
+        }
+        
+        function ocultarAgregarMedicamento() {
+            document.getElementById('agregar-med-section').style.display = 'none';
+        }
+        
+        function agregarMedicamentoCobro() {
+            const select = document.getElementById('nuevo-med-select');
+            const cantidad = parseInt(document.getElementById('nuevo-med-cant').value) || 1;
+            
+            if (!select.value) {
+                alert('Seleccione un medicamento');
+                return;
+            }
+            
+            const option = select.options[select.selectedIndex];
+            const nuevoMed = {
+                id: parseInt(select.value),
+                nombre: option.dataset.nombre,
+                cantidad: cantidad,
+                precio: parseFloat(option.dataset.precio),
+                dosis: 'Agregado en recepción',
+                incluido: true,
+                agregadoEnCobro: true
+            };
+            
+            // Verificar si ya existe
+            const existente = medicamentosParaCobro.findIndex(m => m.id === nuevoMed.id);
+            if (existente >= 0) {
+                medicamentosParaCobro[existente].cantidad += cantidad;
+                medicamentosParaCobro[existente].incluido = true;
+            } else {
+                medicamentosParaCobro.push(nuevoMed);
+            }
+            
+            ocultarAgregarMedicamento();
+            renderizarCobro();
+        }
+
+        async function procesarCobro(id) {
+            const metodo = document.getElementById('metodo-pago').value;
+            
+            // Filtrar solo medicamentos incluidos
+            const medsFinales = medicamentosParaCobro.filter(m => m.incluido);
+            
+            // Recalcular totales
+            const totalMeds = medsFinales.reduce((sum, m) => sum + (m.cantidad * m.precio), 0);
+            
+            try {
+                const res = await fetch(`${API_URL}/api/consultas/${id}/cobrar`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        metodo_pago: metodo,
+                        medicamentos_actualizados: medsFinales,
+                        total_medicamentos: totalMeds
+                    })
+                });
+                const data = await res.json();
+                if (data.exito) {
+                    cerrarModal('modal-cobro');
+                    alert('✅ Cobro registrado exitosamente');
+                    cargarConsultas();
+                    imprimirBoleta(id);
+                }
+            } catch (error) {
+                alert('Error al procesar cobro');
+            }
+        }
+
+        // ==================== IMPRESIÓN ====================
+        
+        async function imprimirBoleta(id) {
+            try {
+                const res = await fetch(`${API_URL}/api/consultas/${id}/boleta`);
+                const data = await res.json();
+                const b = data.boleta;
+
+                const html = `
+                    <div class="documento-print">
+                        <div class="doc-header">
+                            <h1>🏥 ${b.clinica.nombre}</h1>
+                            <p>${b.clinica.subtitulo}</p>
+                            <p>${b.clinica.direccion}</p>
+                            <p>Tel: ${b.clinica.telefono}</p>
+                        </div>
+                        <div style="text-align: center; font-weight: bold; margin: 10px 0;">
+                            BOLETA ${b.numero_boleta}
+                        </div>
+                        <div class="doc-section">
+                            <div class="doc-row"><span>Fecha:</span><span>${new Date(b.fecha).toLocaleString()}</span></div>
+                            <div class="doc-row"><span>Paciente:</span><span>${b.paciente.nombre}</span></div>
+                            <div class="doc-row"><span>Propietario:</span><span>${b.paciente.propietario}</span></div>
+                        </div>
+                        <div class="doc-section">
+                            <div class="doc-section-title">DETALLE</div>
+                            <div class="doc-row"><span>Consulta</span><span>${formatCLP(b.subtotal_consulta)}</span></div>
+                            ${b.detalle.map(d => `
+                                <div class="doc-row"><span>${d.descripcion} x${d.cantidad}</span><span>${formatCLP(d.subtotal)}</span></div>
+                            `).join('')}
+                        </div>
+                        <div class="doc-total">
+                            <div class="doc-row"><span>TOTAL</span><span>${formatCLP(b.total)}</span></div>
+                            <div class="doc-row"><span>Pago:</span><span>${b.metodo_pago}</span></div>
+                        </div>
+                        <div class="doc-footer">
+                            <p>¡Gracias por confiar en BetterDoctor!</p>
+                            <p>${b.clinica.email}</p>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('print-section').innerHTML = html;
+                window.print();
+            } catch (error) {
+                alert('Error al generar boleta');
+            }
+        }
+
+        async function imprimirReceta(id) {
+            try {
+                const res = await fetch(`${API_URL}/api/consultas/${id}/receta`);
+                const data = await res.json();
+                const r = data.receta;
+
+                const html = `
+                    <div class="documento-print">
+                        <div class="doc-header">
+                            <h1>🏥 ${r.clinica.nombre}</h1>
+                            <p>${r.clinica.subtitulo}</p>
+                            <p>RECETA MÉDICA</p>
+                        </div>
+                        <div style="text-align: center; font-weight: bold; margin: 10px 0;">
+                            ${r.numero_receta}
+                        </div>
+                        <div class="doc-section">
+                            <div class="doc-row"><span>Fecha:</span><span>${new Date(r.fecha).toLocaleDateString()}</span></div>
+                            <div class="doc-row"><span>Doctor:</span><span>${r.doctor.nombre}</span></div>
+                            <div class="doc-row"><span>Reg:</span><span>${r.doctor.registro}</span></div>
+                        </div>
+                        <div class="doc-section">
+                            <div class="doc-section-title">PACIENTE</div>
+                            <div class="doc-row"><span>Nombre:</span><span>${r.paciente.nombre}</span></div>
+                            <div class="doc-row"><span>Especie:</span><span>${r.paciente.especie}</span></div>
+                            <div class="doc-row"><span>Propietario:</span><span>${r.paciente.propietario}</span></div>
+                        </div>
+                        <div class="doc-section">
+                            <div class="doc-section-title">DIAGNÓSTICO</div>
+                            <p>${r.diagnostico?.nombre || 'N/A'}</p>
+                        </div>
+                        <div class="doc-section">
+                            <div class="doc-section-title">MEDICAMENTOS</div>
+                            ${r.medicamentos.map((m, i) => `
+                                <div style="margin: 8px 0; padding: 8px; background: #f9f9f9; border-radius: 5px;">
+                                    <p style="margin: 0;"><strong>${i+1}. ${m.nombre}</strong></p>
+                                    <p style="margin: 3px 0 0 10px; font-size: 11px;">
+                                        📦 Cantidad: ${m.cantidad} unidades
+                                    </p>
+                                    <p style="margin: 3px 0 0 10px; font-size: 11px;">
+                                        💊 Dosis: ${m.dosis || 'Según indicación médica'}
+                                    </p>
+                                    ${m.dias ? `<p style="margin: 3px 0 0 10px; font-size: 11px;">
+                                        📅 Duración: ${m.dias} días
+                                    </p>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="doc-section">
+                            <div class="doc-section-title">INDICACIONES</div>
+                            <p style="font-size: 11px;">${r.indicaciones_generales || r.tratamiento?.indicaciones || 'Seguir indicaciones del médico'}</p>
+                        </div>
+                        <div class="doc-footer">
+                            <p>Próxima cita: ${r.proxima_cita}</p>
+                            <p>Tel: ${r.clinica.telefono}</p>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('print-section').innerHTML = html;
+                window.print();
+            } catch (error) {
+                alert('Error al generar receta');
+            }
+        }
+
+        function cerrarModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        // Init
+        checkAuth();
+        cargarConsultas();
+        setInterval(cargarConsultas, 30000);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

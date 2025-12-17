@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario - VetClinic</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --gray-900: #111827;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-900);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 0.9rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(5, 150, 105, 0.25);
+        }
+        
+        .header h1 { 
+            font-size: 1.4rem; 
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header-nav { display: flex; gap: 0.5rem; align-items: center; }
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.55rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        .header-nav a:hover { 
+            background: rgba(255,255,255,0.25); 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 60px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            padding: 1rem;
+        }
+        
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li {
+            margin-bottom: 4px;
+        }
+        .sidebar-menu a, .sidebar-menu button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+            font-weight: 500;
+            width: 100%;
+            border: none;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-menu a:hover, .sidebar-menu button:hover {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            color: #059669;
+            transform: translateX(4px);
+        }
+        .sidebar-menu .active {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+        .sidebar-menu .active:hover {
+            background: linear-gradient(135deg, #047857 0%, #059669 100%);
+            color: white;
+            transform: none;
+        }
+        
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Alert Cards Grid */
+        .alerts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.35rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 5px solid;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .alert-card:hover {
+            transform: translateY(-4px) translateX(2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .alert-card:active { transform: translateY(-2px); }
+        
+        .alert-card.danger { border-color: var(--danger); }
+        .alert-card.warning { border-color: var(--warning); }
+        .alert-card.success { border-color: var(--success); }
+        .alert-card.info { border-color: var(--primary); }
+        
+        .alert-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            transition: transform 0.3s;
+        }
+        
+        .alert-card:hover .alert-icon { transform: scale(1.1); }
+        
+        .alert-card.danger .alert-icon { background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%); }
+        .alert-card.warning .alert-icon { background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); }
+        .alert-card.success .alert-icon { background: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%); }
+        .alert-card.info .alert-icon { background: linear-gradient(135deg, #eff6ff 0%, #bfdbfe 100%); }
+        
+        .alert-info h3 { font-size: 1.85rem; font-weight: 700; color: var(--gray-900); }
+        .alert-info p { color: var(--gray-500); font-size: 0.85rem; font-weight: 500; }
+        
+        .alert-card .arrow { 
+            position: absolute; 
+            right: 1rem; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            opacity: 0; 
+            transition: all 0.3s;
+            font-size: 1.25rem;
+        }
+        .alert-card.danger .arrow { color: var(--danger); }
+        .alert-card.warning .arrow { color: var(--warning); }
+        .alert-card:hover .arrow { opacity: 1; right: 0.75rem; }
+        
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        th {
+            background: var(--gray-50);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+        }
+        
+        tr:hover { background: var(--gray-50); }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        
+        .badge-danger { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); color: #991b1b; }
+        .badge-warning { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #92400e; }
+        .badge-success { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); color: #065f46; }
+        .badge-info { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); color: #1e40af; }
+        
+        /* Buttons */
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .btn:active { transform: translateY(0); }
+        
+        .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, var(--primary-dark) 0%, #1e40af 100%); }
+        .btn-success { background: linear-gradient(135deg, var(--success) 0%, #16a34a 100%); color: white; }
+        .btn-success:hover { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); }
+        .btn-secondary { background: white; color: var(--gray-700); border: 2px solid var(--gray-200); box-shadow: none; }
+        .btn-secondary:hover { background: var(--gray-50); border-color: var(--gray-300); }
+        .btn-danger { background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%); color: white; }
+        .btn-danger:hover { background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); }
+        .btn-warning { background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%); color: white; }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .search-bar input, .search-bar select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .search-bar input { flex: 1; min-width: 200px; }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-overlay.active { display: flex; }
+        
+        .modal {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 { font-size: 1.2rem; }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-500);
+        }
+        
+        .modal-body { padding: 1.5rem; }
+        
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+        
+        /* Scanner Section */
+        .scanner-section {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px dashed var(--success);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .scanner-input {
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 2px;
+            font-family: monospace;
+        }
+        
+        /* Product Found Card */
+        .product-found {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--success);
+        }
+        
+        .product-found h4 { margin-bottom: 0.5rem; }
+        .product-found-details { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.9rem; }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gray-200);
+            padding-bottom: 0;
+        }
+        
+        .tab {
+            padding: 0.85rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--gray-500);
+            border-radius: 10px 10px 0 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            margin-bottom: -2px;
+        }
+        
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            border-radius: 3px 3px 0 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tab:hover { color: #059669; background: #ecfdf5; }
+        .tab.active {
+            color: #059669;
+            background: #ecfdf5;
+            font-weight: 600;
+        }
+        .tab.active::after { opacity: 1; }
+        
+        /* Section */
+        .section { display: none; }
+        .section.active { display: block; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-container { flex-direction: column; }
+            .alerts-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+        <h1>📦 VetClinic - Gestión de Inventario</h1>
+        <nav class="header-nav">
+            <span id="user-name">Encargado</span>
+            <a href="superadmin.html">👑 Super Admin</a>
+            <a href="index.html">🩺 Veterinario</a>
+            <a href="recepcion.html">📋 Recepción</a>
+            <a href="login.html" onclick="localStorage.removeItem('vetclinic_user')">🚪 Salir</a>
+        </nav>
+    </header>
+    
+    <div class="main-container">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><button class="active" onclick="showSection('dashboard')">📊 Dashboard</button></li>
+                <li><button onclick="showSection('inventario')">📦 Inventario</button></li>
+                <li><button onclick="showSection('ingreso')">📥 Ingreso de Stock</button></li>
+                <li><button onclick="showSection('alertas')">⚠️ Alertas</button></li>
+                <li><button onclick="showSection('vencimientos')">📅 Vencimientos</button></li>
+                <li><button onclick="showSection('movimientos')">📋 Movimientos</button></li>
+                <li><button onclick="showSection('proveedores')">🏭 Proveedores</button></li>
+                <li><button onclick="showSection('reportes')">📈 Reportes</button></li>
+            </ul>
+        </aside>
+        
+        <main class="content">
+            <!-- DASHBOARD -->
+            <div id="section-dashboard" class="section active">
+                <h2 style="margin-bottom: 1.5rem;">📊 Dashboard de Inventario</h2>
+                
+                <div class="alerts-grid" id="alerts-summary">
+                    <div class="alert-card danger" onclick="navegarSeccion('alertas', 'agotados')">
+                        <div class="alert-icon">🚫</div>
+                        <div class="alert-info">
+                            <h3 id="count-agotados">0</h3>
+                            <p>Productos Agotados</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <div class="alert-card warning" onclick="navegarSeccion('alertas', 'bajo')">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-info">
+                            <h3 id="count-bajo">0</h3>
+                            <p>Stock Bajo</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <div class="alert-card danger" onclick="navegarSeccion('vencimientos', 'vencidos')">
+                        <div class="alert-icon">📅</div>
+                        <div class="alert-info">
+                            <h3 id="count-vencidos">0</h3>
+                            <p>Vencidos</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <div class="alert-card warning" onclick="navegarSeccion('vencimientos', '30')">
+                        <div class="alert-icon">⏰</div>
+                        <div class="alert-info">
+                            <h3 id="count-por-vencer">0</h3>
+                            <p>Por Vencer (60 días)</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🚨 Productos Agotados - Requieren Reposición</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Stock Mín.</th>
+                                    <th>Proveedor</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-agotados"></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📅 Productos Próximos a Vencer</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Vencimiento</th>
+                                    <th>Días</th>
+                                    <th>Lote</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-por-vencer"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- INVENTARIO -->
+            <div id="section-inventario" class="section">
+                <h2 style="margin-bottom: 1.5rem;">📦 Gestión de Inventario</h2>
+                
+                <div class="card">
+                    <div class="search-bar">
+                        <input type="text" id="buscar-producto" placeholder="🔍 Buscar producto..." onkeyup="buscarProductos()">
+                        <select id="filtro-categoria" onchange="buscarProductos()">
+                            <option value="">Todas las categorías</option>
+                        </select>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="filtro-agotados" onchange="buscarProductos()"> Solo agotados
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="filtro-bajo" onchange="buscarProductos()"> Stock bajo
+                        </label>
+                        <button class="btn btn-success" onclick="abrirModalNuevoProducto()">➕ Nuevo Producto</button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    <th>Lote</th>
+                                    <th>Vencimiento</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-productos"></tbody>
+                        </table>
+                    </div>
+                    <p id="count-productos" style="margin-top: 1rem; color: var(--gray-500);"></p>
+                </div>
+            </div>
+            
+            <!-- INGRESO DE STOCK -->
+            <div id="section-ingreso" class="section">
+                <h2 style="margin-bottom: 1.5rem;">📥 Ingreso de Stock</h2>
+                
+                <div class="card">
+                    <div class="scanner-section">
+                        <h3 style="margin-bottom: 1rem;">📷 Escanear Código de Barras</h3>
+                        <p style="color: var(--gray-500); margin-bottom: 1rem;">
+                            Escanee el código de barras del producto o ingrese manualmente
+                        </p>
+                        <input type="text" id="codigo-barras" class="form-control scanner-input" 
+                               placeholder="Código de barras..."
+                               onkeypress="if(event.key==='Enter')buscarPorCodigo()"
+                               autofocus>
+                        <button class="btn btn-success" style="margin-top: 1rem;" onclick="buscarPorCodigo()">
+                            🔍 Buscar Producto
+                        </button>
+                    </div>
+                    
+                    <div id="producto-encontrado" style="display: none;">
+                        <div class="product-found">
+                            <h4 id="prod-nombre">Nombre del Producto</h4>
+                            <div class="product-found-details">
+                                <span><strong>Categoría:</strong> <span id="prod-categoria"></span></span>
+                                <span><strong>Stock actual:</strong> <span id="prod-stock"></span></span>
+                                <span><strong>Precio:</strong> $<span id="prod-precio"></span></span>
+                                <span><strong>Lote actual:</strong> <span id="prod-lote"></span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Cantidad a ingresar *</label>
+                                <input type="number" id="ing-cantidad" class="form-control" min="1" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Lote *</label>
+                                <input type="text" id="ing-lote" class="form-control" placeholder="Ej: AB123456">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Vencimiento *</label>
+                                <input type="date" id="ing-vencimiento" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-success" style="width: 100%; padding: 1rem; font-size: 1.1rem;" onclick="registrarIngreso()">
+                            ✅ Registrar Ingreso de Stock
+                        </button>
+                    </div>
+                    
+                    <div id="producto-no-encontrado" style="display: none; text-align: center; padding: 2rem;">
+                        <p style="color: var(--danger); font-size: 1.1rem; margin-bottom: 1rem;">
+                            ❌ Producto no encontrado en el sistema
+                        </p>
+                        <button class="btn btn-primary" onclick="abrirModalNuevoProducto()">
+                            ➕ Registrar Nuevo Producto
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Búsqueda manual -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔍 Buscar Producto Manualmente</span>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" id="buscar-ingreso" placeholder="Buscar por nombre..." style="flex: 2;">
+                        <button class="btn btn-primary" onclick="buscarParaIngreso()">Buscar</button>
+                    </div>
+                    <div id="resultados-ingreso"></div>
+                </div>
+            </div>
+            
+            <!-- ALERTAS -->
+            <div id="section-alertas" class="section">
+                <h2 style="margin-bottom: 1.5rem;">⚠️ Centro de Alertas</h2>
+                
+                <div class="tabs">
+                    <button class="tab active" onclick="showAlertTab('agotados')">🚫 Agotados</button>
+                    <button class="tab" onclick="showAlertTab('bajo')">⚠️ Stock Bajo</button>
+                    <button class="tab" onclick="showAlertTab('vencidos')">❌ Vencidos</button>
+                    <button class="tab" onclick="showAlertTab('por-vencer')">⏰ Por Vencer</button>
+                </div>
+                
+                <div class="card">
+                    <div id="alert-content-agotados" class="alert-content active"></div>
+                    <div id="alert-content-bajo" class="alert-content" style="display:none;"></div>
+                    <div id="alert-content-vencidos" class="alert-content" style="display:none;"></div>
+                    <div id="alert-content-por-vencer" class="alert-content" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- VENCIMIENTOS -->
+            <div id="section-vencimientos" class="section">
+                <h2 style="margin-bottom: 1.5rem;">📅 Control de Vencimientos</h2>
+                
+                <div class="alerts-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1.5rem;">
+                    <div class="alert-card danger">
+                        <div class="alert-icon">❌</div>
+                        <div class="alert-info">
+                            <h3 id="venc-vencidos">0</h3>
+                            <p>Ya Vencidos</p>
+                        </div>
+                    </div>
+                    <div class="alert-card warning">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-info">
+                            <h3 id="venc-30dias">0</h3>
+                            <p>Vencen en 30 días</p>
+                        </div>
+                    </div>
+                    <div class="alert-card" style="border-color: #f59e0b;">
+                        <div class="alert-icon" style="background: #fef3c7;">📅</div>
+                        <div class="alert-info">
+                            <h3 id="venc-60dias">0</h3>
+                            <p>Vencen en 60 días</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📋 Productos por Fecha de Vencimiento</span>
+                        <select id="filtro-vencimiento" class="form-control" style="width: auto;" onchange="filtrarVencimientos()">
+                            <option value="vencidos">Ya vencidos</option>
+                            <option value="30" selected>Próximos 30 días</option>
+                            <option value="60">Próximos 60 días</option>
+                            <option value="90">Próximos 90 días</option>
+                        </select>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Lote</th>
+                                    <th>Fecha Vencimiento</th>
+                                    <th>Días Restantes</th>
+                                    <th>Stock</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-vencimientos"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOVIMIENTOS -->
+            <div id="section-movimientos" class="section">
+                <h2 style="margin-bottom: 1.5rem;">📋 Historial de Movimientos</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Últimos Movimientos de Stock</span>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="date" id="mov-desde" class="form-control" style="width: auto;">
+                            <input type="date" id="mov-hasta" class="form-control" style="width: auto;">
+                            <button class="btn btn-primary" onclick="filtrarMovimientos()">Filtrar</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha/Hora</th>
+                                    <th>Tipo</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Stock Anterior</th>
+                                    <th>Stock Nuevo</th>
+                                    <th>Usuario</th>
+                                    <th>Observación</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-movimientos">
+                                <tr><td colspan="8" style="text-align: center; color: var(--gray-500);">Datos de movimientos simulados...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROVEEDORES -->
+            <div id="section-proveedores" class="section">
+                <h2 style="margin-bottom: 1.5rem;">🏭 Gestión de Proveedores</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Proveedores Registrados</span>
+                        <button class="btn btn-success" onclick="alert('Función en desarrollo')">➕ Nuevo Proveedor</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Proveedor</th>
+                                    <th>Contacto</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Productos</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-proveedores"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REPORTES -->
+            <div id="section-reportes" class="section">
+                <h2 style="margin-bottom: 1.5rem;">📈 Reportes de Inventario</h2>
+                
+                <div class="alerts-grid" style="grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <div class="card" style="cursor: pointer;" onclick="generarReporte('valorizado')">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 60px; height: 60px; background: #dbeafe; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">💰</div>
+                            <div>
+                                <h3 style="font-size: 1.1rem;">Inventario Valorizado</h3>
+                                <p style="color: var(--gray-500); font-size: 0.85rem;">Valor total del stock por categoría</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="cursor: pointer;" onclick="generarReporte('rotacion')">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 60px; height: 60px; background: #d1fae5; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🔄</div>
+                            <div>
+                                <h3 style="font-size: 1.1rem;">Rotación de Stock</h3>
+                                <p style="color: var(--gray-500); font-size: 0.85rem;">Productos más y menos vendidos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="cursor: pointer;" onclick="generarReporte('criticos')">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 60px; height: 60px; background: #fee2e2; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🚨</div>
+                            <div>
+                                <h3 style="font-size: 1.1rem;">Productos Críticos</h3>
+                                <p style="color: var(--gray-500); font-size: 0.85rem;">Stock bajo, agotados y por vencer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="cursor: pointer;" onclick="generarReporte('pedidos')">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 60px; height: 60px; background: #fef3c7; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📝</div>
+                            <div>
+                                <h3 style="font-size: 1.1rem;">Sugerencia de Pedido</h3>
+                                <p style="color: var(--gray-500); font-size: 0.85rem;">Lista de productos a reponer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-header">
+                        <span class="card-title">📊 Resumen Rápido</span>
+                    </div>
+                    <div class="alerts-grid" style="grid-template-columns: repeat(4, 1fr);">
+                        <div style="text-align: center; padding: 1rem; background: var(--gray-50); border-radius: 8px;">
+                            <h3 id="rep-total-productos" style="font-size: 2rem; color: var(--primary);">0</h3>
+                            <p style="font-size: 0.8rem; color: var(--gray-500);">Total Productos</p>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: var(--gray-50); border-radius: 8px;">
+                            <h3 id="rep-valor-total" style="font-size: 2rem; color: var(--success);">$0</h3>
+                            <p style="font-size: 0.8rem; color: var(--gray-500);">Valor del Inventario</p>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: var(--gray-50); border-radius: 8px;">
+                            <h3 id="rep-categorias" style="font-size: 2rem; color: var(--warning);">0</h3>
+                            <p style="font-size: 0.8rem; color: var(--gray-500);">Categorías</p>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: var(--gray-50); border-radius: 8px;">
+                            <h3 id="rep-proveedores" style="font-size: 2rem; color: #8b5cf6;">0</h3>
+                            <p style="font-size: 0.8rem; color: var(--gray-500);">Proveedores</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal Nuevo/Editar Producto -->
+    <div class="modal-overlay" id="modal-producto">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-titulo">Nuevo Producto</h2>
+                <button class="modal-close" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="edit-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text" id="edit-nombre" class="form-control" placeholder="Nombre del producto">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría *</label>
+                        <select id="edit-categoria" class="form-control">
+                            <option value="">Seleccionar...</option>
+                            <option value="Antibioticos">Antibióticos</option>
+                            <option value="Antiinflamatorios">Antiinflamatorios</option>
+                            <option value="Analgesicos">Analgésicos</option>
+                            <option value="Oticos">Óticos</option>
+                            <option value="Oftalmicos">Oftálmicos</option>
+                            <option value="Gastrointestinales">Gastrointestinales</option>
+                            <option value="Dermatologicos">Dermatológicos</option>
+                            <option value="Cardiacos">Cardíacos</option>
+                            <option value="Anticonvulsivos">Anticonvulsivos</option>
+                            <option value="Endocrinos">Endocrinos</option>
+                            <option value="Fluidos">Fluidos</option>
+                            <option value="Vitaminas">Vitaminas</option>
+                            <option value="Anestesicos">Anestésicos</option>
+                            <option value="Antihistaminicos">Antihistamínicos</option>
+                            <option value="Antiparasitarios">Antiparasitarios</option>
+                            <option value="Antiparasitarios Internos">Antiparasitarios Internos</option>
+                            <option value="Vacunas">Vacunas</option>
+                            <option value="Alimentos Terapeuticos">Alimentos Terapéuticos</option>
+                            <option value="Emergencias">Emergencias</option>
+                            <option value="Insumos">Insumos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Precio Unitario *</label>
+                        <input type="number" id="edit-precio" class="form-control" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Stock Inicial</label>
+                        <input type="number" id="edit-stock" class="form-control" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Stock Mínimo</label>
+                        <input type="number" id="edit-stock-min" class="form-control" value="10">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Código de Barras</label>
+                        <input type="text" id="edit-codigo" class="form-control" placeholder="EAN-13">
+                    </div>
+                    <div class="form-group">
+                        <label>Proveedor</label>
+                        <input type="text" id="edit-proveedor" class="form-control" placeholder="Nombre del proveedor">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Presentación</label>
+                        <input type="text" id="edit-presentacion" class="form-control" placeholder="Ej: Caja 10 tabletas">
+                    </div>
+                    <div class="form-group">
+                        <label>Unidad</label>
+                        <input type="text" id="edit-unidad" class="form-control" placeholder="Ej: caja, frasco, tableta">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Lote</label>
+                        <input type="text" id="edit-lote" class="form-control" placeholder="Número de lote">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Vencimiento</label>
+                        <input type="date" id="edit-vencimiento" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn-success" onclick="guardarProducto()">Guardar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'http://localhost:5000';
+        let alertasData = null;
+        let productoParaIngreso = null;
+        
+        // Check auth
+        const user = JSON.parse(localStorage.getItem('vetclinic_user') || 'null');
+        if (!user) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('user-name').textContent = user.nombre;
+        }
+        
+        // Sections
+        function showSection(section, updateSidebar = true) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('section-' + section).classList.add('active');
+            
+            if (updateSidebar) {
+                document.querySelectorAll('.sidebar-menu button').forEach(b => b.classList.remove('active'));
+                const sidebarBtn = document.querySelector(`.sidebar-menu button[onclick*="showSection('${section}')"]`);
+                if (sidebarBtn) sidebarBtn.classList.add('active');
+            }
+            
+            if (section === 'dashboard') cargarDashboard();
+            if (section === 'inventario') { cargarCategorias(); buscarProductos(); }
+            if (section === 'alertas') cargarAlertas();
+            if (section === 'vencimientos') cargarVencimientos();
+            if (section === 'movimientos') cargarMovimientos();
+            if (section === 'proveedores') cargarProveedores();
+            if (section === 'reportes') cargarReportesResumen();
+        }
+        
+        // Navegación desde KPIs del dashboard
+        function navegarSeccion(seccion, filtro) {
+            showSection(seccion);
+            
+            // Aplicar filtros específicos
+            if (seccion === 'alertas' && filtro) {
+                setTimeout(() => {
+                    showAlertTab(filtro);
+                    // Activar tab correspondiente
+                    document.querySelectorAll('#section-alertas .tab').forEach(t => t.classList.remove('active'));
+                    const tabBtn = document.querySelector(`#section-alertas .tab[onclick*="${filtro}"]`);
+                    if (tabBtn) tabBtn.classList.add('active');
+                }, 100);
+            }
+            if (seccion === 'vencimientos' && filtro) {
+                setTimeout(() => {
+                    document.getElementById('filtro-vencimiento').value = filtro;
+                    filtrarVencimientos();
+                }, 100);
+            }
+        }
+        
+        // Dashboard
+        async function cargarDashboard() {
+            try {
+                const res = await fetch(`${API_URL}/api/admin/alertas-stock`);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    alertasData = data.alertas;
+                    const r = data.alertas.resumen;
+                    
+                    document.getElementById('count-agotados').textContent = r.agotados;
+                    document.getElementById('count-bajo').textContent = r.stock_bajo;
+                    document.getElementById('count-vencidos').textContent = r.vencidos;
+                    document.getElementById('count-por-vencer').textContent = r.por_vencer;
+                    
+                    // Tabla agotados
+                    const tbAgotados = document.getElementById('tabla-agotados');
+                    tbAgotados.innerHTML = data.alertas.agotados.slice(0, 10).map(p => `
+                        <tr>
+                            <td><strong>${p.nombre}</strong></td>
+                            <td><span class="badge badge-info">${p.categoria}</span></td>
+                            <td>${p.stock_minimo}</td>
+                            <td>${p.proveedor}</td>
+                            <td><button class="btn btn-success" onclick="irAIngreso(${p.id})">📥 Reponer</button></td>
+                        </tr>
+                    `).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--gray-500);">Sin productos agotados</td></tr>';
+                    
+                    // Tabla por vencer
+                    const tbVencer = document.getElementById('tabla-por-vencer');
+                    tbVencer.innerHTML = data.alertas.por_vencer.slice(0, 10).map(p => `
+                        <tr>
+                            <td><strong>${p.nombre}</strong></td>
+                            <td>${p.fecha_vencimiento}</td>
+                            <td><span class="badge ${p.dias_para_vencer <= 15 ? 'badge-danger' : 'badge-warning'}">${p.dias_para_vencer} días</span></td>
+                            <td>${p.lote}</td>
+                            <td>${p.stock}</td>
+                        </tr>
+                    `).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--gray-500);">Sin productos por vencer</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        // Inventario
+        async function cargarCategorias() {
+            try {
+                const res = await fetch(`${API_URL}/api/admin/categorias`);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    const select = document.getElementById('filtro-categoria');
+                    select.innerHTML = '<option value="">Todas las categorías</option>' +
+                        data.categorias.map(c => `<option value="${c.nombre}">${c.nombre} (${c.total})</option>`).join('');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        async function buscarProductos() {
+            const q = document.getElementById('buscar-producto').value;
+            const cat = document.getElementById('filtro-categoria').value;
+            const agotados = document.getElementById('filtro-agotados').checked;
+            const bajo = document.getElementById('filtro-bajo').checked;
+            
+            try {
+                let url = `${API_URL}/api/admin/productos?q=${encodeURIComponent(q)}&categoria=${encodeURIComponent(cat)}`;
+                if (agotados) url += '&agotados=true';
+                if (bajo) url += '&stock_bajo=true';
+                
+                const res = await fetch(url);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    const tbody = document.getElementById('tabla-productos');
+                    tbody.innerHTML = data.productos.slice(0, 100).map(p => {
+                        let stockBadge = 'badge-success';
+                        if (p.stock === 0) stockBadge = 'badge-danger';
+                        else if (p.stock <= (p.stock_minimo || 10)) stockBadge = 'badge-warning';
+                        
+                        return `
+                        <tr>
+                            <td>${p.id}</td>
+                            <td><strong>${p.nombre}</strong><br><small style="color:var(--gray-500)">${p.presentacion || ''}</small></td>
+                            <td><span class="badge badge-info">${p.categoria}</span></td>
+                            <td><span class="badge ${stockBadge}">${p.stock}</span> / ${p.stock_minimo || 10}</td>
+                            <td>$${(p.precio_unitario || 0).toLocaleString()}</td>
+                            <td>${p.lote || '-'}</td>
+                            <td>${p.fecha_vencimiento || '-'}</td>
+                            <td>
+                                <button class="btn btn-secondary" onclick="editarProducto(${p.id})">✏️</button>
+                                <button class="btn btn-success" onclick="irAIngreso(${p.id})">📥</button>
+                            </td>
+                        </tr>
+                    `}).join('');
+                    
+                    document.getElementById('count-productos').textContent = `Mostrando ${Math.min(data.total, 100)} de ${data.total} productos`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        // Ingreso de stock
+        async function buscarPorCodigo() {
+            const codigo = document.getElementById('codigo-barras').value.trim();
+            if (!codigo) return;
+            
+            try {
+                const res = await fetch(`${API_URL}/api/admin/producto/buscar-codigo?codigo=${encodeURIComponent(codigo)}`);
+                const data = await res.json();
+                
+                if (data.encontrado) {
+                    mostrarProductoParaIngreso(data.producto);
+                } else {
+                    document.getElementById('producto-encontrado').style.display = 'none';
+                    document.getElementById('producto-no-encontrado').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        function mostrarProductoParaIngreso(producto) {
+            productoParaIngreso = producto;
+            document.getElementById('producto-encontrado').style.display = 'block';
+            document.getElementById('producto-no-encontrado').style.display = 'none';
+            
+            document.getElementById('prod-nombre').textContent = producto.nombre;
+            document.getElementById('prod-categoria').textContent = producto.categoria;
+            document.getElementById('prod-stock').textContent = producto.stock;
+            document.getElementById('prod-precio').textContent = (producto.precio_unitario || 0).toLocaleString();
+            document.getElementById('prod-lote').textContent = producto.lote || 'N/A';
+            
+            document.getElementById('ing-cantidad').value = 1;
+            document.getElementById('ing-lote').value = '';
+            document.getElementById('ing-vencimiento').value = '';
+        }
+        
+        async function registrarIngreso() {
+            if (!productoParaIngreso) return;
+            
+            const cantidad = parseInt(document.getElementById('ing-cantidad').value) || 0;
+            const lote = document.getElementById('ing-lote').value.trim();
+            const vencimiento = document.getElementById('ing-vencimiento').value;
+            
+            if (cantidad <= 0) {
+                alert('Ingrese una cantidad válida');
+                return;
+            }
+            
+            if (!lote) {
+                alert('Ingrese el número de lote');
+                return;
+            }
+            
+            if (!vencimiento) {
+                alert('Ingrese la fecha de vencimiento');
+                return;
+            }
+            
+            try {
+                const res = await fetch(`${API_URL}/api/admin/ingreso-stock`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        producto_id: productoParaIngreso.id,
+                        cantidad: cantidad,
+                        lote: lote,
+                        fecha_vencimiento: vencimiento
+                    })
+                });
+                
+                const data = await res.json();
+                
+                if (data.exito) {
+                    alert(`✅ ${data.mensaje}`);
+                    document.getElementById('codigo-barras').value = '';
+                    document.getElementById('producto-encontrado').style.display = 'none';
+                    productoParaIngreso = null;
+                    document.getElementById('codigo-barras').focus();
+                } else {
+                    alert('Error: ' + data.mensaje);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al registrar ingreso');
+            }
+        }
+        
+        async function buscarParaIngreso() {
+            const q = document.getElementById('buscar-ingreso').value.trim();
+            if (!q) return;
+            
+            try {
+                const res = await fetch(`${API_URL}/api/admin/productos?q=${encodeURIComponent(q)}`);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    const container = document.getElementById('resultados-ingreso');
+                    container.innerHTML = data.productos.slice(0, 10).map(p => `
+                        <div style="padding: 0.75rem; border-bottom: 1px solid var(--gray-200); cursor: pointer; display: flex; justify-content: space-between; align-items: center;"
+                             onclick="mostrarProductoParaIngreso(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+                            <div>
+                                <strong>${p.nombre}</strong><br>
+                                <small style="color: var(--gray-500)">${p.categoria} | Stock: ${p.stock}</small>
+                            </div>
+                            <button class="btn btn-success btn-sm">Seleccionar</button>
+                        </div>
+                    `).join('') || '<p style="padding: 1rem; color: var(--gray-500);">No se encontraron productos</p>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        function irAIngreso(productoId) {
+            showSection('ingreso');
+            fetch(`${API_URL}/api/admin/producto/${productoId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.exito) {
+                        mostrarProductoParaIngreso(data.producto);
+                    }
+                });
+        }
+        
+        // Alertas
+        async function cargarAlertas() {
+            if (!alertasData) {
+                const res = await fetch(`${API_URL}/api/admin/alertas-stock`);
+                const data = await res.json();
+                if (data.exito) alertasData = data.alertas;
+            }
+            
+            renderAlertContent('agotados', alertasData.agotados, ['nombre', 'categoria', 'stock_minimo', 'proveedor']);
+            renderAlertContent('bajo', alertasData.stock_bajo, ['nombre', 'categoria', 'stock', 'stock_minimo']);
+            renderAlertContent('vencidos', alertasData.vencidos, ['nombre', 'fecha_vencimiento', 'dias_vencido', 'lote', 'stock']);
+            renderAlertContent('por-vencer', alertasData.por_vencer, ['nombre', 'fecha_vencimiento', 'dias_para_vencer', 'lote', 'stock']);
+        }
+        
+        function renderAlertContent(type, items, fields) {
+            const container = document.getElementById('alert-content-' + type);
+            if (items.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray-500);">No hay alertas de este tipo</p>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <table style="width: 100%;">
+                    <thead><tr>${fields.map(f => `<th>${f.replace(/_/g, ' ').toUpperCase()}</th>`).join('')}<th>Acción</th></tr></thead>
+                    <tbody>
+                        ${items.map(item => `
+                            <tr>
+                                ${fields.map(f => `<td>${item[f]}</td>`).join('')}
+                                <td><button class="btn btn-success" onclick="irAIngreso(${item.id})">📥 Reponer</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+        
+        function showAlertTab(type) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.alert-content').forEach(c => c.style.display = 'none');
+            document.getElementById('alert-content-' + type).style.display = 'block';
+        }
+        
+        // Modal
+        function abrirModalNuevoProducto() {
+            document.getElementById('modal-titulo').textContent = 'Nuevo Producto';
+            document.getElementById('edit-id').value = '';
+            document.getElementById('edit-nombre').value = '';
+            document.getElementById('edit-categoria').value = '';
+            document.getElementById('edit-precio').value = '';
+            document.getElementById('edit-stock').value = '0';
+            document.getElementById('edit-stock-min').value = '10';
+            document.getElementById('edit-codigo').value = document.getElementById('codigo-barras')?.value || '';
+            document.getElementById('edit-proveedor').value = '';
+            document.getElementById('edit-presentacion').value = '';
+            document.getElementById('edit-unidad').value = '';
+            document.getElementById('edit-lote').value = '';
+            document.getElementById('edit-vencimiento').value = '';
+            document.getElementById('modal-producto').classList.add('active');
+        }
+        
+        async function editarProducto(id) {
+            try {
+                const res = await fetch(`${API_URL}/api/admin/producto/${id}`);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    const p = data.producto;
+                    document.getElementById('modal-titulo').textContent = 'Editar Producto';
+                    document.getElementById('edit-id').value = p.id;
+                    document.getElementById('edit-nombre').value = p.nombre;
+                    document.getElementById('edit-categoria').value = p.categoria;
+                    document.getElementById('edit-precio').value = p.precio_unitario;
+                    document.getElementById('edit-stock').value = p.stock;
+                    document.getElementById('edit-stock-min').value = p.stock_minimo || 10;
+                    document.getElementById('edit-codigo').value = p.codigo_barras || '';
+                    document.getElementById('edit-proveedor').value = p.proveedor || '';
+                    document.getElementById('edit-presentacion').value = p.presentacion || '';
+                    document.getElementById('edit-unidad').value = p.unidad || '';
+                    document.getElementById('edit-lote').value = p.lote || '';
+                    document.getElementById('edit-vencimiento').value = p.fecha_vencimiento || '';
+                    document.getElementById('modal-producto').classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        function cerrarModal() {
+            document.getElementById('modal-producto').classList.remove('active');
+        }
+        
+        async function guardarProducto() {
+            const id = document.getElementById('edit-id').value;
+            const datos = {
+                nombre: document.getElementById('edit-nombre').value,
+                categoria: document.getElementById('edit-categoria').value,
+                precio_unitario: parseInt(document.getElementById('edit-precio').value) || 0,
+                stock: parseInt(document.getElementById('edit-stock').value) || 0,
+                stock_minimo: parseInt(document.getElementById('edit-stock-min').value) || 10,
+                codigo_barras: document.getElementById('edit-codigo').value,
+                proveedor: document.getElementById('edit-proveedor').value,
+                presentacion: document.getElementById('edit-presentacion').value,
+                unidad: document.getElementById('edit-unidad').value,
+                lote: document.getElementById('edit-lote').value,
+                fecha_vencimiento: document.getElementById('edit-vencimiento').value
+            };
+            
+            if (!datos.nombre || !datos.categoria || !datos.precio_unitario) {
+                alert('Complete los campos requeridos');
+                return;
+            }
+            
+            try {
+                let url, method;
+                if (id) {
+                    url = `${API_URL}/api/admin/producto/${id}`;
+                    method = 'PUT';
+                } else {
+                    url = `${API_URL}/api/admin/producto/nuevo`;
+                    method = 'POST';
+                }
+                
+                const res = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datos)
+                });
+                
+                const data = await res.json();
+                
+                if (data.exito) {
+                    alert('✅ ' + data.mensaje);
+                    cerrarModal();
+                    buscarProductos();
+                } else {
+                    alert('Error: ' + data.mensaje);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al guardar');
+            }
+        }
+        
+        // Vencimientos
+        async function cargarVencimientos() {
+            try {
+                const res = await fetch(`${API_URL}/api/admin/alertas-stock`);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    const vencidos = data.alertas.vencidos || [];
+                    const porVencer = data.alertas.por_vencer || [];
+                    
+                    // Contar por período
+                    const hoy = new Date();
+                    let en30 = 0, en60 = 0;
+                    porVencer.forEach(p => {
+                        if (p.dias_para_vencer <= 30) en30++;
+                        else if (p.dias_para_vencer <= 60) en60++;
+                    });
+                    
+                    document.getElementById('venc-vencidos').textContent = vencidos.length;
+                    document.getElementById('venc-30dias').textContent = en30;
+                    document.getElementById('venc-60dias').textContent = en60;
+                    
+                    filtrarVencimientos();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        async function filtrarVencimientos() {
+            const filtro = document.getElementById('filtro-vencimiento').value;
+            
+            try {
+                const res = await fetch(`${API_URL}/api/admin/alertas-stock`);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    let productos = [];
+                    
+                    if (filtro === 'vencidos') {
+                        productos = data.alertas.vencidos || [];
+                    } else {
+                        const dias = parseInt(filtro);
+                        productos = (data.alertas.por_vencer || []).filter(p => p.dias_para_vencer <= dias);
+                    }
+                    
+                    const tbody = document.getElementById('tabla-vencimientos');
+                    tbody.innerHTML = productos.map(p => {
+                        const diasText = filtro === 'vencidos' 
+                            ? `<span class="badge badge-danger">Vencido hace ${p.dias_vencido}d</span>`
+                            : `<span class="badge ${p.dias_para_vencer <= 15 ? 'badge-danger' : 'badge-warning'}">${p.dias_para_vencer} días</span>`;
+                        
+                        return `
+                            <tr>
+                                <td><strong>${p.nombre}</strong></td>
+                                <td>${p.categoria}</td>
+                                <td><code>${p.lote}</code></td>
+                                <td>${p.fecha_vencimiento}</td>
+                                <td>${diasText}</td>
+                                <td>${p.stock}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" onclick="alert('Marcar para dar de baja')">🗑️</button>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('') || '<tr><td colspan="7" style="text-align: center; color: var(--gray-500);">No hay productos en este período</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        // Proveedores
+        async function cargarProveedores() {
+            try {
+                const res = await fetch(`${API_URL}/api/admin/productos`);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    // Agrupar por proveedor
+                    const proveedores = {};
+                    data.productos.forEach(p => {
+                        const prov = p.proveedor || 'Sin proveedor';
+                        if (!proveedores[prov]) {
+                            proveedores[prov] = { productos: 0, categorias: new Set() };
+                        }
+                        proveedores[prov].productos++;
+                        proveedores[prov].categorias.add(p.categoria);
+                    });
+                    
+                    const tbody = document.getElementById('tabla-proveedores');
+                    tbody.innerHTML = Object.entries(proveedores).map(([nombre, info]) => `
+                        <tr>
+                            <td><strong>${nombre}</strong></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><span class="badge badge-info">${info.productos}</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm" onclick="verProductosProveedor('${nombre}')">👁️ Ver</button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        function verProductosProveedor(proveedor) {
+            document.getElementById('buscar-producto').value = proveedor;
+            showSection('inventario');
+            buscarProductos();
+        }
+        
+        // Reportes
+        async function cargarReportesResumen() {
+            try {
+                const [productosRes, categoriasRes] = await Promise.all([
+                    fetch(`${API_URL}/api/admin/productos`),
+                    fetch(`${API_URL}/api/admin/categorias`)
+                ]);
+                
+                const productos = await productosRes.json();
+                const categorias = await categoriasRes.json();
+                
+                if (productos.exito) {
+                    document.getElementById('rep-total-productos').textContent = productos.total;
+                    
+                    // Calcular valor total
+                    let valorTotal = 0;
+                    const proveedoresSet = new Set();
+                    productos.productos.forEach(p => {
+                        valorTotal += (p.precio_unitario || 0) * (p.stock || 0);
+                        if (p.proveedor) proveedoresSet.add(p.proveedor);
+                    });
+                    
+                    document.getElementById('rep-valor-total').textContent = '$' + valorTotal.toLocaleString();
+                    document.getElementById('rep-proveedores').textContent = proveedoresSet.size;
+                }
+                
+                if (categorias.exito) {
+                    document.getElementById('rep-categorias').textContent = categorias.categorias.length;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        function generarReporte(tipo) {
+            alert('Generando reporte: ' + tipo + '\n\nEsta función generará un PDF/Excel con el reporte seleccionado.');
+        }
+        
+        // Cargar movimientos de stock
+        async function cargarMovimientos() {
+            const desde = document.getElementById('mov-desde').value;
+            const hasta = document.getElementById('mov-hasta').value;
+            
+            try {
+                let url = `${API_URL}/api/admin/movimientos?limite=50`;
+                if (desde) url += `&desde=${desde}`;
+                if (hasta) url += `&hasta=${hasta}`;
+                
+                const res = await fetch(url);
+                const data = await res.json();
+                
+                if (data.exito) {
+                    const tbody = document.getElementById('tabla-movimientos');
+                    tbody.innerHTML = data.movimientos.map(m => {
+                        const fecha = new Date(m.fecha);
+                        const fechaStr = fecha.toLocaleDateString('es-CL') + ' ' + fecha.toLocaleTimeString('es-CL', {hour: '2-digit', minute: '2-digit'});
+                        
+                        let tipoBadge = 'badge-info';
+                        let tipoIcon = '📥';
+                        if (m.tipo === 'salida') { tipoBadge = 'badge-warning'; tipoIcon = '📤'; }
+                        else if (m.tipo === 'ajuste') { tipoBadge = 'badge-danger'; tipoIcon = '⚙️'; }
+                        else if (m.tipo === 'devolucion') { tipoBadge = 'badge-success'; tipoIcon = '↩️'; }
+                        
+                        return `
+                            <tr>
+                                <td>${fechaStr}</td>
+                                <td><span class="badge ${tipoBadge}">${tipoIcon} ${m.tipo.charAt(0).toUpperCase() + m.tipo.slice(1)}</span></td>
+                                <td>
+                                    <strong>${m.producto_nombre}</strong>
+                                    <br><small style="color: var(--gray-500);">${m.categoria}</small>
+                                </td>
+                                <td style="font-weight: 600; color: ${m.tipo === 'salida' ? 'var(--danger)' : 'var(--success)'}">
+                                    ${m.tipo === 'salida' ? '-' : '+'}${m.cantidad}
+                                </td>
+                                <td>${m.stock_anterior}</td>
+                                <td>${m.stock_nuevo}</td>
+                                <td>${m.usuario || '-'}</td>
+                                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">${m.observacion || '-'}</td>
+                            </tr>
+                        `;
+                    }).join('') || '<tr><td colspan="8" style="text-align: center; color: var(--gray-500);">No hay movimientos registrados</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        function filtrarMovimientos() {
+            cargarMovimientos();
+        }
+        
+        // Init
+        cargarDashboard();
+    </script>
+</body>
+</html>

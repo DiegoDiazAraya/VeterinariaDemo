@@ -1,0 +1,662 @@
+{
+  "pacientes": [
+    {
+      "id": 1,
+      "nombre": "Max",
+      "especie": "Perro",
+      "raza": "Labrador Retriever",
+      "color": "Dorado",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2020-05-15",
+      "edad": "4 años",
+      "peso": "28 kg",
+      "microchip": "985112000456789",
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "25 kg",
+          "fecha": "2024-01-15",
+          "registrado_por": "Dr. Martínez"
+        },
+        {
+          "peso": "27 kg",
+          "fecha": "2024-06-10",
+          "registrado_por": "Dra. Rodríguez"
+        },
+        {
+          "peso": "28 kg",
+          "fecha": "2024-12-01",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Juan Pérez Sánchez",
+        "rut": "12.345.678-9",
+        "telefono": "+56 9 1234 5678",
+        "email": "juan.perez@email.com",
+        "direccion": "Av. Principal 123, Santiago",
+        "comuna": "Providencia"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {
+          "nombre": "Séxtuple",
+          "fecha": "2024-03-15",
+          "proxima": "2025-03-15"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-03-15",
+          "proxima": "2025-03-15"
+        }
+      ],
+      "fecha_registro": "2024-01-15T10:30:00",
+      "ultima_visita": "2024-12-01",
+      "fallecido": false,
+      "historial_consultas": [
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Luna",
+      "especie": "Gato",
+      "raza": "Siamés",
+      "color": "Crema con puntos seal",
+      "sexo": "Hembra",
+      "fecha_nacimiento": "2021-08-20",
+      "edad": "3 años",
+      "peso": "4.5 kg",
+      "microchip": "985112000789456",
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "4.2 kg",
+          "fecha": "2024-03-10",
+          "registrado_por": "Dra. Rodríguez"
+        },
+        {
+          "peso": "4.5 kg",
+          "fecha": "2024-11-25",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "María González Díaz",
+        "rut": "15.678.901-2",
+        "telefono": "+56 9 8765 4321",
+        "email": "maria.gonzalez@email.com",
+        "direccion": "Calle Los Robles 456, Santiago",
+        "comuna": "Las Condes"
+      },
+      "alergias": [
+        "Penicilina"
+      ],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {
+          "nombre": "Triple Felina",
+          "fecha": "2024-06-20",
+          "proxima": "2025-06-20"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-06-20",
+          "proxima": "2025-06-20"
+        }
+      ],
+      "fecha_registro": "2024-03-10T14:00:00",
+      "ultima_visita": "2024-11-25",
+      "fallecido": false,
+      "historial_consultas": []
+    },
+    {
+      "id": 3,
+      "nombre": "Rocky",
+      "especie": "Perro",
+      "raza": "Pastor Alemán",
+      "color": "Negro y fuego",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2019-03-10",
+      "edad": "5 años",
+      "peso": "35 kg",
+      "microchip": "985112000123789",
+      "esterilizado": false,
+      "historial_peso": [
+        {
+          "peso": "33 kg",
+          "fecha": "2024-02-20",
+          "registrado_por": "Dr. Martínez"
+        },
+        {
+          "peso": "35 kg",
+          "fecha": "2024-10-15",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Carlos Soto Muñoz",
+        "rut": "10.234.567-8",
+        "telefono": "+56 9 5555 1234",
+        "email": "carlos.soto@email.com",
+        "direccion": "Pasaje Los Aromos 789, Santiago",
+        "comuna": "Ñuñoa"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [
+        "Displasia de cadera"
+      ],
+      "vacunas": [
+        {
+          "nombre": "Séxtuple",
+          "fecha": "2024-02-20",
+          "proxima": "2025-02-20"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-02-20",
+          "proxima": "2025-02-20"
+        }
+      ],
+      "fecha_registro": "2024-02-20T09:15:00",
+      "ultima_visita": "2024-10-15",
+      "fallecido": false,
+      "historial_consultas": []
+    },
+    {
+      "id": 4,
+      "nombre": "Michi",
+      "especie": "Gato",
+      "raza": "Persa",
+      "color": "Blanco",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2022-01-05",
+      "edad": "2 años",
+      "peso": "5.2 kg",
+      "microchip": "985112000654321",
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "4.8 kg",
+          "fecha": "2024-05-10",
+          "registrado_por": "Dra. Rodríguez"
+        },
+        {
+          "peso": "5.2 kg",
+          "fecha": "2024-12-05",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Ana Martínez López",
+        "rut": "16.789.012-3",
+        "telefono": "+56 9 2222 3333",
+        "email": "ana.martinez@email.com",
+        "direccion": "Av. Italia 567, Santiago",
+        "comuna": "Providencia"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {
+          "nombre": "Triple Felina",
+          "fecha": "2024-05-10",
+          "proxima": "2025-05-10"
+        }
+      ],
+      "fecha_registro": "2024-05-10T11:00:00",
+      "ultima_visita": "2024-12-05",
+      "fallecido": false,
+      "historial_consultas": [
+        5
+      ]
+    },
+    {
+      "id": 5,
+      "nombre": "Toby",
+      "especie": "Perro",
+      "raza": "Beagle",
+      "color": "Tricolor",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2021-11-20",
+      "edad": "3 años",
+      "peso": "12 kg",
+      "microchip": "985112000987654",
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "11 kg",
+          "fecha": "2024-04-15",
+          "registrado_por": "Dr. Martínez"
+        },
+        {
+          "peso": "12 kg",
+          "fecha": "2024-11-28",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Roberto Fernández Castro",
+        "rut": "14.567.890-1",
+        "telefono": "+56 9 4444 5555",
+        "email": "roberto.fernandez@email.com",
+        "direccion": "Calle Alameda 890, Santiago",
+        "comuna": "Santiago Centro"
+      },
+      "alergias": [
+        "Sulfamidas"
+      ],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {
+          "nombre": "Séxtuple",
+          "fecha": "2024-04-15",
+          "proxima": "2025-04-15"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-04-15",
+          "proxima": "2025-04-15"
+        },
+        {
+          "nombre": "KC (Tos de Perreras)",
+          "fecha": "2024-04-15",
+          "proxima": "2025-04-15"
+        }
+      ],
+      "fecha_registro": "2024-04-15T16:30:00",
+      "ultima_visita": "2024-11-28",
+      "fallecido": false,
+      "historial_consultas": [
+        6
+      ]
+    },
+    {
+      "id": 6,
+      "nombre": "Cleo",
+      "especie": "Gato",
+      "raza": "Bengalí",
+      "color": "Atigrado dorado",
+      "sexo": "Hembra",
+      "fecha_nacimiento": "2020-07-12",
+      "edad": "4 años",
+      "peso": "4.8 kg",
+      "microchip": "985112000111222",
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "4.5 kg",
+          "fecha": "2024-06-20",
+          "registrado_por": "Dra. Rodríguez"
+        },
+        {
+          "peso": "4.8 kg",
+          "fecha": "2024-12-10",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Patricia Vargas Núñez",
+        "rut": "13.456.789-0",
+        "telefono": "+56 9 6666 7777",
+        "email": "patricia.vargas@email.com",
+        "direccion": "Av. Apoquindo 1234, Santiago",
+        "comuna": "Las Condes"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [
+        "Insuficiencia renal leve"
+      ],
+      "vacunas": [
+        {
+          "nombre": "Triple Felina",
+          "fecha": "2024-06-20",
+          "proxima": "2025-06-20"
+        },
+        {
+          "nombre": "Leucemia Felina",
+          "fecha": "2024-06-20",
+          "proxima": "2025-06-20"
+        }
+      ],
+      "fecha_registro": "2024-06-20T10:00:00",
+      "ultima_visita": "2024-12-10",
+      "fallecido": false,
+      "historial_consultas": [
+        7
+      ]
+    },
+    {
+      "id": 7,
+      "nombre": "Bruno",
+      "especie": "Perro",
+      "raza": "Bulldog Francés",
+      "color": "Atigrado",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2022-04-08",
+      "edad": "2 años",
+      "peso": "11 kg",
+      "microchip": "985112000333444",
+      "esterilizado": false,
+      "historial_peso": [
+        {
+          "peso": "10 kg",
+          "fecha": "2024-07-15",
+          "registrado_por": "Dr. Martínez"
+        },
+        {
+          "peso": "11 kg",
+          "fecha": "2024-12-08",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Diego Morales Reyes",
+        "rut": "17.890.123-4",
+        "telefono": "+56 9 8888 9999",
+        "email": "diego.morales@email.com",
+        "direccion": "Calle Nueva York 456, Santiago",
+        "comuna": "Providencia"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [
+        "Braquicefalia - dificultad respiratoria leve"
+      ],
+      "vacunas": [
+        {
+          "nombre": "Séxtuple",
+          "fecha": "2024-07-15",
+          "proxima": "2025-07-15"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-07-15",
+          "proxima": "2025-07-15"
+        }
+      ],
+      "fecha_registro": "2024-07-15T14:45:00",
+      "ultima_visita": "2024-12-08",
+      "fallecido": false,
+      "historial_consultas": [
+        8
+      ]
+    },
+    {
+      "id": 8,
+      "nombre": "Pelusa",
+      "especie": "Gato",
+      "raza": "Angora",
+      "color": "Gris ahumado",
+      "sexo": "Hembra",
+      "fecha_nacimiento": "2019-12-25",
+      "edad": "5 años",
+      "peso": "3.8 kg",
+      "microchip": "985112000555666",
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "3.5 kg",
+          "fecha": "2024-08-10",
+          "registrado_por": "Dra. Rodríguez"
+        },
+        {
+          "peso": "3.8 kg",
+          "fecha": "2024-12-12",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Claudia Herrera Pizarro",
+        "rut": "11.234.567-8",
+        "telefono": "+56 9 1111 2222",
+        "email": "claudia.herrera@email.com",
+        "direccion": "Av. Pedro de Valdivia 789, Santiago",
+        "comuna": "Providencia"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {
+          "nombre": "Triple Felina",
+          "fecha": "2024-08-10",
+          "proxima": "2025-08-10"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-08-10",
+          "proxima": "2025-08-10"
+        }
+      ],
+      "fecha_registro": "2024-08-10T09:30:00",
+      "ultima_visita": "2024-12-12",
+      "fallecido": false,
+      "historial_consultas": []
+    },
+    {
+      "id": 9,
+      "nombre": "Thor",
+      "especie": "Perro",
+      "raza": "Rottweiler",
+      "color": "Negro y fuego",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2018-06-15",
+      "edad": "6 años",
+      "peso": "45 kg",
+      "microchip": "985112000777888",
+      "esterilizado": false,
+      "historial_peso": [
+        {
+          "peso": "43 kg",
+          "fecha": "2024-09-05",
+          "registrado_por": "Dr. Martínez"
+        },
+        {
+          "peso": "45 kg",
+          "fecha": "2024-12-01",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Fernando Guzmán Torres",
+        "rut": "9.876.543-2",
+        "telefono": "+56 9 3333 4444",
+        "email": "fernando.guzman@email.com",
+        "direccion": "Calle Brasil 123, Santiago",
+        "comuna": "Santiago Centro"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [
+        "Artrosis leve"
+      ],
+      "vacunas": [
+        {
+          "nombre": "Séxtuple",
+          "fecha": "2024-09-05",
+          "proxima": "2025-09-05"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-09-05",
+          "proxima": "2025-09-05"
+        }
+      ],
+      "fecha_registro": "2024-09-05T11:15:00",
+      "ultima_visita": "2024-12-01",
+      "fallecido": false,
+      "historial_consultas": [
+        9
+      ]
+    },
+    {
+      "id": 10,
+      "nombre": "Simba",
+      "especie": "Gato",
+      "raza": "Maine Coon",
+      "color": "Naranja tabby",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2021-02-14",
+      "edad": "3 años",
+      "peso": "7.5 kg",
+      "microchip": "985112000999000",
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "7.0 kg",
+          "fecha": "2024-10-20",
+          "registrado_por": "Dra. Rodríguez"
+        },
+        {
+          "peso": "7.5 kg",
+          "fecha": "2024-12-11",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Valentina Rojas Espinoza",
+        "rut": "18.901.234-5",
+        "telefono": "+56 9 7777 8888",
+        "email": "valentina.rojas@email.com",
+        "direccion": "Av. Providencia 2345, Santiago",
+        "comuna": "Providencia"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {
+          "nombre": "Triple Felina",
+          "fecha": "2024-10-20",
+          "proxima": "2025-10-20"
+        },
+        {
+          "nombre": "Leucemia Felina",
+          "fecha": "2024-10-20",
+          "proxima": "2025-10-20"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-10-20",
+          "proxima": "2025-10-20"
+        }
+      ],
+      "fecha_registro": "2024-10-20T15:00:00",
+      "ultima_visita": "2024-12-11",
+      "fallecido": false,
+      "historial_consultas": [
+        10
+      ]
+    },
+    {
+      "id": 11,
+      "nombre": "Bobby",
+      "especie": "Perro",
+      "raza": "Cocker Spaniel",
+      "color": "Dorado",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2017-08-30",
+      "edad": "7 años",
+      "peso": "14 kg",
+      "microchip": "985112000222333",
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "15 kg",
+          "fecha": "2024-01-20",
+          "registrado_por": "Dr. Martínez"
+        },
+        {
+          "peso": "14 kg",
+          "fecha": "2024-06-15",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Sergio Mendoza Alarcón",
+        "rut": "8.765.432-1",
+        "telefono": "+56 9 9999 0000",
+        "email": "sergio.mendoza@email.com",
+        "direccion": "Calle Condell 678, Santiago",
+        "comuna": "Ñuñoa"
+      },
+      "alergias": [
+        "Carne de pollo"
+      ],
+      "condiciones_cronicas": [
+        "Otitis crónica",
+        "Sobrepeso controlado"
+      ],
+      "vacunas": [
+        {
+          "nombre": "Séxtuple",
+          "fecha": "2024-01-20",
+          "proxima": "2025-01-20"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-01-20",
+          "proxima": "2025-01-20"
+        }
+      ],
+      "fecha_registro": "2023-08-30T10:00:00",
+      "ultima_visita": "2024-06-15",
+      "fallecido": false,
+      "historial_consultas": []
+    },
+    {
+      "id": 12,
+      "nombre": "Firulais",
+      "especie": "Perro",
+      "raza": "Mestizo",
+      "color": "Café con blanco",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2015-03-01",
+      "edad": "9 años",
+      "peso": "18 kg",
+      "microchip": null,
+      "esterilizado": true,
+      "historial_peso": [
+        {
+          "peso": "20 kg",
+          "fecha": "2023-06-10",
+          "registrado_por": "Dr. Martínez"
+        },
+        {
+          "peso": "18 kg",
+          "fecha": "2024-02-28",
+          "registrado_por": "Dr. Martínez"
+        }
+      ],
+      "tutor": {
+        "nombre": "Rosa Paredes Contreras",
+        "rut": "7.654.321-0",
+        "telefono": "+56 9 5555 6666",
+        "email": "rosa.paredes@email.com",
+        "direccion": "Pasaje Los Copihues 45, Santiago",
+        "comuna": "La Florida"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [
+        "Diabetes controlada",
+        "Cataratas"
+      ],
+      "vacunas": [
+        {
+          "nombre": "Séxtuple",
+          "fecha": "2024-02-28",
+          "proxima": "2025-02-28"
+        },
+        {
+          "nombre": "Antirrábica",
+          "fecha": "2024-02-28",
+          "proxima": "2025-02-28"
+        }
+      ],
+      "fecha_registro": "2020-03-15T12:00:00",
+      "ultima_visita": "2024-02-28",
+      "fallecido": false,
+      "historial_consultas": []
+    }
+  ],
+  "ultimo_id": 12
+}
+

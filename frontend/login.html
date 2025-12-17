@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetterDoctor - Iniciar Sesión</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #0891b2;
+            --color-primary-dark: #0e7490;
+            --color-secondary: #10b981;
+            --color-bg: #f0f5fa;
+            --color-text: #1e293b;
+            --color-text-muted: #64748b;
+            --color-border: #e2e8f0;
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, #0891b2 0%, #10b981 50%, #0e7490 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Elementos decorativos */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            top: -200px;
+            left: -200px;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            bottom: -150px;
+            right: -150px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Panel izquierdo - branding */
+        .brand-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            color: white;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .brand-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .brand-name {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .brand-tagline {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 400px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.08);
+            border-radius: 14px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        
+        .feature:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(8px);
+        }
+
+        .feature-icon {
+            width: 54px;
+            height: 54px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-text h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .feature-text p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            line-height: 1.4;
+        }
+
+        /* Panel derecho - login */
+        .login-panel {
+            width: 500px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+        }
+
+        .login-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #0891b2 0%, #10b981 100%);
+        }
+
+        .login-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .login-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--color-text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper .icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem;
+            opacity: 0.5;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1.1rem 1rem 1.1rem 3.25rem;
+            border: 2px solid var(--color-border);
+            border-radius: 14px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #f8fafc;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.15);
+            background: white;
+        }
+        
+        .form-group input:hover:not(:focus) {
+            border-color: #cbd5e1;
+            background: white;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(8, 145, 178, 0.35);
+        }
+        
+        .btn-login:hover::before {
+            left: 100%;
+        }
+        
+        .btn-login:active {
+            transform: translateY(-1px);
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message.show { display: block; }
+
+        .demo-credentials {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .demo-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .demo-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .demo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1.1rem;
+            background: var(--color-bg);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-item::after {
+            content: '→';
+            position: absolute;
+            right: 1rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .demo-item:hover {
+            background: #e0e7ff;
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #a5b4fc;
+        }
+        
+        .demo-item:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .demo-item.superadmin {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+        }
+        .demo-item.superadmin .role { color: #92400e; }
+        .demo-item.superadmin:hover {
+            background: linear-gradient(135deg, #fde68a, #fcd34d);
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+        }
+        
+        .demo-item.inventario {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border: 2px solid #10b981;
+        }
+        .demo-item.inventario .role { color: #065f46; }
+        .demo-item.inventario:hover {
+            background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
+        }
+
+        .demo-item .emoji {
+            font-size: 1.25rem;
+        }
+
+        .demo-item .role {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .demo-item .creds {
+            color: var(--color-text-muted);
+        }
+
+        @media (max-width: 1024px) {
+            .container { flex-direction: column; }
+            .brand-panel { padding: 2rem; min-height: 40vh; }
+            .login-panel { width: 100%; }
+            .features { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand-panel">
+            <div class="brand-logo">
+                <div class="brand-icon">🏥</div>
+                <span class="brand-name">BetterDoctor</span>
+            </div>
+            <p class="brand-tagline">Sistema Integral de Gestión Veterinaria</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📋</div>
+                    <div class="feature-text">
+                        <h3>Gestión de Pacientes</h3>
+                        <p>Registro rápido y seguimiento completo de mascotas</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🩺</div>
+                    <div class="feature-text">
+                        <h3>Diagnóstico Inteligente</h3>
+                        <p>Sugerencias basadas en síntomas reportados</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💊</div>
+                    <div class="feature-text">
+                        <h3>Control de Inventario</h3>
+                        <p>Gestión de medicamentos y alertas de stock</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧾</div>
+                    <div class="feature-text">
+                        <h3>Facturación Integrada</h3>
+                        <p>Boletas y recetas con un solo clic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-panel">
+            <div class="login-header">
+                <h2>Bienvenido</h2>
+                <p>Ingresa tus credenciales para continuar</p>
+            </div>
+
+            <div class="error-message" id="error-msg">
+                Usuario o contraseña incorrectos
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="usuario">Usuario</label>
+                    <div class="input-wrapper">
+                        <span class="icon">👤</span>
+                        <input type="text" id="usuario" placeholder="Ingresa tu usuario" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="input-wrapper">
+                        <span class="icon">🔒</span>
+                        <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <div class="demo-credentials">
+                <div class="demo-title">👆 Usuarios de demostración (clic para autocompletar)</div>
+                <div class="demo-grid">
+                    <div class="demo-item superadmin" onclick="fillCredentials('admin', 'admin2024')">
+                        <span class="emoji">👑</span>
+                        <span class="role">Super Admin</span>
+                        <span class="creds">admin / admin2024</span>
+                    </div>
+                    <div class="demo-item" onclick="fillCredentials('dr.martinez', 'vet2024')">
+                        <span class="emoji">🩺</span>
+                        <span class="role">Veterinario</span>
+                        <span class="creds">dr.martinez / vet2024</span>
+                    </div>
+                    <div class="demo-item" onclick="fillCredentials('recepcion', 'recep2024')">
+                        <span class="emoji">📋</span>
+                        <span class="role">Recepcionista</span>
+                        <span class="creds">recepcion / recep2024</span>
+                    </div>
+                    <div class="demo-item inventario" onclick="fillCredentials('inventario', 'inv2024')">
+                        <span class="emoji">📦</span>
+                        <span class="role">Inventario</span>
+                        <span class="creds">inventario / inv2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000';
+
+        // Verificar si ya hay sesión
+        const existingUser = localStorage.getItem('vetclinic_user');
+        if (existingUser) {
+            const user = JSON.parse(existingUser);
+            redirectByRole(user.rol);
+        }
+
+        function fillCredentials(usuario, password) {
+            document.getElementById('usuario').value = usuario;
+            document.getElementById('password').value = password;
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const usuario = document.getElementById('usuario').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+            
+            errorMsg.classList.remove('show');
+
+            try {
+                const response = await fetch(`${API_URL}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario, password })
+                });
+
+                const data = await response.json();
+
+                if (data.exito) {
+                    localStorage.setItem('vetclinic_user', JSON.stringify(data.usuario));
+                    redirectByRole(data.usuario.rol);
+                } else {
+                    errorMsg.textContent = data.mensaje || 'Usuario o contraseña incorrectos';
+                    errorMsg.classList.add('show');
+                }
+            } catch (error) {
+                errorMsg.textContent = 'Error de conexión con el servidor';
+                errorMsg.classList.add('show');
+            }
+        }
+
+        function redirectByRole(rol) {
+            switch (rol) {
+                case 'veterinario':
+                    window.location.href = 'index.html';
+                    break;
+                case 'recepcionista':
+                    window.location.href = 'recepcion.html';
+                    break;
+                case 'administracion':
+                case 'admin':
+                case 'superadmin':
+                    window.location.href = 'superadmin.html';
+                    break;
+                case 'inventario':
+                    window.location.href = 'inventario.html';
+                    break;
+                case 'peluqueria':
+                    window.location.href = 'peluqueria.html';
+                    break;
+                default:
+                    window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

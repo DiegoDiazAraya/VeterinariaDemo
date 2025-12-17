@@ -1,0 +1,1647 @@
+[
+  {
+    "id": 1,
+    "nombre": "Moquillo Canino",
+    "descripcion": "Enfermedad viral altamente contagiosa que afecta el sistema respiratorio, gastrointestinal y nervioso de los perros.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Fiebre alta",
+      "Secreción nasal purulenta",
+      "Secreción ocular",
+      "Tos seca persistente",
+      "Pérdida de apetito",
+      "Letargia severa",
+      "Vómitos",
+      "Diarrea",
+      "Convulsiones",
+      "Temblores musculares",
+      "Parálisis",
+      "Endurecimiento de almohadillas",
+      "Hiperqueratosis nasal"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Tratamiento de soporte con fluidoterapia IV, antipiréticos, antibióticos para infecciones secundarias, antieméticos, anticonvulsivos.",
+    "prevencion": "Vacunación completa desde cachorro"
+  },
+  {
+    "id": 2,
+    "nombre": "Otitis Externa",
+    "descripcion": "Inflamación del canal auditivo externo, comúnmente causada por bacterias, hongos o ácaros.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Rascado frecuente de orejas",
+      "Sacudidas de cabeza constantes",
+      "Mal olor en el oído",
+      "Secreción cerosa oscura",
+      "Secreción purulenta",
+      "Enrojecimiento del canal auditivo",
+      "Dolor al tocar las orejas",
+      "Inflamación del pabellón auricular",
+      "Inclinación de cabeza",
+      "Pérdida de equilibrio"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Pronto",
+    "tratamiento": "Limpieza profunda del canal auditivo, gotas óticas con antibiótico/antifúngico, antiinflamatorios.",
+    "prevencion": "Limpieza regular de oídos, secado después del baño"
+  },
+  {
+    "id": 3,
+    "nombre": "Gastroenteritis",
+    "descripcion": "Inflamación del tracto gastrointestinal que causa vómitos y diarrea.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Vómitos frecuentes",
+      "Diarrea acuosa",
+      "Diarrea con sangre",
+      "Pérdida de apetito",
+      "Deshidratación",
+      "Dolor abdominal",
+      "Letargia",
+      "Fiebre leve",
+      "Borborigmos intestinales",
+      "Flatulencias excesivas",
+      "Arcadas sin vómito"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Pronto",
+    "tratamiento": "Ayuno 12-24 horas, fluidoterapia, dieta blanda, antieméticos, protectores gástricos, probióticos.",
+    "prevencion": "Evitar cambios bruscos de dieta"
+  },
+  {
+    "id": 4,
+    "nombre": "Parvovirus Canino",
+    "descripcion": "Enfermedad viral altamente contagiosa y potencialmente mortal que afecta principalmente a cachorros.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Vómitos severos",
+      "Diarrea hemorrágica",
+      "Diarrea con olor fétido",
+      "Fiebre alta",
+      "Deshidratación severa",
+      "Letargia extrema",
+      "Pérdida total de apetito",
+      "Dolor abdominal intenso",
+      "Depresión",
+      "Hipotermia en casos graves"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Hospitalización, fluidoterapia IV agresiva, antieméticos, antibióticos de amplio espectro.",
+    "prevencion": "Vacunación completa"
+  },
+  {
+    "id": 5,
+    "nombre": "Dermatitis Alérgica",
+    "descripcion": "Reacción inflamatoria de la piel causada por alérgenos ambientales, alimentarios o por picadura de pulgas.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Prurito intenso",
+      "Rascado constante",
+      "Lamido excesivo de patas",
+      "Enrojecimiento de la piel",
+      "Pérdida de pelo localizada",
+      "Alopecia",
+      "Lesiones por rascado",
+      "Piel engrosada",
+      "Costras en la piel",
+      "Otitis recurrente",
+      "Mal olor en la piel"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Identificar y eliminar alérgeno, antihistamínicos, corticoides, baños medicados.",
+    "prevencion": "Control de pulgas, dieta hipoalergénica"
+  },
+  {
+    "id": 6,
+    "nombre": "Insuficiencia Renal Crónica",
+    "descripcion": "Deterioro progresivo e irreversible de la función renal, muy común en gatos mayores.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Aumento de la sed",
+      "Aumento de la orina",
+      "Pérdida de peso progresiva",
+      "Vómitos",
+      "Pérdida de apetito",
+      "Mal aliento urémico",
+      "Letargia",
+      "Deshidratación",
+      "Ulceras bucales",
+      "Pelaje opaco",
+      "Debilidad muscular",
+      "Anemia"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Dieta renal, fluidoterapia subcutánea, quelantes de fósforo, antieméticos.",
+    "prevencion": "Chequeos regulares, dieta adecuada a la edad"
+  },
+  {
+    "id": 7,
+    "nombre": "Cistitis",
+    "descripcion": "Inflamación de la vejiga, frecuentemente causada por infección bacteriana.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Micción frecuente",
+      "Esfuerzo al orinar",
+      "Sangre en la orina",
+      "Dolor al orinar",
+      "Orinar en lugares inapropiados",
+      "Lamido excesivo de genitales",
+      "Orina turbia",
+      "Orina con mal olor",
+      "Incontinencia",
+      "Fiebre leve"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Pronto",
+    "tratamiento": "Antibióticos según cultivo, analgésicos, aumento de ingesta de agua, dieta urinaria.",
+    "prevencion": "Hidratación adecuada"
+  },
+  {
+    "id": 8,
+    "nombre": "Displasia de Cadera",
+    "descripcion": "Malformación de la articulación de la cadera que causa dolor y cojera.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Cojera de patas traseras",
+      "Dificultad para levantarse",
+      "Dificultad para subir escaleras",
+      "Movimiento de cadera balanceante",
+      "Atrofia muscular en muslos",
+      "Dolor al manipular cadera",
+      "Rigidez después del reposo",
+      "Renuencia a correr",
+      "Renuencia a saltar",
+      "Crepitación articular"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Normal",
+    "tratamiento": "Control de peso, antiinflamatorios, condroprotectores, fisioterapia, cirugía en casos severos.",
+    "prevencion": "Selección genética, control de peso en crecimiento"
+  },
+  {
+    "id": 9,
+    "nombre": "Diabetes Mellitus",
+    "descripcion": "Enfermedad metabólica caracterizada por niveles elevados de glucosa en sangre.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Aumento de la sed",
+      "Aumento de la orina",
+      "Aumento del apetito",
+      "Pérdida de peso",
+      "Letargia",
+      "Cataratas (en perros)",
+      "Debilidad en patas traseras",
+      "Pelaje opaco",
+      "Infecciones urinarias recurrentes",
+      "Cetoacidosis en casos graves"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Insulinoterapia, dieta especial para diabéticos, monitoreo de glucosa.",
+    "prevencion": "Control de peso, dieta balanceada"
+  },
+  {
+    "id": 10,
+    "nombre": "Piómetra",
+    "descripcion": "Infección uterina grave que ocurre en hembras no esterilizadas.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Secreción vaginal purulenta",
+      "Secreción vaginal con sangre",
+      "Abdomen distendido",
+      "Letargia severa",
+      "Pérdida de apetito",
+      "Aumento de la sed",
+      "Aumento de la orina",
+      "Vómitos",
+      "Fiebre",
+      "Depresión"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Ovariohisterectomía de emergencia, fluidoterapia, antibióticos.",
+    "prevencion": "Esterilización temprana"
+  },
+  {
+    "id": 11,
+    "nombre": "Sarna Demodécica",
+    "descripcion": "Enfermedad parasitaria de la piel causada por el ácaro Demodex.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Pérdida de pelo localizada",
+      "Alopecia en parches",
+      "Piel enrojecida",
+      "Piel con escamas",
+      "Comedones",
+      "Hiperpigmentación",
+      "Prurito variable",
+      "Infección bacteriana secundaria",
+      "Costras",
+      "Mal olor en piel infectada"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Ivermectina oral, isoxazolinas, tratamiento de infecciones secundarias.",
+    "prevencion": "No usar para reproducción animales afectados"
+  },
+  {
+    "id": 12,
+    "nombre": "Sarna Sarcóptica",
+    "descripcion": "Enfermedad parasitaria altamente contagiosa causada por Sarcoptes scabiei.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Prurito intenso severo",
+      "Rascado desesperado",
+      "Lesiones en bordes de orejas",
+      "Lesiones en codos",
+      "Lesiones en abdomen",
+      "Costras gruesas",
+      "Pérdida de pelo",
+      "Engrosamiento de la piel",
+      "Infección bacteriana secundaria",
+      "Pérdida de peso por estrés"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Isoxazolinas, selamectina, ivermectina, tratamiento de todos los animales en contacto.",
+    "prevencion": "Evitar contacto con animales infectados"
+  },
+  {
+    "id": 13,
+    "nombre": "Rinotraqueitis Viral Felina",
+    "descripcion": "Infección respiratoria causada por herpesvirus felino tipo 1.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Estornudos frecuentes",
+      "Secreción nasal",
+      "Secreción ocular",
+      "Conjuntivitis",
+      "Úlceras corneales",
+      "Fiebre",
+      "Pérdida de apetito",
+      "Letargia",
+      "Salivación excesiva",
+      "Úlceras bucales"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Pronto",
+    "tratamiento": "Tratamiento de soporte, antibióticos para infecciones secundarias, L-lisina.",
+    "prevencion": "Vacunación triple felina"
+  },
+  {
+    "id": 14,
+    "nombre": "Calicivirus Felino",
+    "descripcion": "Infección viral que afecta el sistema respiratorio y puede causar úlceras orales.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Estornudos",
+      "Secreción nasal",
+      "Úlceras en lengua",
+      "Úlceras en paladar",
+      "Salivación excesiva",
+      "Pérdida de apetito",
+      "Fiebre",
+      "Cojera",
+      "Letargia",
+      "Gingivitis severa"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Pronto",
+    "tratamiento": "Tratamiento de soporte, alimentación asistida, antibióticos, analgésicos.",
+    "prevencion": "Vacunación triple felina"
+  },
+  {
+    "id": 15,
+    "nombre": "Leucemia Viral Felina",
+    "descripcion": "Enfermedad viral inmunosupresora que puede causar anemia y linfoma.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Pérdida de peso progresiva",
+      "Pérdida de apetito",
+      "Fiebre recurrente",
+      "Ganglios linfáticos inflamados",
+      "Anemia",
+      "Encías pálidas",
+      "Infecciones recurrentes",
+      "Letargia crónica",
+      "Problemas reproductivos",
+      "Diarrea crónica"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Pronto",
+    "tratamiento": "Tratamiento de soporte, inmunoestimulantes, tratamiento de infecciones secundarias.",
+    "prevencion": "Vacunación, test previo"
+  },
+  {
+    "id": 16,
+    "nombre": "Inmunodeficiencia Viral Felina",
+    "descripcion": "Virus que ataca el sistema inmunológico del gato, similar al VIH en humanos.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Infecciones recurrentes",
+      "Gingivitis crónica",
+      "Estomatitis",
+      "Pérdida de peso",
+      "Fiebre intermitente",
+      "Diarrea crónica",
+      "Problemas de piel",
+      "Anemia",
+      "Ganglios inflamados",
+      "Deterioro progresivo"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Normal",
+    "tratamiento": "Tratamiento de soporte, manejo de infecciones secundarias, ambiente sin estrés.",
+    "prevencion": "Castración, mantener gatos en interior"
+  },
+  {
+    "id": 17,
+    "nombre": "FLUTD - Enfermedad Tracto Urinario Inferior Felino",
+    "descripcion": "Conjunto de condiciones que afectan la vejiga y uretra de los gatos.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Esfuerzo al orinar",
+      "Micción frecuente",
+      "Sangre en orina",
+      "Orinar fuera de la caja",
+      "Maullidos al orinar",
+      "Lamido excesivo de genitales",
+      "Obstrucción uretral",
+      "Vómitos",
+      "Letargia",
+      "Abdomen doloroso"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Emergencia si hay obstrucción",
+    "tratamiento": "Cateterización si hay obstrucción, analgésicos, dieta urinaria, reducción de estrés.",
+    "prevencion": "Dieta húmeda, enriquecimiento ambiental"
+  },
+  {
+    "id": 18,
+    "nombre": "Conjuntivitis",
+    "descripcion": "Inflamación de la conjuntiva del ojo.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Ojos rojos",
+      "Secreción ocular",
+      "Lagrimeo excesivo",
+      "Párpados hinchados",
+      "Rascado de ojos",
+      "Fotofobia",
+      "Pestañeo frecuente",
+      "Tercer párpado visible",
+      "Ojos pegajosos"
+    ],
+    "gravedad": "Leve a Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Limpieza ocular, colirios antibióticos o antiinflamatorios, collar isabelino.",
+    "prevencion": "Evitar irritantes"
+  },
+  {
+    "id": 19,
+    "nombre": "Queratitis",
+    "descripcion": "Inflamación de la córnea que puede causar opacidad y dolor.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Opacidad corneal",
+      "Ojo azulado",
+      "Lagrimeo excesivo",
+      "Dolor ocular",
+      "Fotofobia",
+      "Pestañeo constante",
+      "Rascado del ojo",
+      "Vasos sanguíneos en córnea",
+      "Úlcera corneal"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Colirios antibióticos, atropina, suero autólogo, cirugía si hay úlcera profunda.",
+    "prevencion": "Protección ocular"
+  },
+  {
+    "id": 20,
+    "nombre": "Glaucoma",
+    "descripcion": "Aumento de la presión intraocular que puede causar ceguera.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Ojo agrandado",
+      "Ojo rojo",
+      "Dolor ocular intenso",
+      "Opacidad corneal",
+      "Pupila dilatada",
+      "Pérdida de visión",
+      "Frotarse el ojo",
+      "Letargia",
+      "Pérdida de apetito"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Medicamentos para reducir presión intraocular, manitol IV, cirugía.",
+    "prevencion": "Revisiones oftalmológicas periódicas"
+  },
+  {
+    "id": 21,
+    "nombre": "Cataratas",
+    "descripcion": "Opacidad del cristalino que causa pérdida de visión.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Opacidad en pupila",
+      "Ojo blanquecino",
+      "Pérdida de visión progresiva",
+      "Choque con objetos",
+      "Desorientación",
+      "Renuencia a moverse en oscuridad",
+      "Cambios de comportamiento"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Cirugía de facoemulsificación, manejo de diabetes si es la causa.",
+    "prevencion": "Control de diabetes"
+  },
+  {
+    "id": 22,
+    "nombre": "Enfermedad Periodontal",
+    "descripcion": "Inflamación e infección de encías y estructuras de soporte dental.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Mal aliento severo",
+      "Encías rojas",
+      "Encías sangrantes",
+      "Acumulación de sarro",
+      "Dientes flojos",
+      "Dolor al comer",
+      "Rechazo de comida dura",
+      "Salivación excesiva",
+      "Secreción nasal (fístula)",
+      "Pérdida de dientes"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Normal",
+    "tratamiento": "Limpieza dental bajo anestesia, extracciones, antibióticos, analgésicos.",
+    "prevencion": "Cepillado dental regular, limpieza profesional anual"
+  },
+  {
+    "id": 23,
+    "nombre": "Pancreatitis",
+    "descripcion": "Inflamación del páncreas que puede ser aguda o crónica.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Vómitos severos",
+      "Dolor abdominal intenso",
+      "Postura de oración",
+      "Pérdida de apetito",
+      "Diarrea",
+      "Fiebre",
+      "Letargia severa",
+      "Deshidratación",
+      "Ictericia",
+      "Abdomen tenso"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Hospitalización, fluidoterapia, ayuno inicial, analgésicos, antieméticos, dieta baja en grasa.",
+    "prevencion": "Evitar alimentos grasos, control de peso"
+  },
+  {
+    "id": 24,
+    "nombre": "Hepatitis",
+    "descripcion": "Inflamación del hígado de origen infeccioso, tóxico o inmunomediado.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Ictericia",
+      "Pérdida de apetito",
+      "Vómitos",
+      "Diarrea",
+      "Letargia",
+      "Aumento de la sed",
+      "Abdomen distendido",
+      "Heces claras",
+      "Orina oscura",
+      "Pérdida de peso"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Tratamiento de la causa, hepatoprotectores, dieta hepática, fluidoterapia.",
+    "prevencion": "Vacunación, evitar tóxicos"
+  },
+  {
+    "id": 25,
+    "nombre": "Hipotiroidismo",
+    "descripcion": "Deficiencia de hormonas tiroideas, común en perros de mediana a mayor edad.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Aumento de peso sin comer más",
+      "Letargia",
+      "Intolerancia al frío",
+      "Pérdida de pelo simétrica",
+      "Piel seca",
+      "Piel engrosada",
+      "Otitis recurrente",
+      "Bradicardia",
+      "Cara triste",
+      "Anemia"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Levotiroxina de por vida, control de peso, monitoreo de niveles tiroideos.",
+    "prevencion": "Chequeos regulares"
+  },
+  {
+    "id": 26,
+    "nombre": "Hipertiroidismo",
+    "descripcion": "Exceso de hormonas tiroideas, muy común en gatos mayores.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Pérdida de peso con apetito aumentado",
+      "Hiperactividad",
+      "Vómitos",
+      "Diarrea",
+      "Aumento de la sed",
+      "Aumento de la orina",
+      "Pelaje descuidado",
+      "Taquicardia",
+      "Agresividad",
+      "Vocalización excesiva"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Metimazol oral, dieta con yodo restringido, radioyodo, tiroidectomía.",
+    "prevencion": "Chequeos regulares en gatos mayores"
+  },
+  {
+    "id": 27,
+    "nombre": "Síndrome de Cushing",
+    "descripcion": "Exceso de cortisol por tumor hipofisario o adrenal.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Aumento de la sed extremo",
+      "Aumento de la orina",
+      "Aumento del apetito",
+      "Abdomen penduloso",
+      "Pérdida de pelo simétrica",
+      "Piel delgada",
+      "Letargia",
+      "Debilidad muscular",
+      "Jadeo excesivo",
+      "Calcinosis cutis"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Normal",
+    "tratamiento": "Trilostano o mitotano, cirugía si es tumor adrenal.",
+    "prevencion": "Chequeos regulares"
+  },
+  {
+    "id": 28,
+    "nombre": "Enfermedad de Addison",
+    "descripcion": "Deficiencia de hormonas adrenales, puede ser potencialmente mortal.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Letargia episódica",
+      "Vómitos intermitentes",
+      "Diarrea",
+      "Pérdida de apetito",
+      "Debilidad",
+      "Temblores",
+      "Colapso",
+      "Deshidratación",
+      "Bradicardia",
+      "Hipotermia"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia en crisis",
+    "tratamiento": "Fludrocortisona o DOCP, prednisona, fluidoterapia en crisis.",
+    "prevencion": "Diagnóstico temprano"
+  },
+  {
+    "id": 29,
+    "nombre": "Epilepsia",
+    "descripcion": "Trastorno neurológico caracterizado por convulsiones recurrentes.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Convulsiones",
+      "Pérdida de consciencia",
+      "Movimientos involuntarios",
+      "Salivación excesiva",
+      "Micción involuntaria",
+      "Defecación involuntaria",
+      "Rigidez muscular",
+      "Pedaleo",
+      "Desorientación post-ictal",
+      "Ceguera temporal"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Emergencia durante convulsión prolongada",
+    "tratamiento": "Anticonvulsivos de por vida, diazepam en emergencia.",
+    "prevencion": "Medicación regular"
+  },
+  {
+    "id": 30,
+    "nombre": "Síndrome Vestibular",
+    "descripcion": "Alteración del sistema vestibular que afecta el equilibrio.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Inclinación de cabeza",
+      "Pérdida de equilibrio",
+      "Caminar en círculos",
+      "Nistagmo",
+      "Vómitos",
+      "Náuseas",
+      "Ataxia",
+      "Caídas",
+      "Renuencia a caminar",
+      "Desorientación"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Tratamiento de causa subyacente, antieméticos, sedantes suaves.",
+    "prevencion": "Tratamiento temprano de otitis"
+  },
+  {
+    "id": 31,
+    "nombre": "Hernia Discal",
+    "descripcion": "Protrusión del disco intervertebral que comprime la médula espinal.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Dolor de espalda intenso",
+      "Rigidez de cuello o espalda",
+      "Renuencia a moverse",
+      "Debilidad en patas",
+      "Parálisis",
+      "Incontinencia",
+      "Caminar tambaleante",
+      "Arrastrar patas",
+      "Vocalización por dolor",
+      "Postura encorvada"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia si hay parálisis",
+    "tratamiento": "Reposo estricto, antiinflamatorios, analgésicos, cirugía en casos severos.",
+    "prevencion": "Control de peso, evitar saltos"
+  },
+  {
+    "id": 32,
+    "nombre": "Artritis - Artrosis",
+    "descripcion": "Degeneración articular que causa dolor y rigidez.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Cojera",
+      "Rigidez al levantarse",
+      "Dificultad para subir escaleras",
+      "Renuencia a saltar",
+      "Menor actividad",
+      "Lamido de articulaciones",
+      "Articulaciones inflamadas",
+      "Crepitación articular",
+      "Atrofia muscular",
+      "Cambios de comportamiento"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Control de peso, antiinflamatorios, condroprotectores, fisioterapia.",
+    "prevencion": "Control de peso, ejercicio moderado"
+  },
+  {
+    "id": 33,
+    "nombre": "Luxación de Rótula",
+    "descripcion": "Desplazamiento de la rótula fuera de su posición normal.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Cojera intermitente",
+      "Saltar con pata levantada",
+      "Estirar la pata para relocar rótula",
+      "Caminar en punta de pata",
+      "Crepitación en rodilla",
+      "Dolor en rodilla",
+      "Atrofia muscular",
+      "Renuencia a correr"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Normal a Pronto",
+    "tratamiento": "Cirugía correctiva en grados severos, condroprotectores, control de peso.",
+    "prevencion": "Selección genética"
+  },
+  {
+    "id": 34,
+    "nombre": "Rotura de Ligamento Cruzado",
+    "descripcion": "Ruptura del ligamento cruzado anterior de la rodilla.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Cojera severa súbita",
+      "No apoyar la pata",
+      "Inflamación de rodilla",
+      "Dolor intenso",
+      "Inestabilidad articular",
+      "Atrofia muscular progresiva",
+      "Sentarse con pata extendida",
+      "Crepitación"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Cirugía (TPLO, TTA), reposo estricto, fisioterapia, control de peso.",
+    "prevencion": "Control de peso, ejercicio moderado"
+  },
+  {
+    "id": 35,
+    "nombre": "Fractura",
+    "descripcion": "Rotura de hueso por trauma.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "No apoyar la extremidad",
+      "Deformidad visible",
+      "Inflamación severa",
+      "Dolor intenso",
+      "Crepitación",
+      "Hueso expuesto (fractura abierta)",
+      "Hematoma",
+      "Shock en casos severos"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Inmovilización, cirugía ortopédica, analgésicos, antibióticos en fracturas abiertas.",
+    "prevencion": "Supervisión, evitar accidentes"
+  },
+  {
+    "id": 36,
+    "nombre": "Piodermia",
+    "descripcion": "Infección bacteriana de la piel.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Pústulas",
+      "Costras",
+      "Pérdida de pelo en parches",
+      "Enrojecimiento de piel",
+      "Prurito",
+      "Mal olor en piel",
+      "Descamación",
+      "Collarines epidérmicos",
+      "Fístulas"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Antibióticos sistémicos, baños medicados, tratamiento de causa subyacente.",
+    "prevencion": "Control de alergias, buena higiene"
+  },
+  {
+    "id": 37,
+    "nombre": "Dermatitis por Malassezia",
+    "descripcion": "Infección por levadura que causa dermatitis seborreica.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Piel grasienta",
+      "Mal olor rancio",
+      "Prurito intenso",
+      "Enrojecimiento de piel",
+      "Engrosamiento de piel",
+      "Hiperpigmentación",
+      "Descamación",
+      "Otitis recurrente"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Antifúngicos orales y tópicos, baños medicados.",
+    "prevencion": "Control de alergias y humedad"
+  },
+  {
+    "id": 38,
+    "nombre": "Tiña - Dermatofitosis",
+    "descripcion": "Infección fúngica de la piel causada por dermatofitos.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Pérdida de pelo circular",
+      "Lesiones redondas",
+      "Costras",
+      "Descamación",
+      "Pelo quebradizo",
+      "Prurito variable",
+      "Uñas deformadas",
+      "Piel enrojecida"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Antifúngicos orales, tratamiento tópico, descontaminación ambiental.",
+    "prevencion": "Evitar contacto con animales infectados"
+  },
+  {
+    "id": 39,
+    "nombre": "Infestación por Pulgas",
+    "descripcion": "Infestación por pulgas que causa prurito y puede transmitir enfermedades.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Rascado constante",
+      "Mordisqueo de piel",
+      "Pulgas visibles",
+      "Excremento de pulga (puntos negros)",
+      "Pérdida de pelo",
+      "Dermatitis alérgica",
+      "Anemia en infestaciones severas",
+      "Inquietud"
+    ],
+    "gravedad": "Leve a Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Antiparasitarios orales o tópicos, tratamiento ambiental.",
+    "prevencion": "Antiparasitarios preventivos mensuales"
+  },
+  {
+    "id": 40,
+    "nombre": "Infestación por Garrapatas",
+    "descripcion": "Infestación por garrapatas que pueden transmitir enfermedades graves.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Garrapatas visibles en piel",
+      "Rascado localizado",
+      "Anemia",
+      "Fiebre",
+      "Letargia",
+      "Pérdida de apetito",
+      "Artritis (Lyme)",
+      "Parálisis (en algunos casos)"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Remoción de garrapatas, antiparasitarios, tratamiento de enfermedades transmitidas.",
+    "prevencion": "Antiparasitarios preventivos"
+  },
+  {
+    "id": 41,
+    "nombre": "Ehrlichiosis",
+    "descripcion": "Enfermedad transmitida por garrapatas causada por Ehrlichia.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Fiebre",
+      "Letargia",
+      "Pérdida de apetito",
+      "Sangrado nasal",
+      "Petequias",
+      "Ganglios inflamados",
+      "Pérdida de peso",
+      "Artritis",
+      "Anemia",
+      "Trombocitopenia"
+    ],
+    "gravedad": "Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Doxiciclina por 4 semanas, tratamiento de soporte.",
+    "prevencion": "Control de garrapatas"
+  },
+  {
+    "id": 42,
+    "nombre": "Babesiosis",
+    "descripcion": "Enfermedad parasitaria transmitida por garrapatas que destruye glóbulos rojos.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Fiebre alta",
+      "Anemia severa",
+      "Ictericia",
+      "Orina oscura",
+      "Letargia extrema",
+      "Debilidad",
+      "Encías pálidas",
+      "Taquicardia",
+      "Esplenomegalia"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Imidocarb, atovaquona + azitromicina, transfusión si es necesario.",
+    "prevencion": "Control estricto de garrapatas"
+  },
+  {
+    "id": 43,
+    "nombre": "Leptospirosis",
+    "descripcion": "Enfermedad bacteriana que afecta riñones e hígado, zoonótica.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Fiebre",
+      "Vómitos",
+      "Diarrea",
+      "Ictericia",
+      "Aumento de sed y orina",
+      "Dolor muscular",
+      "Rigidez",
+      "Sangrado",
+      "Insuficiencia renal",
+      "Insuficiencia hepática"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Antibióticos, fluidoterapia agresiva, diálisis si es necesario.",
+    "prevencion": "Vacunación, evitar agua estancada"
+  },
+  {
+    "id": 44,
+    "nombre": "Tos de las Perreras",
+    "descripcion": "Traqueobronquitis infecciosa canina, altamente contagiosa.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Tos seca persistente",
+      "Tos que suena a ganso",
+      "Arcadas",
+      "Secreción nasal",
+      "Estornudos",
+      "Letargia leve",
+      "Fiebre leve",
+      "Pérdida de apetito leve"
+    ],
+    "gravedad": "Leve a Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Reposo, antitusivos, antibióticos si hay infección secundaria.",
+    "prevencion": "Vacunación, evitar hacinamiento"
+  },
+  {
+    "id": 45,
+    "nombre": "Neumonía",
+    "descripcion": "Infección del parénquima pulmonar.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Tos productiva",
+      "Dificultad respiratoria",
+      "Respiración rápida",
+      "Fiebre",
+      "Secreción nasal",
+      "Letargia severa",
+      "Pérdida de apetito",
+      "Cianosis",
+      "Intolerancia al ejercicio"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Antibióticos de amplio espectro, oxigenoterapia, nebulizaciones, fluidoterapia.",
+    "prevencion": "Vacunación, evitar aspiración"
+  },
+  {
+    "id": 46,
+    "nombre": "Colapso Traqueal",
+    "descripcion": "Debilitamiento de los anillos traqueales que causa colapso de la tráquea.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Tos seca tipo graznido de ganso",
+      "Tos al tirar de correa",
+      "Dificultad respiratoria",
+      "Intolerancia al ejercicio",
+      "Respiración ruidosa",
+      "Cianosis",
+      "Síncope"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Control de peso, antitusivos, broncodilatadores, sedantes, stent en casos severos.",
+    "prevencion": "Control de peso, usar arnés"
+  },
+  {
+    "id": 47,
+    "nombre": "Asma Felino",
+    "descripcion": "Enfermedad inflamatoria crónica de las vías respiratorias en gatos.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Tos",
+      "Sibilancias",
+      "Dificultad respiratoria",
+      "Respiración con boca abierta",
+      "Postura con cuello extendido",
+      "Letargia",
+      "Ataques agudos de disnea"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Emergencia en ataque agudo",
+    "tratamiento": "Corticoides inhalados o sistémicos, broncodilatadores, reducir alérgenos.",
+    "prevencion": "Reducir alérgenos, no fumar cerca del gato"
+  },
+  {
+    "id": 48,
+    "nombre": "Cardiomiopatía Dilatada",
+    "descripcion": "Enfermedad del músculo cardíaco que causa dilatación de las cámaras.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Tos",
+      "Dificultad respiratoria",
+      "Intolerancia al ejercicio",
+      "Letargia",
+      "Síncope",
+      "Pérdida de peso",
+      "Ascitis",
+      "Arritmias",
+      "Pulso débil"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Pronto a Emergencia",
+    "tratamiento": "Diuréticos, pimobendan, IECA, antiarrítmicos, dieta baja en sodio.",
+    "prevencion": "Suplementación con taurina en razas predispuestas"
+  },
+  {
+    "id": 49,
+    "nombre": "Cardiomiopatía Hipertrófica Felina",
+    "descripcion": "Engrosamiento del músculo cardíaco, la cardiopatía más común en gatos.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Dificultad respiratoria",
+      "Respiración rápida",
+      "Letargia",
+      "Pérdida de apetito",
+      "Parálisis de patas traseras (tromboembolismo)",
+      "Dolor agudo",
+      "Muerte súbita",
+      "Asintomático inicialmente"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia si hay tromboembolismo",
+    "tratamiento": "Betabloqueantes, diuréticos, anticoagulantes, control de estrés.",
+    "prevencion": "Ecocardiografía en razas predispuestas"
+  },
+  {
+    "id": 50,
+    "nombre": "Insuficiencia Cardíaca Congestiva",
+    "descripcion": "Incapacidad del corazón para bombear sangre eficientemente.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Tos (especialmente nocturna)",
+      "Dificultad respiratoria",
+      "Intolerancia al ejercicio",
+      "Síncope",
+      "Ascitis",
+      "Edema en extremidades",
+      "Letargia",
+      "Pérdida de peso",
+      "Cianosis"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Diuréticos, pimobendan, IECA, oxigenoterapia, restricción de sodio.",
+    "prevencion": "Tratamiento temprano de enfermedad cardíaca"
+  },
+  {
+    "id": 51,
+    "nombre": "Enfermedad Valvular Degenerativa",
+    "descripcion": "Degeneración de las válvulas cardíacas que causa regurgitación.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Tos persistente",
+      "Soplo cardíaco",
+      "Intolerancia al ejercicio",
+      "Dificultad respiratoria",
+      "Letargia",
+      "Síncope",
+      "Distensión abdominal"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Normal a Pronto",
+    "tratamiento": "Pimobendan, diuréticos, IECA, dieta cardíaca.",
+    "prevencion": "Chequeos cardíacos regulares"
+  },
+  {
+    "id": 52,
+    "nombre": "Dirofilariosis - Gusano del Corazón",
+    "descripcion": "Parasitosis que afecta corazón y pulmones.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Tos",
+      "Intolerancia al ejercicio",
+      "Dificultad respiratoria",
+      "Pérdida de peso",
+      "Ascitis",
+      "Síncope",
+      "Muerte súbita",
+      "Asintomático en fases iniciales"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Pronto",
+    "tratamiento": "Protocolo de tratamiento adulticida, doxiciclina, restricción de ejercicio.",
+    "prevencion": "Preventivos mensuales"
+  },
+  {
+    "id": 53,
+    "nombre": "Parásitos Intestinales",
+    "descripcion": "Infestación por gusanos intestinales.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Diarrea",
+      "Vómitos",
+      "Pérdida de peso",
+      "Abdomen distendido",
+      "Pelaje opaco",
+      "Anemia",
+      "Gusanos visibles en heces",
+      "Prurito anal",
+      "Falta de crecimiento en cachorros"
+    ],
+    "gravedad": "Leve a Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Antiparasitarios según tipo de parásito, desparasitación regular.",
+    "prevencion": "Desparasitación regular cada 3 meses"
+  },
+  {
+    "id": 54,
+    "nombre": "Giardiasis",
+    "descripcion": "Infección intestinal por Giardia.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Diarrea crónica",
+      "Heces pastosas",
+      "Heces con mucosidad",
+      "Pérdida de peso",
+      "Flatulencias",
+      "Dolor abdominal",
+      "Pelaje opaco"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Fenbendazol o metronidazol, higiene ambiental, probióticos.",
+    "prevencion": "Agua limpia, higiene"
+  },
+  {
+    "id": 55,
+    "nombre": "Coccidiosis",
+    "descripcion": "Infección intestinal por protozoarios coccidios.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Diarrea acuosa",
+      "Diarrea con sangre",
+      "Deshidratación",
+      "Pérdida de peso",
+      "Letargia",
+      "Vómitos",
+      "Dolor abdominal"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Pronto en cachorros",
+    "tratamiento": "Sulfadimetoxina o toltrazuril, fluidoterapia, probióticos.",
+    "prevencion": "Higiene ambiental"
+  },
+  {
+    "id": 56,
+    "nombre": "Intoxicación por Chocolate",
+    "descripcion": "Envenenamiento por teobromina presente en el chocolate.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Vómitos",
+      "Diarrea",
+      "Hiperactividad",
+      "Temblores",
+      "Aumento de frecuencia cardíaca",
+      "Arritmias",
+      "Convulsiones",
+      "Aumento de orina",
+      "Jadeo excesivo"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Inducir vómito si es reciente, carbón activado, fluidoterapia, sedantes, monitoreo cardíaco.",
+    "prevencion": "Mantener chocolate fuera del alcance"
+  },
+  {
+    "id": 57,
+    "nombre": "Intoxicación por Anticongelante",
+    "descripcion": "Envenenamiento por etilenglicol, altamente tóxico y potencialmente mortal.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Vómitos",
+      "Depresión",
+      "Ataxia",
+      "Aumento de sed",
+      "Aumento de orina",
+      "Letargia severa",
+      "Convulsiones",
+      "Insuficiencia renal aguda",
+      "Coma"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia extrema",
+    "tratamiento": "Etanol o fomepizol IV, fluidoterapia agresiva, diálisis.",
+    "prevencion": "Almacenar anticongelante de forma segura"
+  },
+  {
+    "id": 58,
+    "nombre": "Intoxicación por Rodenticidas",
+    "descripcion": "Envenenamiento por veneno para ratas.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Sangrado nasal",
+      "Sangre en orina",
+      "Sangre en heces",
+      "Hematomas",
+      "Letargia",
+      "Dificultad respiratoria",
+      "Encías pálidas",
+      "Debilidad",
+      "Colapso"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Vitamina K1 por 4-6 semanas, transfusión si es necesario, carbón activado.",
+    "prevencion": "No usar rodenticidas accesibles a mascotas"
+  },
+  {
+    "id": 59,
+    "nombre": "Intoxicación por AINES",
+    "descripcion": "Toxicidad por antiinflamatorios no esteroideos de uso humano.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Vómitos",
+      "Vómitos con sangre",
+      "Diarrea oscura",
+      "Pérdida de apetito",
+      "Dolor abdominal",
+      "Letargia",
+      "Insuficiencia renal",
+      "Úlceras gástricas"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Descontaminación, protectores gástricos, fluidoterapia, misoprostol.",
+    "prevencion": "Nunca dar medicamentos humanos sin prescripción"
+  },
+  {
+    "id": 60,
+    "nombre": "Cuerpo Extraño Gastrointestinal",
+    "descripcion": "Ingestión de objetos que causan obstrucción del tracto digestivo.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Vómitos repetidos",
+      "Pérdida de apetito",
+      "Dolor abdominal",
+      "Letargia",
+      "Distensión abdominal",
+      "Ausencia de defecación",
+      "Deshidratación",
+      "Shock"
+    ],
+    "gravedad": "Alta a Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Extracción endoscópica o cirugía, fluidoterapia, analgésicos.",
+    "prevencion": "Supervisar juegos, evitar objetos pequeños"
+  },
+  {
+    "id": 61,
+    "nombre": "Dilatación-Vólvulo Gástrico",
+    "descripcion": "Emergencia donde el estómago se dilata y rota.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Abdomen muy distendido",
+      "Arcadas sin vómito",
+      "Inquietud extrema",
+      "Salivación excesiva",
+      "Encías pálidas o azuladas",
+      "Debilidad",
+      "Colapso",
+      "Shock"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia extrema",
+    "tratamiento": "Estabilización, descompresión gástrica, cirugía de emergencia.",
+    "prevencion": "Gastropexia preventiva, alimentar varias veces al día"
+  },
+  {
+    "id": 62,
+    "nombre": "Peritonitis",
+    "descripcion": "Inflamación de la membrana peritoneal.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Dolor abdominal severo",
+      "Abdomen tenso",
+      "Fiebre alta",
+      "Vómitos",
+      "Letargia extrema",
+      "Shock",
+      "Postura encorvada",
+      "Deshidratación"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Cirugía exploratoria, antibióticos de amplio espectro, fluidoterapia agresiva.",
+    "prevencion": "Tratamiento temprano de problemas abdominales"
+  },
+  {
+    "id": 63,
+    "nombre": "Peritonitis Infecciosa Felina",
+    "descripcion": "Enfermedad viral fatal por mutación del coronavirus felino.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Fiebre persistente",
+      "Pérdida de peso",
+      "Pérdida de apetito",
+      "Abdomen distendido (forma húmeda)",
+      "Dificultad respiratoria",
+      "Ictericia",
+      "Signos neurológicos",
+      "Signos oculares"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Pronto",
+    "tratamiento": "GS-441524 (si disponible), tratamiento de soporte, corticoides.",
+    "prevencion": "Reducir estrés, evitar hacinamiento"
+  },
+  {
+    "id": 64,
+    "nombre": "Lipidosis Hepática Felina",
+    "descripcion": "Acumulación de grasa en el hígado por anorexia prolongada en gatos.",
+    "especie": [
+      "Gato"
+    ],
+    "sintomas": [
+      "Pérdida de apetito prolongada",
+      "Pérdida de peso rápida",
+      "Ictericia",
+      "Letargia",
+      "Vómitos",
+      "Salivación",
+      "Debilidad muscular",
+      "Encefalopatía hepática"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Alimentación forzada, hepatoprotectores, fluidoterapia, tratar causa primaria.",
+    "prevencion": "Nunca dejar de comer a un gato por más de 2-3 días"
+  },
+  {
+    "id": 65,
+    "nombre": "Mastitis",
+    "descripcion": "Infección de las glándulas mamarias.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Glándulas mamarias inflamadas",
+      "Glándulas calientes y dolorosas",
+      "Secreción purulenta o sanguinolenta",
+      "Fiebre",
+      "Letargia",
+      "Pérdida de apetito",
+      "Rechazo a amamantar",
+      "Cachorros débiles"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Antibióticos, compresas tibias, analgésicos, drenar si hay absceso.",
+    "prevencion": "Higiene durante lactancia"
+  },
+  {
+    "id": 66,
+    "nombre": "Prostatitis",
+    "descripcion": "Inflamación o infección de la próstata.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Dificultad para defecar",
+      "Heces aplanadas",
+      "Dolor abdominal",
+      "Fiebre",
+      "Secreción uretral",
+      "Dificultad para orinar",
+      "Postura encorvada",
+      "Letargia"
+    ],
+    "gravedad": "Moderada a Alta",
+    "urgencia": "Pronto",
+    "tratamiento": "Antibióticos prolongados, antiinflamatorios, castración.",
+    "prevencion": "Castración"
+  },
+  {
+    "id": 67,
+    "nombre": "Criptorquidia",
+    "descripcion": "Falta de descenso de uno o ambos testículos al escroto.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Ausencia de uno o ambos testículos en escroto",
+      "Asintomático generalmente",
+      "Posible tumor testicular",
+      "Feminización si hay tumor"
+    ],
+    "gravedad": "Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Castración incluyendo testículo(s) retenido(s).",
+    "prevencion": "No usar para reproducción"
+  },
+  {
+    "id": 68,
+    "nombre": "Pseudogestación",
+    "descripcion": "Embarazo psicológico en perras no preñadas.",
+    "especie": [
+      "Perro"
+    ],
+    "sintomas": [
+      "Glándulas mamarias desarrolladas",
+      "Producción de leche",
+      "Comportamiento de anidación",
+      "Adopción de juguetes",
+      "Agresividad protectora",
+      "Letargia",
+      "Pérdida de apetito"
+    ],
+    "gravedad": "Leve a Moderada",
+    "urgencia": "Normal",
+    "tratamiento": "Generalmente autolimitante, cabergolina si es severo, esterilización.",
+    "prevencion": "Esterilización"
+  },
+  {
+    "id": 69,
+    "nombre": "Distocia",
+    "descripcion": "Dificultad en el parto.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Contracciones fuertes sin expulsión por más de 30 minutos",
+      "Más de 4 horas entre cachorros",
+      "Secreción verde oscura sin nacimiento",
+      "Debilidad de la madre",
+      "Feto visible pero atascado",
+      "Signos de dolor intenso"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Oxitocina si es apropiado, cesárea de emergencia.",
+    "prevencion": "Control prenatal"
+  },
+  {
+    "id": 70,
+    "nombre": "Eclampsia",
+    "descripcion": "Hipocalcemia en hembras lactantes que causa convulsiones.",
+    "especie": [
+      "Perro",
+      "Gato"
+    ],
+    "sintomas": [
+      "Temblores musculares",
+      "Rigidez",
+      "Caminar tambaleante",
+      "Jadeo excesivo",
+      "Fiebre",
+      "Convulsiones",
+      "Inquietud",
+      "Debilidad"
+    ],
+    "gravedad": "Crítica",
+    "urgencia": "Emergencia",
+    "tratamiento": "Gluconato de calcio IV lento, suplementación de calcio, destete de cachorros.",
+    "prevencion": "Suplementación de calcio durante lactancia"
+  }
+]
