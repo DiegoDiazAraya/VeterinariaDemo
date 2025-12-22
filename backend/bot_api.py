@@ -359,7 +359,8 @@ def agendar_cita():
             "especie": data.get("especie", ""),
             "raza": data.get("raza", ""),
             "propietario": data.get("propietario"),
-            "telefono": data.get("telefono")
+            "telefono": data.get("telefono"),
+            "email": data.get("email", "")
         },
         "sintomas": data.get("sintomas", "").split(",") if isinstance(data.get("sintomas"), str) else data.get("sintomas", []),
         "motivo_consulta": data.get("sintomas", "Consulta agendada via chatbot"),
@@ -411,10 +412,47 @@ def agendar_cita():
             "prioridad": config_urgencia["prioridad"],
             "tiempo_espera_estimado": config_urgencia["tiempo_espera"],
             "paciente": data.get("nombre_mascota"),
+            "especie": data.get("especie", ""),
             "propietario": data.get("propietario"),
             "telefono": data.get("telefono"),
+            "email": data.get("email", ""),
+            "sintomas": data.get("sintomas", ""),
             "fecha_registro": nueva_cita["fecha_registro"]
         },
         "instrucciones": instrucciones,
-        "contacto_emergencias": "(555) 123-4567"
+        "contacto_emergencias": "(555) 123-4567",
+        # Datos para notificaciones (email/WhatsApp)
+        "notificacion": {
+            "destinatario": data.get("propietario"),
+            "telefono": data.get("telefono"),
+            "email": data.get("email", ""),
+            "asunto": f"🐾 Confirmación de cita #{numero_ticket} - BetterDoctor",
+            "mensaje_whatsapp": f"🐾 *BetterDoctor* - Confirmación de Cita\n\n¡Hola {data.get('propietario')}!\n\nTu cita ha sido registrada:\n\n🎫 *Ticket:* {numero_ticket}\n🐾 *Paciente:* {data.get('nombre_mascota')}\n📋 *Motivo:* {data.get('sintomas', 'Consulta general')}\n⏰ *Atención:* {config_urgencia['tiempo_espera']}\n\n{instrucciones}\n\n📍 Clínica Veterinaria BetterDoctor",
+            "mensaje_email_html": f"""
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <div style="background: linear-gradient(135deg, #0891b2, #059669); padding: 20px; border-radius: 10px 10px 0 0; text-align: center;">
+                        <h1 style="color: white; margin: 0;">🐾 BetterDoctor</h1>
+                        <p style="color: rgba(255,255,255,0.9); margin: 5px 0 0 0;">Clínica Veterinaria</p>
+                    </div>
+                    <div style="background: #f8fafc; padding: 30px; border: 1px solid #e2e8f0;">
+                        <h2 style="color: #0891b2; margin-top: 0;">¡Cita Confirmada! ✅</h2>
+                        <p>Estimado/a <strong>{data.get('propietario')}</strong>,</p>
+                        <p>Tu cita ha sido registrada exitosamente.</p>
+                        <div style="background: white; border-radius: 10px; padding: 20px; margin: 20px 0; border-left: 4px solid #0891b2;">
+                            <h3 style="margin-top: 0; color: #334155;">📋 Detalles de la cita</h3>
+                            <p><strong>🎫 Ticket:</strong> {numero_ticket}</p>
+                            <p><strong>🐾 Paciente:</strong> {data.get('nombre_mascota')} ({data.get('especie', 'Mascota')})</p>
+                            <p><strong>📝 Motivo:</strong> {data.get('sintomas', 'Consulta general')}</p>
+                            <p><strong>⏰ Atención:</strong> {config_urgencia['tiempo_espera']}</p>
+                        </div>
+                        <p style="background: #ecfeff; padding: 15px; border-radius: 8px;">{instrucciones}</p>
+                        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+                        <p style="color: #64748b; font-size: 14px;">El equipo médico de BetterDoctor estará esperando a {data.get('nombre_mascota')}.</p>
+                    </div>
+                    <div style="background: #334155; color: white; padding: 20px; border-radius: 0 0 10px 10px; text-align: center;">
+                        <p style="margin: 0;">📞 Emergencias: (555) 123-4567</p>
+                    </div>
+                </div>
+            """
+        }
     })
