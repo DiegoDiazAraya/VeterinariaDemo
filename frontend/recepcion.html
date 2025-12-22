@@ -438,6 +438,61 @@
         .estado-atendida { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
         .estado-completada { background: rgba(148, 163, 184, 0.1); color: #64748b; }
 
+        /* Estilos para citas del Chatbot */
+        .consulta-item.desde-chatbot {
+            background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%);
+            border-left-color: #f59e0b !important;
+            border-left-width: 4px;
+        }
+        .consulta-item.emergencia {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left-color: #ef4444 !important;
+            animation: pulse-emergency 2s infinite;
+        }
+        .consulta-item.urgente-item {
+            background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+            border-left-color: #f97316 !important;
+        }
+        @keyframes pulse-emergency {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        }
+        .badge-chatbot {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            margin-left: 0.5rem;
+        }
+        .badge-chatbot.badge-emergencia {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            animation: pulse-badge 1s infinite;
+        }
+        .badge-chatbot.badge-urgente {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        }
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .consulta-sintomas {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #6d28d9;
+        }
+        .consulta-notas {
+            margin-top: 0.3rem;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+        }
+
         .consulta-paciente {
             font-weight: 600;
             font-size: 1rem;
@@ -1358,10 +1413,46 @@
                 return;
             }
 
-            container.innerHTML = consultas.map(c => `
-                <div class="consulta-item ${c.estado}">
+            container.innerHTML = consultas.map(c => {
+                // Detectar si viene del chatbot
+                const esChatbot = c.origen === 'chatbot' || c.numero_ticket?.startsWith('EMG-') || c.numero_ticket?.startsWith('ESP-');
+                const esEmergencia = c.prioridad === 1 || c.urgencia_reportada === 'emergencia' || c.numero_ticket?.startsWith('EMG-');
+                const esUrgente = c.prioridad === 2 || c.urgencia_reportada === 'urgente';
+                
+                // Badge de origen
+                let badgeOrigen = '';
+                if (esChatbot) {
+                    if (esEmergencia) {
+                        badgeOrigen = '<span class="badge-chatbot badge-emergencia">🚨 EMERGENCIA - Chatbot</span>';
+                    } else if (esUrgente) {
+                        badgeOrigen = '<span class="badge-chatbot badge-urgente">⚠️ URGENTE - Chatbot</span>';
+                    } else {
+                        badgeOrigen = '<span class="badge-chatbot">🤖 Chatbot</span>';
+                    }
+                }
+                
+                // Mostrar síntomas si vienen del chatbot
+                let sintomasHtml = '';
+                if (esChatbot && c.sintomas && c.sintomas.length > 0) {
+                    const sintomasList = Array.isArray(c.sintomas) ? c.sintomas : [c.sintomas];
+                    sintomasHtml = `
+                        <div class="consulta-sintomas">
+                            <strong>🩺 Síntomas reportados:</strong> ${sintomasList.join(', ')}
+                        </div>
+                    `;
+                }
+                
+                // Notas del chatbot
+                let notasHtml = '';
+                if (c.notas_chatbot) {
+                    notasHtml = `<div class="consulta-notas">💬 ${c.notas_chatbot}</div>`;
+                }
+                
+                return `
+                <div class="consulta-item ${c.estado} ${esChatbot ? 'desde-chatbot' : ''} ${esEmergencia ? 'emergencia' : ''} ${esUrgente ? 'urgente-item' : ''}">
                     <div class="consulta-header">
                         <span class="consulta-ticket">${c.numero_ticket}</span>
+                        ${badgeOrigen}
                         <span class="consulta-estado estado-${c.estado}">
                             ${c.estado === 'en_espera' ? '⏳ En Espera' : 
                               c.estado === 'en_atencion' ? '🩺 En Atención' : 
@@ -1372,6 +1463,8 @@
                     <div class="consulta-info">
                         👤 ${c.paciente.propietario} · 📞 ${c.paciente.telefono || 'N/A'}
                     </div>
+                    ${sintomasHtml}
+                    ${notasHtml}
                     ${c.diagnostico ? `<div class="consulta-info" style="margin-top: 0.3rem;">📋 ${c.diagnostico.nombre}</div>` : ''}
                     <div class="consulta-actions">
                         ${tipo === 'cobrar' ? `
@@ -1384,7 +1477,7 @@
                         ` : ''}
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         // ==================== COBRO ====================
