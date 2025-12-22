@@ -50,6 +50,125 @@ def _normalizar_texto(texto):
     texto = re.sub(r'\s+', ' ', texto)
     return texto
 
+
+def _generar_diagnostico_preliminar(sintomas, especie=""):
+    """
+    Genera un diagnóstico preliminar basado en los síntomas reportados.
+    Este es solo orientativo para que el doctor tenga información previa.
+    """
+    if not sintomas:
+        return {
+            "posibles_condiciones": [],
+            "nivel_urgencia": "por_evaluar",
+            "recomendaciones": ["Evaluación general requerida"],
+            "nota": "Sin síntomas reportados - requiere evaluación presencial"
+        }
+    
+    # Normalizar síntomas para búsqueda
+    sintomas_norm = [_normalizar_texto(s) for s in sintomas]
+    sintomas_texto = " ".join(sintomas_norm)
+    
+    # Base de conocimiento de síntomas -> condiciones
+    SINTOMAS_CONDICIONES = {
+        # Urgencias críticas
+        "convulsion": {"condicion": "Posible epilepsia/intoxicación", "urgencia": "critica", "accion": "Atención INMEDIATA"},
+        "envenenamiento": {"condicion": "Intoxicación", "urgencia": "critica", "accion": "Lavado gástrico urgente"},
+        "veneno": {"condicion": "Intoxicación", "urgencia": "critica", "accion": "Lavado gástrico urgente"},
+        "atropello": {"condicion": "Trauma múltiple", "urgencia": "critica", "accion": "Evaluación traumatológica"},
+        "accidente": {"condicion": "Trauma", "urgencia": "critica", "accion": "Evaluación de urgencia"},
+        "sangre": {"condicion": "Hemorragia", "urgencia": "alta", "accion": "Control de sangrado"},
+        "no respira": {"condicion": "Insuficiencia respiratoria", "urgencia": "critica", "accion": "Oxigenoterapia urgente"},
+        "desmayo": {"condicion": "Síncope", "urgencia": "critica", "accion": "Evaluación cardíaca"},
+        "paralisis": {"condicion": "Lesión neurológica", "urgencia": "critica", "accion": "Evaluación neurológica"},
+        
+        # Urgencias altas
+        "vomito con sangre": {"condicion": "Hemorragia digestiva", "urgencia": "alta", "accion": "Endoscopia/Ecografía"},
+        "diarrea con sangre": {"condicion": "Enteritis hemorrágica", "urgencia": "alta", "accion": "Hidratación IV"},
+        "fiebre alta": {"condicion": "Infección sistémica", "urgencia": "alta", "accion": "Antibioterapia"},
+        "no come hace dias": {"condicion": "Anorexia prolongada", "urgencia": "alta", "accion": "Estudios sanguíneos"},
+        "abdomen hinchado": {"condicion": "Posible torsión/obstrucción", "urgencia": "alta", "accion": "Radiografía urgente"},
+        "dificultad respirar": {"condicion": "Distrés respiratorio", "urgencia": "alta", "accion": "Oxigenoterapia"},
+        
+        # Gastrointestinales
+        "vomito": {"condicion": "Gastritis/Gastroenteritis", "urgencia": "media", "accion": "Antiemético + dieta blanda"},
+        "vomitos": {"condicion": "Gastritis/Gastroenteritis", "urgencia": "media", "accion": "Antiemético + dieta blanda"},
+        "diarrea": {"condicion": "Enteritis", "urgencia": "media", "accion": "Probióticos + hidratación"},
+        "no come": {"condicion": "Inapetencia", "urgencia": "media", "accion": "Evaluación general"},
+        "come pasto": {"condicion": "Malestar gástrico", "urgencia": "baja", "accion": "Observación"},
+        
+        # Dermatológicos
+        "picazon": {"condicion": "Dermatitis/Alergia", "urgencia": "baja", "accion": "Antihistamínico"},
+        "rascado": {"condicion": "Dermatitis/Parásitos", "urgencia": "baja", "accion": "Revisión de piel"},
+        "caida pelo": {"condicion": "Alopecia", "urgencia": "baja", "accion": "Raspado cutáneo"},
+        "sarna": {"condicion": "Sarna", "urgencia": "media", "accion": "Antiparasitario"},
+        "pulgas": {"condicion": "Pulicosis", "urgencia": "baja", "accion": "Desparasitación externa"},
+        "garrapatas": {"condicion": "Infestación por garrapatas", "urgencia": "media", "accion": "Remoción + antiparasitario"},
+        
+        # Oftalmológicos
+        "ojo rojo": {"condicion": "Conjuntivitis", "urgencia": "media", "accion": "Colirio antibiótico"},
+        "lagrimeo": {"condicion": "Irritación ocular", "urgencia": "baja", "accion": "Evaluación oftálmica"},
+        "legana": {"condicion": "Infección ocular", "urgencia": "media", "accion": "Colirio + limpieza"},
+        
+        # Otológicos
+        "oido": {"condicion": "Otitis", "urgencia": "media", "accion": "Otoscopía + gotas óticas"},
+        "sacude cabeza": {"condicion": "Otitis/Cuerpo extraño", "urgencia": "media", "accion": "Revisión de oídos"},
+        "mal olor oreja": {"condicion": "Otitis", "urgencia": "media", "accion": "Limpieza + tratamiento"},
+        
+        # Musculoesqueléticos
+        "cojea": {"condicion": "Claudicación", "urgencia": "media", "accion": "Evaluación traumatológica"},
+        "cojera": {"condicion": "Claudicación", "urgencia": "media", "accion": "Radiografía"},
+        "no camina": {"condicion": "Paresia/Dolor severo", "urgencia": "alta", "accion": "Evaluación neurológica"},
+        "dolor pata": {"condicion": "Trauma/Artritis", "urgencia": "media", "accion": "Analgésico + radiografía"},
+        
+        # Urinarios
+        "orina sangre": {"condicion": "Hematuria - Cistitis/Cálculos", "urgencia": "alta", "accion": "Urianálisis + ecografía"},
+        "no orina": {"condicion": "Obstrucción urinaria", "urgencia": "critica", "accion": "Sondaje urgente"},
+        "orina mucho": {"condicion": "Poliuria", "urgencia": "media", "accion": "Perfil renal"},
+        
+        # Respiratorios
+        "tos": {"condicion": "Traqueobronquitis", "urgencia": "media", "accion": "Antitusígeno + radiografía"},
+        "estornudo": {"condicion": "Rinitis", "urgencia": "baja", "accion": "Observación"},
+        "mocos": {"condicion": "Infección respiratoria", "urgencia": "media", "accion": "Antibiótico"},
+        
+        # Comportamentales
+        "decaido": {"condicion": "Letargia - múltiples causas", "urgencia": "media", "accion": "Hemograma + perfil"},
+        "triste": {"condicion": "Depresión/Dolor", "urgencia": "media", "accion": "Evaluación general"},
+        "agresivo": {"condicion": "Dolor/Estrés", "urgencia": "media", "accion": "Evaluación comportamental"},
+        
+        # Preventivos
+        "vacuna": {"condicion": "Control preventivo", "urgencia": "baja", "accion": "Esquema de vacunación"},
+        "desparasitar": {"condicion": "Control preventivo", "urgencia": "baja", "accion": "Antiparasitario"},
+        "control": {"condicion": "Chequeo general", "urgencia": "baja", "accion": "Examen físico completo"},
+        "certificado": {"condicion": "Trámite administrativo", "urgencia": "baja", "accion": "Documentación"}
+    }
+    
+    # Analizar síntomas
+    condiciones_encontradas = []
+    urgencia_maxima = "baja"
+    acciones = []
+    
+    PRIORIDAD_URGENCIA = {"critica": 4, "alta": 3, "media": 2, "baja": 1, "por_evaluar": 0}
+    
+    for sintoma_clave, info in SINTOMAS_CONDICIONES.items():
+        if sintoma_clave in sintomas_texto:
+            condiciones_encontradas.append(info["condicion"])
+            acciones.append(info["accion"])
+            if PRIORIDAD_URGENCIA.get(info["urgencia"], 0) > PRIORIDAD_URGENCIA.get(urgencia_maxima, 0):
+                urgencia_maxima = info["urgencia"]
+    
+    # Eliminar duplicados
+    condiciones_encontradas = list(set(condiciones_encontradas))
+    acciones = list(set(acciones))
+    
+    return {
+        "posibles_condiciones": condiciones_encontradas[:5],
+        "nivel_urgencia": urgencia_maxima,
+        "recomendaciones": acciones[:5],
+        "sintomas_analizados": sintomas,
+        "nota": "Diagnóstico preliminar automático - Requiere confirmación veterinaria"
+    }
+    return texto
+
 # =============================================================================
 # ENDPOINTS DEL BOT
 # =============================================================================
@@ -332,6 +451,9 @@ def agendar_cita():
     # Cargar consultas para generar ticket
     consultas_data = _load_json("consultas.json", default={"consultas": [], "ultimo_ticket": 0})
     
+    # Cargar pacientes existentes
+    pacientes_data = _load_json("pacientes.json", default={"pacientes": []})
+    
     # Generar número de ticket
     ultimo_ticket = consultas_data.get("ultimo_ticket", 0) + 1
     año_actual = datetime.now().year
@@ -346,7 +468,113 @@ def agendar_cita():
     
     numero_ticket = f"{prefijo}-{año_actual}-{str(ultimo_ticket).zfill(4)}"
     
-    # Crear la cita/consulta
+    # =========================================================================
+    # CREAR O ACTUALIZAR FICHA DEL PACIENTE
+    # =========================================================================
+    
+    nombre_mascota = data.get("nombre_mascota", "").strip()
+    especie = data.get("especie", "").strip()
+    raza = data.get("raza", "").strip()
+    propietario = data.get("propietario", "").strip()
+    telefono = data.get("telefono", "").strip()
+    email = data.get("email", "").strip()
+    edad = data.get("edad", "").strip()
+    peso = data.get("peso", "").strip()
+    sexo = data.get("sexo", "").strip()
+    
+    # Procesar síntomas
+    sintomas_raw = data.get("sintomas", "")
+    if isinstance(sintomas_raw, str):
+        sintomas_lista = [s.strip() for s in sintomas_raw.split(",") if s.strip()]
+    else:
+        sintomas_lista = sintomas_raw if sintomas_raw else []
+    
+    # Buscar si el paciente ya existe (por nombre + teléfono del tutor)
+    paciente_existente = None
+    paciente_id = None
+    
+    for p in pacientes_data.get("pacientes", []):
+        tutor = p.get("tutor", {})
+        if (p.get("nombre", "").lower() == nombre_mascota.lower() and 
+            tutor.get("telefono", "").replace(" ", "") == telefono.replace(" ", "")):
+            paciente_existente = p
+            paciente_id = p.get("id")
+            break
+    
+    if paciente_existente:
+        # Actualizar paciente existente con nueva información
+        if especie and not paciente_existente.get("especie"):
+            paciente_existente["especie"] = especie.capitalize()
+        if raza and not paciente_existente.get("raza"):
+            paciente_existente["raza"] = raza.capitalize()
+        if edad:
+            paciente_existente["edad"] = edad
+        if peso:
+            paciente_existente["peso"] = peso
+            # Agregar al historial de peso
+            if "historial_peso" not in paciente_existente:
+                paciente_existente["historial_peso"] = []
+            paciente_existente["historial_peso"].append({
+                "peso": peso,
+                "fecha": datetime.now().strftime("%Y-%m-%d"),
+                "registrado_por": "Chatbot"
+            })
+        if sexo:
+            paciente_existente["sexo"] = sexo.capitalize()
+        if email and not paciente_existente.get("tutor", {}).get("email"):
+            paciente_existente["tutor"]["email"] = email
+        
+        paciente_existente["ultima_visita"] = datetime.now().strftime("%Y-%m-%d")
+        
+        print(f"[bot_api] Paciente existente actualizado: {nombre_mascota} (ID: {paciente_id})")
+    else:
+        # Crear nuevo paciente
+        nuevo_id = max([p.get("id", 0) for p in pacientes_data.get("pacientes", [])] + [0]) + 1
+        paciente_id = nuevo_id
+        
+        nuevo_paciente = {
+            "id": nuevo_id,
+            "nombre": nombre_mascota.capitalize() if nombre_mascota else "Sin nombre",
+            "especie": especie.capitalize() if especie else "No especificada",
+            "raza": raza.capitalize() if raza else "Mestizo",
+            "color": data.get("color", ""),
+            "sexo": sexo.capitalize() if sexo else "No especificado",
+            "fecha_nacimiento": "",
+            "edad": edad if edad else "No especificada",
+            "peso": peso if peso else "No especificado",
+            "microchip": "",
+            "esterilizado": None,
+            "historial_peso": [{
+                "peso": peso,
+                "fecha": datetime.now().strftime("%Y-%m-%d"),
+                "registrado_por": "Chatbot"
+            }] if peso else [],
+            "tutor": {
+                "nombre": propietario.title() if propietario else "No especificado",
+                "rut": "",
+                "telefono": telefono,
+                "email": email,
+                "direccion": "",
+                "comuna": ""
+            },
+            "alergias": [],
+            "condiciones_cronicas": [],
+            "vacunas": [],
+            "fecha_registro": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+            "ultima_visita": datetime.now().strftime("%Y-%m-%d"),
+            "fallecido": False,
+            "historial_consultas": [],
+            "origen_registro": "chatbot"
+        }
+        
+        pacientes_data["pacientes"].append(nuevo_paciente)
+        paciente_existente = nuevo_paciente
+        print(f"[bot_api] Nuevo paciente creado: {nombre_mascota} (ID: {nuevo_id})")
+    
+    # =========================================================================
+    # CREAR LA CONSULTA/CITA
+    # =========================================================================
+    
     nueva_cita = {
         "id": len(consultas_data.get("consultas", [])) + 1,
         "numero_ticket": numero_ticket,
@@ -354,38 +582,58 @@ def agendar_cita():
         "estado": "en_espera",
         "prioridad": config_urgencia["prioridad"],
         "origen": "chatbot",
+        "paciente_id": paciente_id,  # Referencia al paciente
         "paciente": {
-            "nombre": data.get("nombre_mascota"),
-            "especie": data.get("especie", ""),
-            "raza": data.get("raza", ""),
-            "propietario": data.get("propietario"),
-            "telefono": data.get("telefono"),
-            "email": data.get("email", "")
+            "id": paciente_id,
+            "nombre": nombre_mascota,
+            "especie": especie.capitalize() if especie else paciente_existente.get("especie", ""),
+            "raza": raza.capitalize() if raza else paciente_existente.get("raza", ""),
+            "edad": edad if edad else paciente_existente.get("edad", ""),
+            "peso": peso if peso else paciente_existente.get("peso", ""),
+            "sexo": sexo.capitalize() if sexo else paciente_existente.get("sexo", ""),
+            "propietario": propietario,
+            "telefono": telefono,
+            "email": email
         },
-        "sintomas": data.get("sintomas", "").split(",") if isinstance(data.get("sintomas"), str) else data.get("sintomas", []),
-        "motivo_consulta": data.get("sintomas", "Consulta agendada via chatbot"),
+        "sintomas_reportados": sintomas_lista,
+        "sintomas_texto": sintomas_raw if isinstance(sintomas_raw, str) else ", ".join(sintomas_lista),
+        "motivo_consulta": sintomas_raw if sintomas_raw else "Consulta agendada via chatbot",
         "tipo_consulta": tipo_cita,
         "urgencia_reportada": urgencia,
         "especialidad_requerida": data.get("especialidad", ""),
         "notas_chatbot": data.get("notas", ""),
         "registrado_por": "Sistema Chatbot",
         "atendido_por": None,
-        "diagnostico": None,
+        "diagnostico_preliminar": _generar_diagnostico_preliminar(sintomas_lista, especie),
+        "tratamiento_sugerido": None,
         "cobro": None
     }
+    
+    # Agregar consulta al historial del paciente
+    if "historial_consultas" not in paciente_existente:
+        paciente_existente["historial_consultas"] = []
+    paciente_existente["historial_consultas"].append(nueva_cita["id"])
     
     # Guardar la cita
     consultas_data["consultas"].append(nueva_cita)
     consultas_data["ultimo_ticket"] = ultimo_ticket
     
-    # Escribir al archivo
+    # Escribir archivos
+    guardado_ok = True
     try:
-        filepath = os.path.join(_get_base_path(), "consultas.json")
-        with open(filepath, 'w', encoding='utf-8') as f:
+        # Guardar consultas
+        filepath_consultas = os.path.join(_get_base_path(), "consultas.json")
+        with open(filepath_consultas, 'w', encoding='utf-8') as f:
             json.dump(consultas_data, f, ensure_ascii=False, indent=2)
-        guardado_ok = True
+        
+        # Guardar pacientes
+        filepath_pacientes = os.path.join(_get_base_path(), "pacientes.json")
+        with open(filepath_pacientes, 'w', encoding='utf-8') as f:
+            json.dump(pacientes_data, f, ensure_ascii=False, indent=2)
+            
+        print(f"[bot_api] Cita guardada: {numero_ticket}, Paciente ID: {paciente_id}")
     except Exception as e:
-        print(f"[bot_api] Error guardando cita: {e}")
+        print(f"[bot_api] Error guardando cita/paciente: {e}")
         guardado_ok = False
     
     # Generar mensaje según urgencia
