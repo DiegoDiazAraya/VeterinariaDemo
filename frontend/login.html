@@ -517,15 +517,749 @@
         </div>
     </div>
 
+    <!-- ========== CHATBOX WIDGET ========== -->
+    <div id="chatbox-container" class="chatbox-container">
+        <!-- Botón flotante -->
+        <button id="chatbox-toggle" class="chatbox-toggle" onclick="toggleChatbox()">
+            <span class="chat-icon">💬</span>
+            <span class="close-icon">✕</span>
+        </button>
+        
+        <!-- Ventana de chat -->
+        <div id="chatbox-window" class="chatbox-window">
+            <div class="chatbox-header">
+                <div class="chatbox-header-info">
+                    <div class="chatbox-avatar">🐾</div>
+                    <div class="chatbox-title">
+                        <h4>Asistente BetterDoctor</h4>
+                        <span class="chatbox-status">● En línea</span>
+                    </div>
+                </div>
+                <button class="chatbox-close" onclick="toggleChatbox()">✕</button>
+            </div>
+            
+            <div id="chatbox-messages" class="chatbox-messages">
+                <div class="chat-message bot">
+                    <div class="message-avatar">🐾</div>
+                    <div class="message-content">
+                        <p>¡Hola! 👋 Soy el asistente virtual de BetterDoctor.</p>
+                        <p>Puedo ayudarte con:</p>
+                        <ul>
+                            <li>🔍 Consultar disponibilidad de productos</li>
+                            <li>🩺 Evaluar síntomas de tu mascota</li>
+                            <li>📅 Agendar citas veterinarias</li>
+                        </ul>
+                        <p>¿En qué puedo ayudarte hoy?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbox-quick-actions">
+                <button onclick="sendQuickMessage('¿Tienen antiparasitarios disponibles?')">💊 Medicamentos</button>
+                <button onclick="sendQuickMessage('Mi mascota tiene vómitos y diarrea')">🩺 Síntomas</button>
+                <button onclick="sendQuickMessage('Quiero agendar una cita')">📅 Agendar cita</button>
+            </div>
+            
+            <div class="chatbox-input-area">
+                <input type="text" id="chatbox-input" placeholder="Escribe tu mensaje..." onkeypress="handleChatKeypress(event)">
+                <button id="chatbox-send" onclick="sendMessage()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* ========== CHATBOX STYLES ========== */
+        .chatbox-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chatbox-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .chatbox-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(8, 145, 178, 0.5);
+        }
+
+        .chatbox-toggle .chat-icon,
+        .chatbox-toggle .close-icon {
+            font-size: 24px;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .chatbox-toggle .close-icon {
+            opacity: 0;
+            transform: rotate(-90deg);
+            color: white;
+            font-size: 20px;
+        }
+
+        .chatbox-container.open .chatbox-toggle .chat-icon {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .chatbox-container.open .chatbox-toggle .close-icon {
+            opacity: 1;
+            transform: rotate(0);
+        }
+
+        .chatbox-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 380px;
+            height: 520px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s ease;
+        }
+
+        .chatbox-container.open .chatbox-window {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .chatbox-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chatbox-header-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chatbox-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .chatbox-title h4 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .chatbox-status {
+            font-size: 12px;
+            opacity: 0.9;
+            color: #4ade80;
+        }
+
+        .chatbox-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .chatbox-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .chatbox-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: #f8fafc;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 10px;
+            max-width: 90%;
+            animation: messageIn 0.3s ease;
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-message.bot {
+            align-self: flex-start;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .chat-message.user .message-avatar {
+            background: var(--secondary);
+        }
+
+        .message-content {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border-top-left-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-message.user .message-content {
+            background: var(--primary);
+            color: white;
+            border-radius: 16px;
+            border-top-right-radius: 4px;
+        }
+
+        .message-content p {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .message-content ul {
+            margin: 8px 0;
+            padding-left: 20px;
+            font-size: 13px;
+        }
+
+        .message-content li {
+            margin: 4px 0;
+        }
+
+        .chatbox-quick-actions {
+            padding: 8px 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chatbox-quick-actions button {
+            padding: 6px 12px;
+            border: 1px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .chatbox-quick-actions button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .chatbox-input-area {
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 10px;
+        }
+
+        #chatbox-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        #chatbox-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        #chatbox-send {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        #chatbox-send:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        #chatbox-send svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--gray-400);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .chatbox-window {
+                width: calc(100vw - 32px);
+                height: calc(100vh - 120px);
+                bottom: 72px;
+                right: -8px;
+            }
+        }
+    </style>
+
     <script>
         const API_URL = window.location.hostname === 'localhost' 
             ? 'http://localhost:5000' 
             : window.location.origin;
 
+        // ========== CHATBOX STATE ==========
+        let chatContext = {
+            lastIntent: null,
+            pacienteNombre: null,
+            pacienteEspecie: null,
+            tutorNombre: null,
+            tutorTelefono: null,
+            sintomas: [],
+            waitingFor: null
+        };
+
+        function toggleChatbox() {
+            const container = document.getElementById('chatbox-container');
+            container.classList.toggle('open');
+            if (container.classList.contains('open')) {
+                document.getElementById('chatbox-input').focus();
+            }
+        }
+
+        function handleChatKeypress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendQuickMessage(text) {
+            document.getElementById('chatbox-input').value = text;
+            sendMessage();
+        }
+
+        function addMessage(content, isUser = false) {
+            const messagesContainer = document.getElementById('chatbox-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isUser ? 'user' : 'bot'}`;
+            
+            const avatar = isUser ? '👤' : '🐾';
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${avatar}</div>
+                <div class="message-content">${content}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            const messagesContainer = document.getElementById('chatbox-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message bot';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">🐾</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatbox-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage(`<p>${message}</p>`, true);
+            input.value = '';
+            
+            showTyping();
+            
+            try {
+                const response = await processMessage(message);
+                hideTyping();
+                addMessage(response);
+            } catch (error) {
+                hideTyping();
+                addMessage('<p>Lo siento, hubo un error. Por favor intenta de nuevo.</p>');
+            }
+        }
+
+        async function processMessage(message) {
+            const msgLower = message.toLowerCase();
+            
+            // Detectar si está esperando información específica
+            if (chatContext.waitingFor) {
+                return await handleWaitingResponse(message);
+            }
+            
+            // Detectar intención
+            if (containsAny(msgLower, ['producto', 'medicamento', 'tienen', 'hay', 'stock', 'disponible', 'antiparasitario', 'vacuna', 'simparica', 'nexgard', 'bravecto', 'alimento', 'comida'])) {
+                return await handleInventoryQuery(message);
+            }
+            
+            if (containsAny(msgLower, ['sintoma', 'enfermo', 'vomit', 'diarrea', 'tos', 'fiebre', 'no come', 'decaido', 'dolor', 'sangre', 'herida', 'cojea', 'rascarse', 'picazon'])) {
+                return await handleSymptomQuery(message);
+            }
+            
+            if (containsAny(msgLower, ['cita', 'agendar', 'reservar', 'turno', 'consulta', 'hora', 'atencion', 'veterinario'])) {
+                return handleAppointmentStart();
+            }
+            
+            if (containsAny(msgLower, ['hola', 'buenos', 'buenas', 'hey', 'hi'])) {
+                return `<p>¡Hola! 👋 ¿En qué puedo ayudarte hoy?</p>
+                        <p>Puedo asistirte con:</p>
+                        <ul>
+                            <li>🔍 Disponibilidad de productos</li>
+                            <li>🩺 Evaluación de síntomas</li>
+                            <li>📅 Agendar citas</li>
+                        </ul>`;
+            }
+            
+            if (containsAny(msgLower, ['gracias', 'thanks', 'genial', 'perfecto'])) {
+                return `<p>¡De nada! 😊 ¿Hay algo más en lo que pueda ayudarte?</p>`;
+            }
+            
+            // Respuesta por defecto
+            return `<p>No estoy seguro de entender tu consulta. 🤔</p>
+                    <p>Puedo ayudarte con:</p>
+                    <ul>
+                        <li>📦 "¿Tienen Simparica?" - para consultar productos</li>
+                        <li>🩺 "Mi perro tiene vómitos" - para evaluar síntomas</li>
+                        <li>📅 "Quiero agendar una cita" - para reservar</li>
+                    </ul>`;
+        }
+
+        function containsAny(text, keywords) {
+            return keywords.some(keyword => text.includes(keyword));
+        }
+
+        async function handleInventoryQuery(message) {
+            // Extraer producto de la consulta
+            const palabras = message.toLowerCase().split(/\s+/);
+            const stopWords = ['tienen', 'hay', 'tienes', 'el', 'la', 'un', 'una', 'de', 'para', 'que', 'en', 'disponible', 'stock', 'producto', 'medicamento', 'busco', 'necesito', 'quiero'];
+            const producto = palabras.filter(p => !stopWords.includes(p) && p.length > 2).join(' ');
+            
+            if (!producto) {
+                return `<p>¿Qué producto te gustaría consultar? 🔍</p>
+                        <p>Por ejemplo: antiparasitarios, vacunas, alimentos, etc.</p>`;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/api/bot/inventario?q=${encodeURIComponent(producto)}`);
+                const data = await response.json();
+                
+                if (data.encontrados && data.encontrados > 0) {
+                    let html = `<p>✅ Encontré <strong>${data.encontrados}</strong> producto(s) relacionados:</p><ul>`;
+                    
+                    data.productos.slice(0, 5).forEach(prod => {
+                        const disponible = prod.stock > 0;
+                        const icon = disponible ? '✅' : '❌';
+                        html += `<li>${icon} <strong>${prod.nombre}</strong> - ${disponible ? 'Disponible' : 'Sin stock'}</li>`;
+                    });
+                    
+                    html += '</ul>';
+                    
+                    if (data.encontrados > 5) {
+                        html += `<p><em>...y ${data.encontrados - 5} más</em></p>`;
+                    }
+                    
+                    html += `<p>¿Te gustaría saber más detalles o agendar una cita? 📅</p>`;
+                    return html;
+                } else {
+                    return `<p>No encontré productos con "${producto}" 😔</p>
+                            <p>¿Podrías ser más específico o probar con otro nombre?</p>`;
+                }
+            } catch (error) {
+                console.error('Error consultando inventario:', error);
+                return `<p>Hubo un problema al consultar el inventario. Por favor intenta de nuevo.</p>`;
+            }
+        }
+
+        async function handleSymptomQuery(message) {
+            // Extraer síntomas del mensaje
+            const sintomasDetectados = [];
+            const sintomasKeywords = {
+                'vomito': ['vomit', 'vómito', 'devuelve', 'arcadas'],
+                'diarrea': ['diarrea', 'heces', 'deposiciones', 'liquidas'],
+                'fiebre': ['fiebre', 'caliente', 'temperatura'],
+                'letargia': ['decaido', 'cansado', 'no se mueve', 'debil', 'apatico'],
+                'inapetencia': ['no come', 'sin apetito', 'no quiere comer', 'dejó de comer'],
+                'tos': ['tos', 'tose', 'tosiendo'],
+                'dolor': ['dolor', 'queja', 'llora', 'gime', 'aulla'],
+                'cojera': ['cojea', 'cojera', 'no apoya', 'pata'],
+                'picazon': ['rasca', 'picazon', 'comezón', 'rascarse'],
+                'sangrado': ['sangre', 'sangrado', 'hemorragia']
+            };
+            
+            const msgLower = message.toLowerCase();
+            for (const [sintoma, keywords] of Object.entries(sintomasKeywords)) {
+                if (keywords.some(k => msgLower.includes(k))) {
+                    sintomasDetectados.push(sintoma);
+                }
+            }
+            
+            if (sintomasDetectados.length === 0) {
+                chatContext.waitingFor = 'sintomas';
+                return `<p>Entiendo que tu mascota no se siente bien 😟</p>
+                        <p>¿Podrías describirme los síntomas específicos que presenta?</p>
+                        <p><em>Por ejemplo: vómitos, diarrea, no come, está decaído, etc.</em></p>`;
+            }
+            
+            chatContext.sintomas = sintomasDetectados;
+            
+            try {
+                const response = await fetch(`${API_URL}/api/bot/diagnostico`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sintomas: sintomasDetectados })
+                });
+                
+                const data = await response.json();
+                
+                let html = `<p>Basándome en los síntomas descritos (<strong>${sintomasDetectados.join(', ')}</strong>), aquí está mi evaluación:</p>`;
+                
+                if (data.nivel_urgencia === 'alto') {
+                    html += `<p style="color: #ef4444; font-weight: 600;">🚨 URGENCIA ALTA - Te recomiendo acudir a la veterinaria lo antes posible.</p>`;
+                } else if (data.nivel_urgencia === 'medio') {
+                    html += `<p style="color: #f59e0b; font-weight: 600;">⚠️ URGENCIA MEDIA - Es importante una consulta pronto.</p>`;
+                } else {
+                    html += `<p style="color: #10b981;">✅ No parece ser una emergencia, pero siempre es bueno consultar.</p>`;
+                }
+                
+                if (data.posibles_diagnosticos && data.posibles_diagnosticos.length > 0) {
+                    html += `<p>Posibles condiciones a evaluar:</p><ul>`;
+                    data.posibles_diagnosticos.slice(0, 3).forEach(dx => {
+                        html += `<li>${dx.nombre}</li>`;
+                    });
+                    html += '</ul>';
+                }
+                
+                html += `<p><strong>¿Te gustaría agendar una cita ahora?</strong> 📅</p>`;
+                
+                chatContext.lastIntent = 'sintomas';
+                return html;
+                
+            } catch (error) {
+                console.error('Error en diagnóstico:', error);
+                return `<p>No pude procesar los síntomas. Sin embargo, si tu mascota presenta estos síntomas, te recomiendo consultar con un veterinario.</p>
+                        <p>¿Quieres que te ayude a agendar una cita? 📅</p>`;
+            }
+        }
+
+        function handleAppointmentStart() {
+            chatContext.waitingFor = 'nombre_mascota';
+            chatContext.lastIntent = 'cita';
+            
+            return `<p>¡Perfecto! Vamos a agendar tu cita 📅</p>
+                    <p>Por favor, dime el <strong>nombre de tu mascota</strong>:</p>`;
+        }
+
+        async function handleWaitingResponse(message) {
+            const waiting = chatContext.waitingFor;
+            
+            if (waiting === 'sintomas') {
+                chatContext.waitingFor = null;
+                return await handleSymptomQuery(message);
+            }
+            
+            if (waiting === 'nombre_mascota') {
+                chatContext.pacienteNombre = message.trim();
+                chatContext.waitingFor = 'especie';
+                return `<p>Gracias. <strong>${chatContext.pacienteNombre}</strong> 🐾</p>
+                        <p>¿Qué tipo de mascota es? (perro, gato, otro)</p>`;
+            }
+            
+            if (waiting === 'especie') {
+                chatContext.pacienteEspecie = message.trim().toLowerCase();
+                chatContext.waitingFor = 'nombre_tutor';
+                return `<p>Entendido, un <strong>${chatContext.pacienteEspecie}</strong>.</p>
+                        <p>¿Cuál es tu nombre completo?</p>`;
+            }
+            
+            if (waiting === 'nombre_tutor') {
+                chatContext.tutorNombre = message.trim();
+                chatContext.waitingFor = 'telefono';
+                return `<p>Gracias, <strong>${chatContext.tutorNombre}</strong>.</p>
+                        <p>¿Cuál es tu número de teléfono de contacto? 📱</p>`;
+            }
+            
+            if (waiting === 'telefono') {
+                chatContext.tutorTelefono = message.trim();
+                chatContext.waitingFor = null;
+                
+                // Crear la cita
+                return await createAppointment();
+            }
+            
+            return `<p>Lo siento, no entendí. ¿Podrías repetir?</p>`;
+        }
+
+        async function createAppointment() {
+            const esUrgente = chatContext.sintomas.length > 0 && 
+                containsAny(chatContext.sintomas.join(' '), ['vomito', 'sangrado', 'dolor', 'fiebre']);
+            
+            try {
+                const response = await fetch(`${API_URL}/api/bot/agendar-cita`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nombre_mascota: chatContext.pacienteNombre,
+                        especie: chatContext.pacienteEspecie,
+                        nombre_tutor: chatContext.tutorNombre,
+                        telefono: chatContext.tutorTelefono,
+                        sintomas: chatContext.sintomas.join(', ') || 'Consulta general',
+                        es_urgente: esUrgente
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.exito) {
+                    let html = `<p>🎉 <strong>¡Cita registrada exitosamente!</strong></p>`;
+                    html += `<p>📋 <strong>Ticket:</strong> ${data.ticket || 'Pendiente'}</p>`;
+                    html += `<p>🐾 <strong>Paciente:</strong> ${chatContext.pacienteNombre} (${chatContext.pacienteEspecie})</p>`;
+                    html += `<p>👤 <strong>Tutor:</strong> ${chatContext.tutorNombre}</p>`;
+                    
+                    if (esUrgente) {
+                        html += `<p style="color: #ef4444; font-weight: 600;">🚨 Se ha marcado como URGENTE</p>`;
+                    }
+                    
+                    html += `<p>Nos pondremos en contacto contigo pronto al 📱 ${chatContext.tutorTelefono}</p>`;
+                    html += `<p>¡Gracias por confiar en BetterDoctor! 🏥</p>`;
+                    
+                    // Limpiar contexto
+                    chatContext = {
+                        lastIntent: null,
+                        pacienteNombre: null,
+                        pacienteEspecie: null,
+                        tutorNombre: null,
+                        tutorTelefono: null,
+                        sintomas: [],
+                        waitingFor: null
+                    };
+                    
+                    return html;
+                } else {
+                    return `<p>❌ No se pudo registrar la cita: ${data.mensaje || 'Error desconocido'}</p>
+                            <p>Por favor, intenta de nuevo o llámanos directamente.</p>`;
+                }
+            } catch (error) {
+                console.error('Error al agendar cita:', error);
+                return `<p>Hubo un problema al agendar la cita. Por favor intenta de nuevo.</p>`;
+            }
+        }
+
+        // ========== LOGIN FUNCTIONS ==========
         function fillDemo(usuario, password) {
             document.getElementById('usuario').value = usuario;
             document.getElementById('password').value = password;
-            // Auto submit después de llenar
             document.getElementById('loginForm').dispatchEvent(new Event('submit'));
         }
 
@@ -553,7 +1287,6 @@
                 if (data.exito) {
                     localStorage.setItem('vetclinic_user', JSON.stringify(data.usuario));
                     
-                    // Redirección según rol
                     const rol = data.usuario.rol;
                     if (rol === 'admin' || rol === 'superadmin' || rol === 'administracion') {
                         window.location.href = 'superadmin.html';
