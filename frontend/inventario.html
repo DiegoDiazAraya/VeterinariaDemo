@@ -491,25 +491,235 @@
         .section { display: none; }
         .section.active { display: block; }
         
-        /* Responsive */
+        /* ========== RESPONSIVE STYLES ========== */
+        @media (max-width: 1200px) {
+            .sidebar { width: 220px; }
+            .alerts-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar { width: 200px; }
+            .sidebar-menu a,
+            .sidebar-menu button {
+                padding: 0.65rem 0.85rem;
+                font-size: 0.85rem;
+            }
+            .alerts-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .main-container { flex-direction: column; }
-            .alerts-grid { grid-template-columns: 1fr 1fr; }
+            .header {
+                padding: 0.65rem 1rem;
+            }
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            .header-nav {
+                gap: 0.3rem;
+            }
+            .header-nav a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                display: none;
+                position: fixed;
+                top: 52px;
+                left: 0;
+                bottom: 0;
+                width: 250px;
+                z-index: 999;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.mobile-open {
+                display: block;
+                transform: translateX(0);
+            }
+            .content {
+                padding: 1rem;
+            }
+            .alerts-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+            .alert-card {
+                padding: 1rem;
+            }
+            .alert-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            .alert-value {
+                font-size: 1.25rem;
+            }
+            .alert-label {
+                font-size: 0.7rem;
+            }
+            .card {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            .card-header {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .card-title {
+                font-size: 1rem;
+            }
+            .search-filters {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+            table {
+                font-size: 0.8rem;
+            }
+            th, td {
+                padding: 0.6rem 0.4rem;
+            }
+            .action-btns {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 0.5rem 0.75rem;
+            }
+            .header h1 {
+                font-size: 1rem;
+            }
+            .header-nav a {
+                padding: 0.35rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            .content {
+                padding: 0.75rem;
+            }
+            .alerts-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .alert-card {
+                padding: 0.875rem;
+                border-radius: 12px;
+            }
+            .alert-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .alert-value {
+                font-size: 1.1rem;
+            }
+            .card {
+                padding: 0.875rem;
+                margin-bottom: 1rem;
+            }
+            /* Tabla horizontal scroll */
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            table {
+                min-width: 550px;
+            }
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px; /* Evita zoom iOS */
+            }
+        }
+
+        @media (max-width: 400px) {
+            .alerts-grid {
+                grid-template-columns: 1fr;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Overlay para móvil */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 52px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .desktop-only {
+            display: inline-flex;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-only {
+                display: none !important;
+            }
         }
     </style>
 </head>
 <body>
     <header class="header" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
-        <h1>📦 VetClinic - Gestión de Inventario</h1>
+        <h1>📦 <span class="desktop-only">VetClinic - </span>Inventario</h1>
         <nav class="header-nav">
-            <span id="user-name">Encargado</span>
-            <a href="superadmin.html">👑 Super Admin</a>
-            <a href="index.html">🩺 Veterinario</a>
-            <a href="recepcion.html">📋 Recepción</a>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            <span id="user-name" class="desktop-only">Encargado</span>
+            <a href="superadmin.html" class="desktop-only">👑 Admin</a>
+            <a href="index.html" class="desktop-only">🩺 Veterinario</a>
+            <a href="recepcion.html" class="desktop-only">📋 Recepción</a>
             <a href="login.html" onclick="localStorage.removeItem('vetclinic_user')">🚪 Salir</a>
         </nav>
     </header>
+    
+    <div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
     
     <div class="main-container">
         <aside class="sidebar">
@@ -1026,6 +1236,14 @@
             : window.location.origin;
         let alertasData = null;
         let productoParaIngreso = null;
+
+        // Toggle menú móvil
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
         
         // Check auth
         const user = JSON.parse(localStorage.getItem('vetclinic_user') || 'null');

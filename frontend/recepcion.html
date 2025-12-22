@@ -771,8 +771,193 @@
         }
         .empty-icon { font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.5; }
 
+        /* ========== RESPONSIVE STYLES ========== */
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 380px 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+        }
+
         @media (max-width: 1024px) {
-            .main-container { grid-template-columns: 1fr; }
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+            .header-content {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+            }
+            .user-info {
+                gap: 0.5rem;
+                font-size: 0.85rem;
+            }
+            .btn-logout {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            .main-container {
+                padding: 0.75rem;
+                gap: 1rem;
+            }
+            .card {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            .card-header {
+                margin-bottom: 1rem;
+                padding-bottom: 0.75rem;
+            }
+            .card-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+            }
+            .card-title {
+                font-size: 1rem;
+            }
+            .search-paciente-section {
+                padding: 0.875rem;
+            }
+            .search-wrapper input {
+                padding: 0.65rem 1rem 0.65rem 2.25rem;
+                font-size: 16px; /* Evita zoom iOS */
+            }
+            .consulta-item {
+                padding: 1rem;
+            }
+            .consulta-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .consulta-paciente {
+                font-size: 1rem;
+            }
+            .consulta-sintomas {
+                gap: 0.3rem;
+            }
+            .sintoma-tag {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.5rem;
+            }
+            .paciente-ficha {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            .paciente-dato {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+            .diagnostico-preliminar {
+                padding: 0.75rem;
+            }
+            .condicion-tag {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.4rem;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px; /* Evita zoom iOS */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 0.5rem 0.75rem;
+            }
+            .logo {
+                gap: 0.5rem;
+            }
+            .logo h1 {
+                font-size: 1.1rem;
+            }
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            .user-info {
+                font-size: 0.8rem;
+            }
+            .user-info span:first-child {
+                display: none;
+            }
+            .btn-logout {
+                padding: 0.35rem 0.5rem;
+                font-size: 0.75rem;
+            }
+            .main-container {
+                padding: 0.5rem;
+            }
+            .card {
+                padding: 0.875rem;
+                border-radius: 10px;
+            }
+            .paciente-ficha {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.4rem;
+            }
+            .paciente-dato {
+                padding: 0.4rem;
+                font-size: 0.7rem;
+            }
+            .consulta-item {
+                padding: 0.875rem;
+            }
+            .consulta-ticket {
+                font-size: 0.75rem;
+            }
+            .consulta-hora {
+                font-size: 0.7rem;
+            }
+            .consulta-paciente {
+                font-size: 0.95rem;
+            }
+            .consulta-propietario {
+                font-size: 0.75rem;
+            }
+            .btn-accion {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .stats-mini {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .stat-item {
+                font-size: 0.75rem;
+            }
+            .search-result-item {
+                padding: 0.6rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .paciente-ficha {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+                justify-content: space-between;
+            }
+            .logo h1 {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>

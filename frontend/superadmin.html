@@ -473,16 +473,223 @@
         }
         .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-500); }
         
-        /* Responsive */
-        @media (max-width: 1024px) {
+        /* ========== RESPONSIVE STYLES ========== */
+        @media (max-width: 1200px) {
             .sidebar { width: 200px; }
-            .main-content { margin-left: 200px; }
+            .main-content { margin-left: 200px; padding: 1.25rem; }
             .grid-2 { grid-template-columns: 1fr; }
+            .kpi-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .main-content { margin-left: 0; }
+
+        @media (max-width: 1024px) {
+            .sidebar { width: 180px; }
+            .main-content { margin-left: 180px; padding: 1rem; }
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .sidebar-menu button { padding: 0.6rem 0.75rem; font-size: 0.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.65rem 1rem;
+            }
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            .header-nav {
+                gap: 0.3rem;
+            }
+            .header-nav a,
+            .header-nav button {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .app-container {
+                padding-top: 50px;
+            }
+            .sidebar {
+                display: none;
+                position: fixed;
+                top: 50px;
+                left: 0;
+                bottom: 0;
+                width: 240px;
+                z-index: 999;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.mobile-open {
+                display: block;
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 0.875rem;
+            }
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+            .kpi-card {
+                padding: 1rem;
+            }
+            .kpi-value {
+                font-size: 1.25rem;
+            }
+            .kpi-label {
+                font-size: 0.7rem;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            .page-title {
+                font-size: 1.25rem;
+            }
+            .card {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            .card-header {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            table {
+                font-size: 0.8rem;
+            }
+            th, td {
+                padding: 0.6rem 0.5rem;
+            }
+            .action-btns {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            .btn-icon {
+                padding: 0.3rem 0.5rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 0.5rem 0.75rem;
+            }
+            .header h1 {
+                font-size: 1rem;
+            }
+            .header-nav a,
+            .header-nav button {
+                padding: 0.35rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            .main-content {
+                padding: 0.5rem;
+            }
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .kpi-card {
+                padding: 0.875rem;
+                border-radius: 12px;
+            }
+            .kpi-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            .kpi-value {
+                font-size: 1.1rem;
+            }
+            .page-title {
+                font-size: 1.1rem;
+            }
+            .card {
+                padding: 0.875rem;
+                border-radius: 10px;
+                margin-bottom: 1rem;
+            }
+            .card-title {
+                font-size: 0.95rem;
+            }
+            /* Tabla horizontal scroll */
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            table {
+                min-width: 600px;
+            }
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            .modal-header h3 {
+                font-size: 1rem;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px; /* Evita zoom iOS */
+            }
+        }
+
+        @media (max-width: 400px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 span {
+                display: none;
+            }
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Overlay para móvil */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .desktop-only {
+            display: inline-flex;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-only {
+                display: none !important;
+            }
         }
 
         /* Timeline */
@@ -513,15 +720,18 @@
 </head>
 <body>
     <header class="header">
-        <h1>👑 VetClinic - Super Admin</h1>
+        <h1>👑 <span>VetClinic - </span>Super Admin</h1>
         <nav class="header-nav">
-            <span id="fecha-hora"></span>
-            <a href="index.html">🩺 Veterinario</a>
-            <a href="recepcion.html">📋 Recepción</a>
-            <a href="inventario.html">📦 Inventario</a>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            <span id="fecha-hora" class="desktop-only"></span>
+            <a href="index.html" class="desktop-only">🩺 Veterinario</a>
+            <a href="recepcion.html" class="desktop-only">📋 Recepción</a>
+            <a href="inventario.html" class="desktop-only">📦 Inventario</a>
             <button onclick="logout()">🚪 Salir</button>
         </nav>
     </header>
+    
+    <div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
     
     <div class="app-container">
         <aside class="sidebar">
@@ -1924,6 +2134,14 @@
             cargarTutores();
         }
         
+        // Toggle menú móvil
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
+
         function logout() {
             localStorage.removeItem('vetclinic_user');
             window.location.href = 'login.html';
