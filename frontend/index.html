@@ -1979,17 +1979,22 @@
                     return;
                 }
 
-                container.innerHTML = data.consultas.map(c => `
+                container.innerHTML = data.consultas.map(c => {
+                    // Compatibilidad: usar sintomas_reportados o sintomas
+                    const sintomas = c.sintomas_reportados || c.sintomas || [];
+                    const sintomasArray = Array.isArray(sintomas) ? sintomas : [sintomas];
+                    
+                    return `
                     <div class="queue-item ${c.id === consultaActual?.id ? 'active' : ''}" onclick="seleccionarPaciente(${c.id})">
                         <div class="queue-header">
                             <span class="queue-ticket">${c.numero_ticket}</span>
                             <span class="queue-time">${formatTime(c.fecha_registro)}</span>
                         </div>
-                        <div class="queue-pet">🐾 ${c.paciente.nombre} (${c.paciente.especie})</div>
-                        <div class="queue-owner">👤 ${c.paciente.propietario}</div>
+                        <div class="queue-pet">🐾 ${c.paciente?.nombre || 'Sin nombre'} (${c.paciente?.especie || 'N/A'})</div>
+                        <div class="queue-owner">👤 ${c.paciente?.propietario || 'Sin propietario'}</div>
                         <div class="queue-sintomas">
-                            ${c.sintomas.slice(0, 3).map(s => `<span class="sintoma-mini">${s}</span>`).join('')}
-                            ${c.sintomas.length > 3 ? `<span class="sintoma-mini">+${c.sintomas.length - 3}</span>` : ''}
+                            ${sintomasArray.length > 0 ? sintomasArray.slice(0, 3).map(s => `<span class="sintoma-mini">${s}</span>`).join('') : '<span class="sintoma-mini">Sin síntomas</span>'}
+                            ${sintomasArray.length > 3 ? `<span class="sintoma-mini">+${sintomasArray.length - 3}</span>` : ''}
                         </div>
                         ${c.estado === 'en_espera' ? `
                             <button class="btn-atender" onclick="event.stopPropagation(); iniciarAtencion(${c.id})">
@@ -2001,7 +2006,7 @@
                             </button>
                         `}
                     </div>
-                `).join('');
+                `}).join('');
             } catch (error) {
                 console.error('Error:', error);
             }
