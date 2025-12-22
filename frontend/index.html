@@ -1393,8 +1393,8 @@
             }
             
             // Verificar que no esté duplicado
-            const sintomasActuales = consultaActual?.sintomas || [];
-            const todosLos = [...sintomasActuales, ...sintomasAgregados];
+            const sintomasActuales = consultaActual?.sintomas || consultaActual?.sintomas_reportados || [];
+            const todosLos = [...(Array.isArray(sintomasActuales) ? sintomasActuales : []), ...sintomasAgregados];
             if (todosLos.some(s => s.toLowerCase() === sintoma.toLowerCase())) {
                 alert('Este síntoma ya existe');
                 input.value = '';
@@ -1406,7 +1406,8 @@
             input.value = '';
             
             // Actualizar contador
-            const total = (consultaActual?.sintomas?.length || 0) + sintomasAgregados.length;
+            const sintomasBase = consultaActual?.sintomas || consultaActual?.sintomas_reportados || [];
+            const total = (Array.isArray(sintomasBase) ? sintomasBase.length : 0) + sintomasAgregados.length;
             document.getElementById('count-sintomas').textContent = total;
         }
         
@@ -1415,13 +1416,18 @@
             renderizarSintomas();
             
             // Actualizar contador
-            const total = (consultaActual?.sintomas?.length || 0) + sintomasAgregados.length;
+            const sintomasBase2 = consultaActual?.sintomas || consultaActual?.sintomas_reportados || [];
+            const total = (Array.isArray(sintomasBase2) ? sintomasBase2.length : 0) + sintomasAgregados.length;
             document.getElementById('count-sintomas').textContent = total;
         }
         
         function renderizarSintomas() {
             const container = document.getElementById('sintomas-reportados');
-            const sintomasRecepcion = consultaActual?.sintomas || [];
+            // Compatibilidad: usar sintomas o sintomas_reportados
+            let sintomasRecepcion = consultaActual?.sintomas || consultaActual?.sintomas_reportados || [];
+            if (!Array.isArray(sintomasRecepcion)) {
+                sintomasRecepcion = typeof sintomasRecepcion === 'string' ? [sintomasRecepcion] : [];
+            }
             
             let html = sintomasRecepcion.map(s => 
                 `<span class="sintoma-tag">${s}</span>`
@@ -1439,7 +1445,8 @@
         }
         
         async function recalcularDiagnosticos() {
-            const sintomasRecepcion = consultaActual?.sintomas || [];
+            let sintomasRecepcion = consultaActual?.sintomas || consultaActual?.sintomas_reportados || [];
+            if (!Array.isArray(sintomasRecepcion)) sintomasRecepcion = [];
             const todosSintomas = [...sintomasRecepcion, ...sintomasAgregados];
             
             if (todosSintomas.length === 0) {
@@ -2195,7 +2202,8 @@
 
         // Buscar diagnósticos
         async function buscarDiagnosticos() {
-            const sintomasRecepcion = consultaActual?.sintomas || [];
+            let sintomasRecepcion = consultaActual?.sintomas || consultaActual?.sintomas_reportados || [];
+            if (!Array.isArray(sintomasRecepcion)) sintomasRecepcion = [];
             const todosSintomas = [...sintomasRecepcion, ...sintomasAgregados];
             
             if (todosSintomas.length === 0) {
@@ -2553,7 +2561,8 @@
             const tratamiento = document.getElementById('tratamiento-texto').value;
             
             // Incluir todos los síntomas (recepción + agregados por doctor)
-            const sintomasRecepcion = consultaActual?.sintomas || [];
+            let sintomasRecepcion = consultaActual?.sintomas || consultaActual?.sintomas_reportados || [];
+            if (!Array.isArray(sintomasRecepcion)) sintomasRecepcion = [];
             const todosSintomas = [...sintomasRecepcion, ...sintomasAgregados];
             
             const dataEnviar = {
