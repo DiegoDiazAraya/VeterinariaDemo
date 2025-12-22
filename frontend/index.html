@@ -2105,7 +2105,8 @@
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
             
             // Actualizar contador de síntomas en el acordeón
-            document.getElementById('count-sintomas').textContent = c.sintomas.length || 0;
+            const sintomasConsulta = c.sintomas_reportados || c.sintomas || [];
+            document.getElementById('count-sintomas').textContent = Array.isArray(sintomasConsulta) ? sintomasConsulta.length : 0;
             
             // Mostrar peso actual
             document.getElementById('peso-actual-display').textContent = c.paciente.peso || 'No registrado';
