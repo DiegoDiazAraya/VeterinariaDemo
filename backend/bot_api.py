@@ -456,3 +456,216 @@ def agendar_cita():
             """
         }
     })
+
+
+# =============================================================================
+# ENDPOINT DE RECOMENDACIÓN DE ALIMENTOS
+# =============================================================================
+
+@bot_api.route("/api/bot/recomendar-alimento", methods=["POST"])
+def recomendar_alimento():
+    """
+    Recomienda alimentos según la ficha del animal.
+    
+    Body JSON:
+        especie (str): "perro" o "gato"
+        edad (str): "cachorro", "adulto", "senior"
+        peso (float, opcional): Peso en kg
+        condicion_medica (str, opcional): Condición médica del animal
+        raza (str, opcional): Raza del animal
+        
+    Returns:
+        JSON con recomendaciones de alimentos
+    """
+    data = request.get_json() or {}
+    
+    especie = data.get("especie", "").lower()
+    edad = data.get("edad", "adulto").lower()
+    peso = data.get("peso", 0)
+    condicion = data.get("condicion_medica", "").lower()
+    raza = data.get("raza", "").lower()
+    
+    if not especie:
+        return jsonify({
+            "exito": False,
+            "error": "Debes indicar la especie (perro o gato)"
+        }), 400
+    
+    # Base de datos de alimentos recomendados
+    ALIMENTOS_REGULARES = {
+        "perro": {
+            "cachorro": [
+                {"nombre": "Royal Canin Puppy", "descripcion": "Alimento premium para cachorros, favorece desarrollo óseo y muscular", "peso_recomendado": "Todos"},
+                {"nombre": "Hills Science Diet Puppy", "descripcion": "Nutrición balanceada para cachorros en crecimiento", "peso_recomendado": "Todos"},
+                {"nombre": "ProPlan Puppy", "descripcion": "Con DHA para desarrollo cerebral", "peso_recomendado": "Todos"},
+                {"nombre": "Eukanuba Puppy", "descripcion": "Alto contenido proteico para desarrollo muscular", "peso_recomendado": "Todos"}
+            ],
+            "adulto": [
+                {"nombre": "Royal Canin Adult", "descripcion": "Nutrición completa para perros adultos", "peso_recomendado": "Según tamaño"},
+                {"nombre": "Hills Science Diet Adult", "descripcion": "Mantención de peso ideal y salud digestiva", "peso_recomendado": "Todos"},
+                {"nombre": "ProPlan Adult", "descripcion": "Con probióticos para salud intestinal", "peso_recomendado": "Todos"},
+                {"nombre": "Brit Care Adult", "descripcion": "Hipoalergénico, sin granos", "peso_recomendado": "Todos"}
+            ],
+            "senior": [
+                {"nombre": "Royal Canin Senior", "descripcion": "Fórmula para perros mayores de 7 años", "peso_recomendado": "Según tamaño"},
+                {"nombre": "Hills Science Diet Senior 7+", "descripcion": "Apoyo articular y control de peso", "peso_recomendado": "Todos"},
+                {"nombre": "ProPlan Bright Mind", "descripcion": "Con aceites MCT para función cognitiva", "peso_recomendado": "Todos"}
+            ]
+        },
+        "gato": {
+            "cachorro": [
+                {"nombre": "Royal Canin Kitten", "descripcion": "Para gatitos hasta 12 meses", "peso_recomendado": "Todos"},
+                {"nombre": "Hills Science Diet Kitten", "descripcion": "Desarrollo óptimo y sistema inmune", "peso_recomendado": "Todos"},
+                {"nombre": "ProPlan Kitten", "descripcion": "Con calostro para defensas", "peso_recomendado": "Todos"}
+            ],
+            "adulto": [
+                {"nombre": "Royal Canin Adult Indoor", "descripcion": "Para gatos de interior, control de peso", "peso_recomendado": "Todos"},
+                {"nombre": "Hills Science Diet Adult", "descripcion": "Salud urinaria y digestiva", "peso_recomendado": "Todos"},
+                {"nombre": "ProPlan Adult", "descripcion": "Con omega 3 y 6 para pelaje brillante", "peso_recomendado": "Todos"}
+            ],
+            "senior": [
+                {"nombre": "Royal Canin Senior 12+", "descripcion": "Apoyo renal y articular", "peso_recomendado": "Todos"},
+                {"nombre": "Hills Science Diet Senior 11+", "descripcion": "Función cerebral y vitalidad", "peso_recomendado": "Todos"}
+            ]
+        }
+    }
+    
+    # Alimentos terapéuticos según condición
+    ALIMENTOS_TERAPEUTICOS = {
+        "gastrointestinal": {
+            "perro": ["Royal Canin Gastrointestinal", "Hills I/D Digestive", "ProPlan Gastroenteric"],
+            "gato": ["Royal Canin Gastrointestinal Feline", "Hills I/D Feline"]
+        },
+        "renal": {
+            "perro": ["Royal Canin Renal", "Hills K/D Kidney"],
+            "gato": ["Royal Canin Renal Feline", "Hills K/D Feline"]
+        },
+        "hepatico": {
+            "perro": ["Royal Canin Hepatic", "Hills L/D Liver"],
+            "gato": ["Royal Canin Hepatic Feline"]
+        },
+        "urinario": {
+            "perro": ["Royal Canin Urinary S/O"],
+            "gato": ["Royal Canin Urinary S/O Feline", "Hills C/D Urinary"]
+        },
+        "alergia": {
+            "perro": ["Hills Z/D Alergias", "ProPlan HA", "Royal Canin Hypoallergenic"],
+            "gato": ["Hills Z/D Feline", "Royal Canin Hypoallergenic Feline"]
+        },
+        "obesidad": {
+            "perro": ["Royal Canin Satiety", "Hills R/D Weight", "Hills Metabolic"],
+            "gato": ["Royal Canin Satiety Feline", "Hills Metabolic Feline"]
+        },
+        "diabetes": {
+            "perro": ["Royal Canin Diabetic", "Hills W/D"],
+            "gato": ["Royal Canin Diabetic Feline", "Hills M/D Feline"]
+        },
+        "cardiaco": {
+            "perro": ["Royal Canin Cardiac", "Hills H/D Heart"],
+            "gato": ["Royal Canin Cardiac Feline"]
+        },
+        "articular": {
+            "perro": ["Royal Canin Mobility", "Hills J/D Joint"],
+            "gato": ["Hills J/D Feline"]
+        },
+        "piel": {
+            "perro": ["Royal Canin Dermacomfort", "Hills Derm Defense"],
+            "gato": ["Royal Canin Skin Care Feline"]
+        }
+    }
+    
+    # Mapeo de condiciones comunes a categorías
+    MAPEO_CONDICIONES = {
+        "vomito": "gastrointestinal",
+        "vomitos": "gastrointestinal",
+        "diarrea": "gastrointestinal",
+        "gastritis": "gastrointestinal",
+        "gastroenteritis": "gastrointestinal",
+        "riñon": "renal",
+        "renal": "renal",
+        "insuficiencia renal": "renal",
+        "higado": "hepatico",
+        "hepatico": "hepatico",
+        "hepatitis": "hepatico",
+        "cistitis": "urinario",
+        "urinario": "urinario",
+        "cristales": "urinario",
+        "calculo": "urinario",
+        "alergia": "alergia",
+        "alergico": "alergia",
+        "dermatitis": "piel",
+        "picazon": "piel",
+        "sobrepeso": "obesidad",
+        "obeso": "obesidad",
+        "gordo": "obesidad",
+        "diabetes": "diabetes",
+        "diabetico": "diabetes",
+        "corazon": "cardiaco",
+        "cardiaco": "cardiaco",
+        "artritis": "articular",
+        "displasia": "articular",
+        "cojera": "articular"
+    }
+    
+    recomendaciones = []
+    tipo_recomendacion = "regular"
+    
+    # Si hay condición médica, buscar alimento terapéutico
+    if condicion:
+        categoria_condicion = None
+        for palabra, categoria in MAPEO_CONDICIONES.items():
+            if palabra in condicion:
+                categoria_condicion = categoria
+                break
+        
+        if categoria_condicion and categoria_condicion in ALIMENTOS_TERAPEUTICOS:
+            alimentos_terapeuticos = ALIMENTOS_TERAPEUTICOS[categoria_condicion].get(especie, [])
+            if alimentos_terapeuticos:
+                tipo_recomendacion = "terapeutico"
+                for alimento in alimentos_terapeuticos:
+                    recomendaciones.append({
+                        "nombre": alimento,
+                        "tipo": "Alimento Terapéutico",
+                        "indicacion": f"Recomendado para {categoria_condicion}",
+                        "requiere_prescripcion": True
+                    })
+    
+    # Si no hay condición o no se encontró terapéutico, recomendar regular
+    if not recomendaciones:
+        especie_key = "perro" if "perro" in especie or "can" in especie else "gato"
+        edad_key = "cachorro" if edad in ["cachorro", "cria", "bebe", "puppy", "kitten"] else "senior" if edad in ["senior", "viejo", "mayor", "anciano"] else "adulto"
+        
+        alimentos_regulares = ALIMENTOS_REGULARES.get(especie_key, {}).get(edad_key, [])
+        for alimento in alimentos_regulares:
+            recomendaciones.append({
+                "nombre": alimento["nombre"],
+                "tipo": "Alimento Regular",
+                "descripcion": alimento["descripcion"],
+                "requiere_prescripcion": False
+            })
+    
+    # Buscar disponibilidad en inventario
+    inventario = _load_json("inventario.json", default={"medicamentos": []})
+    disponibilidad = []
+    
+    for rec in recomendaciones:
+        nombre_buscar = _normalizar_texto(rec["nombre"])
+        for producto in inventario.get("medicamentos", []):
+            if nombre_buscar in _normalizar_texto(producto.get("nombre", "")):
+                disponibilidad.append({
+                    "nombre": producto["nombre"],
+                    "disponible": producto.get("stock", 0) > 0,
+                    "precio": producto.get("precio_unitario", 0)
+                })
+                break
+    
+    return jsonify({
+        "exito": True,
+        "especie": especie,
+        "edad": edad,
+        "condicion_medica": condicion if condicion else "Ninguna",
+        "tipo_recomendacion": tipo_recomendacion,
+        "recomendaciones": recomendaciones[:5],
+        "disponibilidad_tienda": disponibilidad,
+        "nota": "⚠️ Los alimentos terapéuticos requieren prescripción veterinaria. Consulte con el médico antes de cambiar la dieta de su mascota."
+    })
