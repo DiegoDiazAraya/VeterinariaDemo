@@ -691,9 +691,215 @@
       "historial_consultas": [
         12
       ]
+    },
+    {
+      "id": 14,
+      "nombre": "Thor",
+      "especie": "Perro",
+      "raza": "Rottweiler",
+      "color": "Negro y fuego",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2019-03-10",
+      "edad": "6 años",
+      "peso": "45 kg",
+      "microchip": "985112000111222",
+      "esterilizado": true,
+      "historial_peso": [
+        {"peso": "45 kg", "fecha": "2025-12-22", "registrado_por": "Sistema Chatbot"}
+      ],
+      "tutor": {
+        "nombre": "Roberto Sánchez",
+        "rut": "14.555.666-7",
+        "telefono": "+56 9 7777 8888",
+        "email": "roberto.sanchez@email.com",
+        "direccion": "Av. Los Leones 789",
+        "comuna": "Providencia"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {"nombre": "Séxtuple", "fecha": "2025-01-15", "proxima": "2026-01-15"},
+        {"nombre": "Antirrábica", "fecha": "2025-01-15", "proxima": "2026-01-15"}
+      ],
+      "fecha_registro": "2025-12-22T08:15:00",
+      "ultima_visita": "2025-12-22",
+      "fallecido": false,
+      "historial_consultas": [3],
+      "origen_registro": "chatbot"
+    },
+    {
+      "id": 15,
+      "nombre": "Toby",
+      "especie": "Perro",
+      "raza": "Beagle",
+      "color": "Tricolor",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2020-06-15",
+      "edad": "5 años",
+      "peso": "12 kg",
+      "microchip": "985112000333444",
+      "esterilizado": true,
+      "historial_peso": [
+        {"peso": "12 kg", "fecha": "2025-12-22", "registrado_por": "Sistema Chatbot"}
+      ],
+      "tutor": {
+        "nombre": "María Fernanda López",
+        "rut": "16.777.888-9",
+        "telefono": "+56 9 3333 4444",
+        "email": "mfernanda@email.com",
+        "direccion": "Calle Nueva 456",
+        "comuna": "Ñuñoa"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {"nombre": "Séxtuple", "fecha": "2025-03-20", "proxima": "2026-03-20"}
+      ],
+      "fecha_registro": "2025-12-22T09:30:00",
+      "ultima_visita": "2025-12-22",
+      "fallecido": false,
+      "historial_consultas": [5],
+      "origen_registro": "chatbot"
+    },
+    {
+      "id": 16,
+      "nombre": "Michi",
+      "especie": "Gato",
+      "raza": "Común Europeo",
+      "color": "Atigrado gris",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2017-04-10",
+      "edad": "8 años",
+      "peso": "6 kg",
+      "microchip": "985112000555666",
+      "esterilizado": true,
+      "historial_peso": [
+        {"peso": "6 kg", "fecha": "2025-12-22", "registrado_por": "María López"}
+      ],
+      "tutor": {
+        "nombre": "Pedro Muñoz Castro",
+        "rut": "13.444.555-6",
+        "telefono": "+56 9 5555 6666",
+        "email": "pedro.munoz@email.com",
+        "direccion": "Pasaje Las Flores 123",
+        "comuna": "Maipú"
+      },
+      "alergias": [],
+      "condiciones_cronicas": ["Tendencia a cristales urinarios"],
+      "vacunas": [
+        {"nombre": "Triple Felina", "fecha": "2025-02-10", "proxima": "2026-02-10"}
+      ],
+      "fecha_registro": "2025-12-22T10:00:00",
+      "ultima_visita": "2025-12-22",
+      "fallecido": false,
+      "historial_consultas": [6],
+      "origen_registro": "recepcion"
+    },
+    {
+      "id": 17,
+      "nombre": "Nina",
+      "especie": "Perro",
+      "raza": "Golden Retriever",
+      "color": "Dorado",
+      "sexo": "Hembra",
+      "fecha_nacimiento": "2023-02-20",
+      "edad": "2 años",
+      "peso": "28 kg",
+      "microchip": "985112000777888",
+      "esterilizado": false,
+      "historial_peso": [
+        {"peso": "28 kg", "fecha": "2025-12-22", "registrado_por": "María López"}
+      ],
+      "tutor": {
+        "nombre": "Carolina Vega Díaz",
+        "rut": "18.999.000-1",
+        "telefono": "+56 9 7777 9999",
+        "email": "carolina.vega@email.com",
+        "direccion": "Av. Apoquindo 5000",
+        "comuna": "Las Condes"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {"nombre": "Séxtuple", "fecha": "2024-12-20", "proxima": "2025-12-20"},
+        {"nombre": "Antirrábica", "fecha": "2024-12-20", "proxima": "2025-12-20"}
+      ],
+      "fecha_registro": "2025-12-22T10:30:00",
+      "ultima_visita": "2025-12-22",
+      "fallecido": false,
+      "historial_consultas": [7],
+      "origen_registro": "recepcion"
+    },
+    {
+      "id": 18,
+      "nombre": "Rocky",
+      "especie": "Perro",
+      "raza": "Bulldog Francés",
+      "color": "Atigrado",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2022-08-15",
+      "edad": "3 años",
+      "peso": "12 kg",
+      "microchip": "985112000999111",
+      "esterilizado": true,
+      "historial_peso": [
+        {"peso": "12 kg", "fecha": "2025-12-22", "registrado_por": "Sistema Chatbot"}
+      ],
+      "tutor": {
+        "nombre": "Diego Díaz Araya",
+        "rut": "19.111.222-3",
+        "telefono": "+56 9 6552 4190",
+        "email": "diego.diaz@email.com",
+        "direccion": "Calle Principal 100",
+        "comuna": "Santiago Centro"
+      },
+      "alergias": [],
+      "condiciones_cronicas": ["Síndrome braquicefálico leve"],
+      "vacunas": [
+        {"nombre": "Séxtuple", "fecha": "2025-05-10", "proxima": "2026-05-10"}
+      ],
+      "fecha_registro": "2025-12-22T11:30:00",
+      "ultima_visita": "2025-12-22",
+      "fallecido": false,
+      "historial_consultas": [9],
+      "origen_registro": "chatbot"
+    },
+    {
+      "id": 19,
+      "nombre": "Simba",
+      "especie": "Gato",
+      "raza": "Maine Coon",
+      "color": "Naranja atigrado",
+      "sexo": "Macho",
+      "fecha_nacimiento": "2020-11-05",
+      "edad": "5 años",
+      "peso": "8 kg",
+      "microchip": "985112000222333",
+      "esterilizado": true,
+      "historial_peso": [
+        {"peso": "8 kg", "fecha": "2025-12-22", "registrado_por": "Sistema Chatbot"}
+      ],
+      "tutor": {
+        "nombre": "Valentina Rojas",
+        "rut": "20.333.444-5",
+        "telefono": "+56 9 8888 1111",
+        "email": "vale.rojas@email.com",
+        "direccion": "Av. Italia 2000",
+        "comuna": "Providencia"
+      },
+      "alergias": [],
+      "condiciones_cronicas": [],
+      "vacunas": [
+        {"nombre": "Triple Felina", "fecha": "2025-06-15", "proxima": "2026-06-15"}
+      ],
+      "fecha_registro": "2025-12-22T12:00:00",
+      "ultima_visita": "2025-12-22",
+      "fallecido": false,
+      "historial_consultas": [10],
+      "origen_registro": "chatbot"
     }
   ],
-  "ultimo_id": 13
+  "ultimo_id": 19
 }
 
 
