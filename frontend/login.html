@@ -490,8 +490,7 @@
     </div>
 
     <script>
-        // Usar ruta relativa para producción, localhost para desarrollo
-        const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : '';
+        const API_URL = 'http://localhost:5000';
 
         // Verificar si ya hay sesión
         const existingUser = localStorage.getItem('vetclinic_user');

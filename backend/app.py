@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
 import json
 import os
@@ -12,7 +12,10 @@ try:
 except ImportError:
     from bot_api import bot_api  # Cuando se ejecuta directamente (py backend/app.py)
 
-app = Flask(__name__)
+# Configurar ruta del frontend
+FRONTEND_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'frontend')
+
+app = Flask(__name__, static_folder=FRONTEND_FOLDER)
 app.secret_key = 'betterdoctor_secret_key_2024'
 CORS(app, supports_credentials=True)
 
@@ -2201,11 +2204,57 @@ def guardar_inventario(inventario):
         json.dump(inventario, f, ensure_ascii=False, indent=2)
 
 # ============================================
-# RUTA PRINCIPAL
+# RUTAS DEL FRONTEND (Servir archivos HTML)
 # ============================================
 
-@app.route('/', methods=['GET'])
-def index():
+@app.route('/')
+def serve_landing():
+    """Página principal - redirige al login o landing."""
+    return send_from_directory(FRONTEND_FOLDER, 'landing.html')
+
+@app.route('/login')
+@app.route('/login.html')
+def serve_login():
+    """Página de login."""
+    return send_from_directory(FRONTEND_FOLDER, 'login.html')
+
+@app.route('/index.html')
+def serve_index():
+    """Panel del veterinario."""
+    return send_from_directory(FRONTEND_FOLDER, 'index.html')
+
+@app.route('/recepcion')
+@app.route('/recepcion.html')
+def serve_recepcion():
+    """Panel de recepción."""
+    return send_from_directory(FRONTEND_FOLDER, 'recepcion.html')
+
+@app.route('/inventario')
+@app.route('/inventario.html')
+def serve_inventario():
+    """Panel de inventario."""
+    return send_from_directory(FRONTEND_FOLDER, 'inventario.html')
+
+@app.route('/superadmin')
+@app.route('/superadmin.html')
+def serve_superadmin():
+    """Panel de superadmin."""
+    return send_from_directory(FRONTEND_FOLDER, 'superadmin.html')
+
+@app.route('/landing')
+@app.route('/landing.html')
+def serve_landing_page():
+    """Página de landing."""
+    return send_from_directory(FRONTEND_FOLDER, 'landing.html')
+
+# ============================================
+# RUTA DE LA API (información del sistema)
+# ============================================
+
+@app.route('/api', methods=['GET'])
+@app.route('/api/', methods=['GET'])
+def api_info():
+    """Información de la API."""
     return jsonify({
         'mensaje': 'BetterDoctor API - Sistema Veterinario',
         'version': '7.0',
@@ -2217,7 +2266,8 @@ def index():
             'diagnostico': ['/diagnosticar', '/diagnosticos', '/sintomas', '/api/sintomas/buscar'],
             'inventario': ['/api/inventario', '/api/inventario/alertas', '/api/inventario/agregar', '/api/inventario/<id>/actualizar-stock'],
             'medicamentos': ['/api/medicamentos/por-diagnostico/<nombre>', '/api/medicamentos/buscar-disponibles'],
-            'razas': ['/api/razas', '/api/razas/<especie>', '/api/razas/buscar', '/api/razas/<especie>/<id>']
+            'razas': ['/api/razas', '/api/razas/<especie>', '/api/razas/buscar', '/api/razas/<especie>/<id>'],
+            'bot': ['/api/bot/estado', '/api/bot/inventario', '/api/bot/diagnostico', '/api/bot/agendar-cita']
         },
         'estadisticas': {
             'diagnosticos_disponibles': len(cargar_datos()),
