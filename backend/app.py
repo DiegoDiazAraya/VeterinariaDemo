@@ -2208,9 +2208,9 @@ def guardar_inventario(inventario):
 # ============================================
 
 @app.route('/')
-def serve_landing():
-    """Página principal - redirige al login o landing."""
-    return send_from_directory(FRONTEND_FOLDER, 'landing.html')
+def serve_home():
+    """Página principal - muestra el login."""
+    return send_from_directory(FRONTEND_FOLDER, 'login.html')
 
 @app.route('/login')
 @app.route('/login.html')
