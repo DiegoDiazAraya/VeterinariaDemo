@@ -3,37 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Admin - VetClinic</title>
+    <title>BetterDoctor - Administración</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --secondary: #06b6d4;
+            /* Sistema de diseño BetterDoctor v2.0 */
+            --primary: #0891b2;
+            --primary-dark: #0e7490;
+            --primary-light: #22d3ee;
+            --primary-bg: #ecfeff;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --info: #3b82f6;
             --purple: #8b5cf6;
             --pink: #ec4899;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-500: #6b7280;
-            --gray-700: #374151;
-            --gray-900: #111827;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--gray-100);
             color: var(--gray-900);
         }
         
         /* Header */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 0.85rem 1.5rem;
             display: flex;
@@ -44,7 +55,7 @@
             left: 0;
             right: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.25);
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.25);
         }
         
         .header h1 { 

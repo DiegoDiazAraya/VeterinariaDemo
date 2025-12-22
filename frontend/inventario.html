@@ -3,27 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Inventario - VetClinic</title>
+    <title>BetterDoctor - Inventario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --success: #22c55e;
+            /* Sistema de diseño BetterDoctor v2.0 */
+            --primary: #0891b2;
+            --primary-dark: #0e7490;
+            --primary-light: #22d3ee;
+            --primary-bg: #ecfeff;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-500: #6b7280;
-            --gray-700: #374151;
-            --gray-900: #111827;
+            --info: #3b82f6;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--gray-100);
             color: var(--gray-900);
             min-height: 100vh;
@@ -31,13 +43,13 @@
         
         /* Header */
         .header {
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 0.9rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 20px rgba(5, 150, 105, 0.25);
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.25);
         }
         
         .header h1 { 
@@ -100,17 +112,17 @@
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .sidebar-menu a:hover, .sidebar-menu button:hover {
-            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-            color: #059669;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #cffafe 100%);
+            color: var(--primary-dark);
             transform: translateX(4px);
         }
         .sidebar-menu .active {
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+            box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
         }
         .sidebar-menu .active:hover {
-            background: linear-gradient(135deg, #047857 0%, #059669 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #065f46 100%);
             color: white;
             transform: none;
         }

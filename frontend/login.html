@@ -6,69 +6,142 @@
     <title>BetterDoctor - Iniciar Sesión</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ========================================
+           SISTEMA DE DISEÑO BETTERDOCTOR v2.0
+           ======================================== */
         :root {
-            --color-primary: #0891b2;
-            --color-primary-dark: #0e7490;
-            --color-secondary: #10b981;
-            --color-bg: #f0f5fa;
-            --color-text: #1e293b;
-            --color-text-muted: #64748b;
-            --color-border: #e2e8f0;
-            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /* Colores principales */
+            --primary: #0891b2;
+            --primary-dark: #0e7490;
+            --primary-light: #22d3ee;
+            --primary-bg: #ecfeff;
+            
+            /* Colores secundarios */
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --secondary-light: #34d399;
+            
+            /* Estados */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            
+            /* Neutros */
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            
+            /* Bordes */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--secondary-dark) 100%);
             display: flex;
-            background: linear-gradient(135deg, #0891b2 0%, #10b981 50%, #0e7490 100%);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
             position: relative;
             overflow: hidden;
         }
 
-        /* Elementos decorativos */
-        body::before {
+        /* Elementos decorativos de fondo */
+        body::before,
+        body::after {
             content: '';
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: rgba(255,255,255,0.05);
             border-radius: 50%;
-            top: -200px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        body::before {
+            width: 800px;
+            height: 800px;
+            top: -400px;
             left: -200px;
         }
-
         body::after {
+            width: 600px;
+            height: 600px;
+            bottom: -300px;
+            right: -150px;
+        }
+
+        .login-container {
+            display: flex;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-2xl);
+            overflow: hidden;
+            max-width: 1100px;
+            width: 100%;
+            min-height: 650px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Panel izquierdo - Branding */
+        .brand-panel {
+            flex: 1.2;
+            background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 60%, var(--secondary-dark) 100%);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-panel::before {
             content: '';
             position: absolute;
             width: 400px;
             height: 400px;
             background: rgba(255,255,255,0.05);
             border-radius: 50%;
-            bottom: -150px;
-            right: -150px;
+            top: -100px;
+            right: -100px;
         }
 
-        .container {
-            display: flex;
-            width: 100%;
-            min-height: 100vh;
+        .brand-panel::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .brand-content {
             position: relative;
             z-index: 1;
-        }
-
-        /* Panel izquierdo - branding */
-        .brand-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 3rem;
             color: white;
         }
 
@@ -80,428 +153,380 @@
         }
 
         .brand-icon {
-            width: 80px;
-            height: 80px;
-            background: white;
-            border-radius: 20px;
+            width: 70px;
+            height: 70px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             box-shadow: var(--shadow-lg);
         }
 
         .brand-name {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
         }
 
         .brand-tagline {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             opacity: 0.9;
             margin-bottom: 3rem;
+            font-weight: 400;
         }
 
-        .features {
+        .features-list {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            max-width: 400px;
+            gap: 1.25rem;
         }
 
-        .feature {
+        .feature-item {
             display: flex;
             align-items: flex-start;
             gap: 1rem;
             padding: 1rem;
-            background: rgba(255,255,255,0.08);
-            border-radius: 14px;
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-md);
             backdrop-filter: blur(10px);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
-        
-        .feature:hover {
+
+        .feature-item:hover {
             background: rgba(255,255,255,0.15);
-            transform: translateX(8px);
+            transform: translateX(5px);
         }
 
         .feature-icon {
-            width: 54px;
-            height: 54px;
+            width: 45px;
+            height: 45px;
             background: rgba(255,255,255,0.2);
-            border-radius: 14px;
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.25rem;
             flex-shrink: 0;
-            transition: transform 0.3s;
-        }
-        
-        .feature:hover .feature-icon {
-            transform: scale(1.1);
         }
 
         .feature-text h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
         }
 
         .feature-text p {
-            font-size: 0.9rem;
-            opacity: 0.85;
+            font-size: 0.8rem;
+            opacity: 0.8;
             line-height: 1.4;
         }
 
-        /* Panel derecho - login */
+        /* Panel derecho - Login */
         .login-panel {
-            width: 500px;
-            background: white;
+            flex: 1;
+            padding: 3rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 4rem;
-            position: relative;
-        }
-
-        .login-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #0891b2 0%, #10b981 100%);
+            background: var(--white);
         }
 
         .login-header {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .login-header h2 {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            color: var(--color-text);
+            color: var(--gray-800);
             margin-bottom: 0.5rem;
         }
 
         .login-header p {
-            color: var(--color-text-muted);
+            color: var(--gray-500);
+            font-size: 0.95rem;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .form-group label {
+        .form-label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             font-weight: 600;
+            color: var(--gray-700);
             margin-bottom: 0.5rem;
-            color: var(--color-text);
         }
 
         .input-wrapper {
             position: relative;
         }
 
-        .input-wrapper .icon {
+        .input-icon {
             position: absolute;
             left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.25rem;
-            opacity: 0.5;
+            font-size: 1.1rem;
+            color: var(--gray-400);
         }
 
-        .form-group input {
+        .form-input {
             width: 100%;
-            padding: 1.1rem 1rem 1.1rem 3.25rem;
-            border: 2px solid var(--color-border);
-            border-radius: 14px;
-            font-size: 1rem;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
             font-family: inherit;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #f8fafc;
+            color: var(--gray-800);
+            background: var(--gray-50);
+            transition: all 0.2s ease;
         }
 
-        .form-group input:focus {
+        .form-input:focus {
             outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.15);
-            background: white;
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
         }
-        
-        .form-group input:hover:not(:focus) {
-            border-color: #cbd5e1;
-            background: white;
+
+        .form-input::placeholder {
+            color: var(--gray-400);
         }
 
         .btn-login {
             width: 100%;
-            padding: 1.1rem;
-            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border: none;
-            border-radius: 14px;
-            font-size: 1.05rem;
-            font-weight: 700;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: 1.25rem;
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-login::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
         }
 
         .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(8, 145, 178, 0.35);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
-        
-        .btn-login:hover::before {
-            left: 100%;
-        }
-        
+
         .btn-login:active {
-            transform: translateY(-1px);
+            transform: translateY(0);
         }
 
-        .error-message {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .error-message.show { display: block; }
-
-        .demo-credentials {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--color-border);
-        }
-
-        .demo-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--color-text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .demo-grid {
-            display: grid;
-            gap: 0.75rem;
-        }
-
-        .demo-item {
+        .divider {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.85rem 1.1rem;
-            background: var(--color-bg);
-            border-radius: 12px;
-            font-size: 0.85rem;
+            margin: 1.75rem 0;
+            color: var(--gray-400);
+            font-size: 0.8rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gray-200);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        .demo-section h4 {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .demo-users {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .demo-btn {
+            padding: 0.75rem 0.875rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            background: var(--white);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s ease;
+            text-align: left;
+            font-family: inherit;
         }
 
-        .demo-item::after {
-            content: '→';
-            position: absolute;
-            right: 1rem;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s;
-            font-weight: bold;
+        .demo-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-bg);
         }
 
-        .demo-item:hover {
-            background: #e0e7ff;
-            transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-color: #a5b4fc;
-        }
-        
-        .demo-item:hover::after {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .demo-item.superadmin {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid #f59e0b;
-        }
-        .demo-item.superadmin .role { color: #92400e; }
-        .demo-item.superadmin:hover {
-            background: linear-gradient(135deg, #fde68a, #fcd34d);
-            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
-        }
-        
-        .demo-item.inventario {
-            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-            border: 2px solid #10b981;
-        }
-        .demo-item.inventario .role { color: #065f46; }
-        .demo-item.inventario:hover {
-            background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
-            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
-        }
-
-        .demo-item .emoji {
-            font-size: 1.25rem;
-        }
-
-        .demo-item .role {
+        .demo-btn .role {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: var(--color-text);
+            color: var(--gray-700);
+            margin-bottom: 0.25rem;
         }
 
-        .demo-item .creds {
-            color: var(--color-text-muted);
+        .demo-btn .credentials {
+            font-size: 0.7rem;
+            color: var(--gray-500);
         }
 
-        @media (max-width: 1024px) {
-            .container { flex-direction: column; }
-            .brand-panel { padding: 2rem; min-height: 40vh; }
-            .login-panel { width: 100%; }
-            .features { display: none; }
+        .demo-btn.admin { border-color: #fcd34d; background: #fffbeb; }
+        .demo-btn.admin:hover { border-color: #f59e0b; }
+        .demo-btn.vet { border-color: var(--primary-light); background: var(--primary-bg); }
+        .demo-btn.vet:hover { border-color: var(--primary); }
+        .demo-btn.recep { border-color: #a5b4fc; background: #eef2ff; }
+        .demo-btn.recep:hover { border-color: #6366f1; }
+        .demo-btn.inv { border-color: #86efac; background: #f0fdf4; }
+        .demo-btn.inv:hover { border-color: var(--secondary); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .login-container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            .brand-panel {
+                padding: 2rem;
+            }
+            .features-list {
+                display: none;
+            }
+            .brand-name {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .demo-users {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="login-container">
+        <!-- Panel Izquierdo - Branding -->
         <div class="brand-panel">
-            <div class="brand-logo">
-                <div class="brand-icon">🏥</div>
-                <span class="brand-name">BetterDoctor</span>
-            </div>
-            <p class="brand-tagline">Sistema Integral de Gestión Veterinaria</p>
-            
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">📋</div>
-                    <div class="feature-text">
-                        <h3>Gestión de Pacientes</h3>
-                        <p>Registro rápido y seguimiento completo de mascotas</p>
-                    </div>
+            <div class="brand-content">
+                <div class="brand-logo">
+                    <div class="brand-icon">🏥</div>
+                    <span class="brand-name">BetterDoctor</span>
                 </div>
-                <div class="feature">
-                    <div class="feature-icon">🩺</div>
-                    <div class="feature-text">
-                        <h3>Diagnóstico Inteligente</h3>
-                        <p>Sugerencias basadas en síntomas reportados</p>
+                <p class="brand-tagline">Sistema Integral de Gestión Veterinaria</p>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-text">
+                            <h3>Gestión de Pacientes</h3>
+                            <p>Historial clínico completo y seguimiento de mascotas</p>
+                        </div>
                     </div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">💊</div>
-                    <div class="feature-text">
-                        <h3>Control de Inventario</h3>
-                        <p>Gestión de medicamentos y alertas de stock</p>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔬</div>
+                        <div class="feature-text">
+                            <h3>Diagnóstico Inteligente</h3>
+                            <p>Sugerencias basadas en síntomas con IA</p>
+                        </div>
                     </div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🧾</div>
-                    <div class="feature-text">
-                        <h3>Facturación Integrada</h3>
-                        <p>Boletas y recetas con un solo clic</p>
+                    <div class="feature-item">
+                        <div class="feature-icon">📦</div>
+                        <div class="feature-text">
+                            <h3>Control de Inventario</h3>
+                            <p>Gestión de medicamentos y alertas de stock</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-text">
+                            <h3>Chatbot de Atención</h3>
+                            <p>Triage automático y agendamiento 24/7</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Panel Derecho - Login -->
         <div class="login-panel">
             <div class="login-header">
                 <h2>Bienvenido</h2>
                 <p>Ingresa tus credenciales para continuar</p>
             </div>
 
-            <div class="error-message" id="error-msg">
-                Usuario o contraseña incorrectos
-            </div>
-
-            <form id="login-form" onsubmit="handleLogin(event)">
+            <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label for="usuario">Usuario</label>
+                    <label class="form-label">Usuario</label>
                     <div class="input-wrapper">
-                        <span class="icon">👤</span>
-                        <input type="text" id="usuario" placeholder="Ingresa tu usuario" required>
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="usuario" class="form-input" placeholder="Ingresa tu usuario" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Contraseña</label>
+                    <label class="form-label">Contraseña</label>
                     <div class="input-wrapper">
-                        <span class="icon">🔒</span>
-                        <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="password" class="form-input" placeholder="Ingresa tu contraseña" required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-login">
-                    Iniciar Sesión
-                </button>
+                <button type="submit" class="btn-login">Iniciar Sesión</button>
             </form>
 
-            <div class="demo-credentials">
-                <div class="demo-title">👆 Usuarios de demostración (clic para autocompletar)</div>
-                <div class="demo-grid">
-                    <div class="demo-item superadmin" onclick="fillCredentials('admin', 'admin2024')">
-                        <span class="emoji">👑</span>
-                        <span class="role">Super Admin</span>
-                        <span class="creds">admin / admin2024</span>
-                    </div>
-                    <div class="demo-item" onclick="fillCredentials('dr.martinez', 'vet2024')">
-                        <span class="emoji">🩺</span>
-                        <span class="role">Veterinario</span>
-                        <span class="creds">dr.martinez / vet2024</span>
-                    </div>
-                    <div class="demo-item" onclick="fillCredentials('recepcion', 'recep2024')">
-                        <span class="emoji">📋</span>
-                        <span class="role">Recepcionista</span>
-                        <span class="creds">recepcion / recep2024</span>
-                    </div>
-                    <div class="demo-item inventario" onclick="fillCredentials('inventario', 'inv2024')">
-                        <span class="emoji">📦</span>
-                        <span class="role">Inventario</span>
-                        <span class="creds">inventario / inv2024</span>
-                    </div>
+            <div class="divider"><span>Usuarios de demostración</span></div>
+
+            <div class="demo-section">
+                <h4>👆 Clic para autocompletar</h4>
+                <div class="demo-users">
+                    <button type="button" class="demo-btn admin" onclick="fillDemo('admin', 'admin2024')">
+                        <div class="role">👑 Super Admin</div>
+                        <div class="credentials">admin / admin2024</div>
+                    </button>
+                    <button type="button" class="demo-btn vet" onclick="fillDemo('dr.martinez', 'vet2024')">
+                        <div class="role">🩺 Veterinario</div>
+                        <div class="credentials">dr.martinez / vet2024</div>
+                    </button>
+                    <button type="button" class="demo-btn recep" onclick="fillDemo('recepcion', 'recep2024')">
+                        <div class="role">📋 Recepcionista</div>
+                        <div class="credentials">recepcion / recep2024</div>
+                    </button>
+                    <button type="button" class="demo-btn inv" onclick="fillDemo('inventario', 'inv2024')">
+                        <div class="role">📦 Inventario</div>
+                        <div class="credentials">inventario / inv2024</div>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const API_URL = 'http://localhost:5000';
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5000' 
+            : window.location.origin;
 
-        // Verificar si ya hay sesión
-        const existingUser = localStorage.getItem('vetclinic_user');
-        if (existingUser) {
-            const user = JSON.parse(existingUser);
-            redirectByRole(user.rol);
-        }
-
-        function fillCredentials(usuario, password) {
+        function fillDemo(usuario, password) {
             document.getElementById('usuario').value = usuario;
             document.getElementById('password').value = password;
+            // Auto submit después de llenar
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
         }
 
         async function handleLogin(e) {
@@ -509,64 +534,50 @@
             
             const usuario = document.getElementById('usuario').value;
             const password = document.getElementById('password').value;
-            const errorMsg = document.getElementById('error-msg');
             
-            errorMsg.classList.remove('show');
+            const btn = document.querySelector('.btn-login');
+            const originalText = btn.textContent;
+            btn.textContent = 'Iniciando sesión...';
+            btn.disabled = true;
 
             try {
                 const response = await fetch(`${API_URL}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
                     body: JSON.stringify({ usuario, password })
                 });
 
                 const data = await response.json();
 
                 if (data.exito) {
-                    localStorage.setItem('vetclinic_user', JSON.stringify(data.usuario));
-                    redirectByRole(data.usuario.rol);
+                    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                    
+                    // Redirección según rol
+                    const rol = data.usuario.rol;
+                    if (rol === 'admin' || rol === 'superadmin') {
+                        window.location.href = 'superadmin.html';
+                    } else if (rol === 'veterinario') {
+                        window.location.href = 'index.html';
+                    } else if (rol === 'recepcion' || rol === 'recepcionista') {
+                        window.location.href = 'recepcion.html';
+                    } else if (rol === 'inventario') {
+                        window.location.href = 'inventario.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
                 } else {
-                    errorMsg.textContent = data.mensaje || 'Usuario o contraseña incorrectos';
-                    errorMsg.classList.add('show');
+                    alert(data.mensaje || 'Error al iniciar sesión');
+                    btn.textContent = originalText;
+                    btn.disabled = false;
                 }
             } catch (error) {
-                errorMsg.textContent = 'Error de conexión con el servidor';
-                errorMsg.classList.add('show');
-            }
-        }
-
-        function redirectByRole(rol) {
-            switch (rol) {
-                case 'veterinario':
-                    window.location.href = 'index.html';
-                    break;
-                case 'recepcionista':
-                    window.location.href = 'recepcion.html';
-                    break;
-                case 'administracion':
-                case 'admin':
-                case 'superadmin':
-                    window.location.href = 'superadmin.html';
-                    break;
-                case 'inventario':
-                    window.location.href = 'inventario.html';
-                    break;
-                case 'peluqueria':
-                    window.location.href = 'peluqueria.html';
-                    break;
-                default:
-                    window.location.href = 'index.html';
+                console.error('Error:', error);
+                alert('Error de conexión. Intenta nuevamente.');
+                btn.textContent = originalText;
+                btn.disabled = false;
             }
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-

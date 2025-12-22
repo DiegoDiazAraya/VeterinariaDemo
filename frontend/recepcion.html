@@ -6,40 +6,44 @@
     <title>BetterDoctor - Recepción</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-bg: #f0f5fa;
+            /* Sistema de diseño BetterDoctor v2.0 */
+            --color-bg: #f1f5f9;
             --color-bg-white: #ffffff;
             --color-primary: #0891b2;
             --color-primary-dark: #0e7490;
-            --color-secondary: #3b82f6;
+            --color-primary-light: #22d3ee;
+            --color-primary-bg: #ecfeff;
+            --color-secondary: #10b981;
             --color-text: #1e293b;
             --color-text-muted: #64748b;
             --color-border: #e2e8f0;
             --color-success: #10b981;
             --color-warning: #f59e0b;
             --color-danger: #ef4444;
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--color-bg);
             color: var(--color-text);
             min-height: 100vh;
         }
 
         .header {
-            background: linear-gradient(135deg, #10b981 0%, #0891b2 100%);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
             padding: 1rem 2rem;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.25);
         }
 
         .header-content {
