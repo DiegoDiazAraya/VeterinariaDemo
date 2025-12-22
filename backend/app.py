@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session, send_from_directory
+from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 import json
 import os
@@ -6,49 +6,17 @@ import unicodedata
 from datetime import datetime
 from functools import wraps
 
-# Configurar Flask para servir archivos estáticos desde frontend
-FRONTEND_FOLDER = os.path.join(os.path.dirname(__file__), '..', 'frontend')
-app = Flask(__name__, static_folder=FRONTEND_FOLDER, static_url_path='/static')
+# Import del Blueprint bot_api (compatible con local y producción)
+try:
+    from .bot_api import bot_api  # Cuando se ejecuta como paquete (gunicorn, imports relativos)
+except ImportError:
+    from bot_api import bot_api  # Cuando se ejecuta directamente (py backend/app.py)
+
+app = Flask(__name__)
 app.secret_key = 'betterdoctor_secret_key_2024'
 CORS(app, supports_credentials=True)
 
-# ==================== RUTAS PARA SERVIR FRONTEND ====================
-
-@app.route('/')
-@app.route('/index.html')
-def serve_index():
-    """Sirve la página principal (panel veterinario)"""
-    return send_from_directory(FRONTEND_FOLDER, 'index.html')
-
-@app.route('/login')
-@app.route('/login.html')
-def serve_login():
-    """Sirve la página de login"""
-    return send_from_directory(FRONTEND_FOLDER, 'login.html')
-
-@app.route('/recepcion')
-@app.route('/recepcion.html')
-def serve_recepcion():
-    """Sirve el panel de recepción"""
-    return send_from_directory(FRONTEND_FOLDER, 'recepcion.html')
-
-@app.route('/inventario')
-@app.route('/inventario.html')
-def serve_inventario():
-    """Sirve el panel de inventario"""
-    return send_from_directory(FRONTEND_FOLDER, 'inventario.html')
-
-@app.route('/superadmin')
-@app.route('/superadmin.html')
-def serve_superadmin():
-    """Sirve el panel de superadmin"""
-    return send_from_directory(FRONTEND_FOLDER, 'superadmin.html')
-
-@app.route('/landing')
-@app.route('/landing.html')
-def serve_landing():
-    """Sirve la landing page"""
-    return send_from_directory(FRONTEND_FOLDER, 'landing.html')
+app.register_blueprint(bot_api)
 
 # ==================== FUNCIONES DE CARGA DE DATOS ====================
 
