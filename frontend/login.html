@@ -1202,8 +1202,15 @@
         }
 
         async function createAppointment() {
-            const esUrgente = chatContext.sintomas.length > 0 && 
-                containsAny(chatContext.sintomas.join(' '), ['vomito', 'sangrado', 'dolor', 'fiebre']);
+            // Determinar nivel de urgencia basado en síntomas
+            const sintomasTexto = chatContext.sintomas.join(' ');
+            let urgencia = 'normal';
+            
+            if (containsAny(sintomasTexto, ['sangrado', 'convulsion', 'envenenamiento', 'atropello'])) {
+                urgencia = 'emergencia';
+            } else if (containsAny(sintomasTexto, ['vomito', 'diarrea', 'fiebre', 'dolor'])) {
+                urgencia = 'urgente';
+            }
             
             try {
                 const response = await fetch(`${API_URL}/api/bot/agendar-cita`, {
@@ -1212,10 +1219,11 @@
                     body: JSON.stringify({
                         nombre_mascota: chatContext.pacienteNombre,
                         especie: chatContext.pacienteEspecie,
-                        nombre_tutor: chatContext.tutorNombre,
+                        propietario: chatContext.tutorNombre,
                         telefono: chatContext.tutorTelefono,
                         sintomas: chatContext.sintomas.join(', ') || 'Consulta general',
-                        es_urgente: esUrgente
+                        urgencia: urgencia,
+                        notas: `Cita agendada via chatbot. Síntomas reportados: ${chatContext.sintomas.join(', ') || 'ninguno especificado'}`
                     })
                 });
                 
