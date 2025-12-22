@@ -902,6 +902,11 @@
             ? 'http://localhost:5000' 
             : window.location.origin;
 
+        // ========== N8N CONFIGURATION ==========
+        const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook/e1ad9a32-b091-483c-a80e-19200cbe1f38/chat';
+        const USE_N8N = window.location.hostname === 'localhost'; // Solo usar n8n en local
+        let sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
         // ========== CHATBOX STATE ==========
         let chatContext = {
             lastIntent: null,
@@ -992,6 +997,19 @@
         }
 
         async function processMessage(message) {
+            // ========== INTENTAR N8N PRIMERO (solo en localhost) ==========
+            if (USE_N8N) {
+                try {
+                    const n8nResponse = await sendToN8N(message);
+                    if (n8nResponse) {
+                        return n8nResponse;
+                    }
+                } catch (error) {
+                    console.log('n8n no disponible, usando lógica local:', error.message);
+                }
+            }
+            
+            // ========== LÓGICA LOCAL (fallback o producción) ==========
             const msgLower = message.toLowerCase();
             
             // Detectar si está esperando información específica
@@ -1034,6 +1052,54 @@
                         <li>🩺 "Mi perro tiene vómitos" - para evaluar síntomas</li>
                         <li>📅 "Quiero agendar una cita" - para reservar</li>
                     </ul>`;
+        }
+
+        // ========== N8N INTEGRATION ==========
+        async function sendToN8N(message) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+            
+            try {
+                const response = await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chatInput: message,
+                        sessionId: sessionId,
+                        action: 'sendMessage'
+                    }),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // n8n puede devolver la respuesta en diferentes formatos
+                let botResponse = data.output || data.response || data.text || data.message || data;
+                
+                // Si es un string, convertir a HTML
+                if (typeof botResponse === 'string') {
+                    // Convertir saltos de línea a <br> y envolver en <p>
+                    botResponse = botResponse
+                        .split('\n\n')
+                        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+                        .join('');
+                }
+                
+                return botResponse;
+                
+            } catch (error) {
+                clearTimeout(timeoutId);
+                console.error('Error al conectar con n8n:', error);
+                throw error;
+            }
         }
 
         function containsAny(text, keywords) {
