@@ -551,11 +551,11 @@
                 const data = await response.json();
 
                 if (data.exito) {
-                    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                    localStorage.setItem('vetclinic_user', JSON.stringify(data.usuario));
                     
                     // Redirección según rol
                     const rol = data.usuario.rol;
-                    if (rol === 'admin' || rol === 'superadmin') {
+                    if (rol === 'admin' || rol === 'superadmin' || rol === 'administracion') {
                         window.location.href = 'superadmin.html';
                     } else if (rol === 'veterinario') {
                         window.location.href = 'index.html';
