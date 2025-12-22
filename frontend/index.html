@@ -2034,12 +2034,22 @@
                 
                 if (data.exito) {
                     consultaActual = data.consulta;
+                    // Normalizar sintomas para compatibilidad
+                    if (!consultaActual.sintomas && consultaActual.sintomas_reportados) {
+                        consultaActual.sintomas = consultaActual.sintomas_reportados;
+                    }
+                    if (!consultaActual.sintomas) {
+                        consultaActual.sintomas = [];
+                    }
                     mostrarPanelAtencion();
                     cargarColaEspera();
                     buscarDiagnosticos();
+                } else {
+                    alert('Error: ' + (data.mensaje || 'No se pudo iniciar la atención'));
                 }
             } catch (error) {
-                alert('Error al iniciar atención');
+                console.error('Error al iniciar atención:', error);
+                alert('Error al iniciar atención: ' + error.message);
             }
         }
 
@@ -2058,12 +2068,21 @@
             // Si no hay consulta actual, salir
             if (!c) {
                 console.error('No hay consulta actual');
+                alert('Error: No se pudo cargar los datos de la consulta');
                 return;
+            }
+            
+            // Normalizar sintomas para compatibilidad
+            if (!c.sintomas) {
+                c.sintomas = c.sintomas_reportados || [];
+            }
+            if (!Array.isArray(c.sintomas)) {
+                c.sintomas = [];
             }
             
             // Buscar diagnósticos automáticamente
             buscarDiagnosticos();
-            document.getElementById('ticket-actual').textContent = c.numero_ticket;
+            document.getElementById('ticket-actual').textContent = c.numero_ticket || 'Sin ticket';
             
             // Info paciente
             document.getElementById('paciente-info').innerHTML = `
@@ -2618,13 +2637,23 @@
                 const data = await res.json();
                 
                 if (data.exito) {
-                    mostrarPanelAtencion(data.consulta);
+                    const consulta = data.consulta;
+                    // Normalizar sintomas para compatibilidad
+                    if (!consulta.sintomas && consulta.sintomas_reportados) {
+                        consulta.sintomas = consulta.sintomas_reportados;
+                    }
+                    if (!consulta.sintomas) {
+                        consulta.sintomas = [];
+                    }
+                    consultaActual = consulta;
+                    mostrarPanelAtencion(consulta);
+                    buscarDiagnosticos();
                 } else {
-                    alert('Error al cargar la consulta');
+                    alert('Error: ' + (data.mensaje || 'No se pudo cargar la consulta'));
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error al cargar la consulta');
+                alert('Error al cargar la consulta: ' + error.message);
             }
         }
 
