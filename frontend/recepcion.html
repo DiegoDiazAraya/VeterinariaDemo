@@ -1071,7 +1071,9 @@
     <div class="print-section" id="print-section"></div>
 
     <script>
-        const API_URL = 'http://localhost:5000';
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5000' 
+            : window.location.origin;
         let sintomasSeleccionados = [];
         let currentUser = null;
         let pacienteSeleccionado = null;
