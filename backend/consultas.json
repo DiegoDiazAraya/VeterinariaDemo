@@ -3,26 +3,28 @@
     {
       "id": 1,
       "numero_ticket": "BD-2025-0001",
-      "fecha_registro": "2025-12-01T08:30:00",
+      "fecha_registro": "2025-12-20T08:30:00",
       "estado": "completada",
+      "prioridad": 4,
+      "origen": "recepcion",
       "paciente_id": 1,
       "paciente": {
+        "id": 1,
         "nombre": "Max",
         "especie": "Perro",
         "raza": "Labrador Retriever",
         "edad": "4 años",
         "peso": "28 kg",
+        "sexo": "Macho",
         "propietario": "Juan Pérez Sánchez",
-        "telefono": "+56 9 1234 5678"
+        "telefono": "+56 9 1234 5678",
+        "email": "juan.perez@email.com"
       },
-      "sintomas": [
-        "Vómitos frecuentes",
-        "Diarrea",
-        "Pérdida de apetito",
-        "Letargia"
-      ],
+      "sintomas_reportados": ["Vómitos frecuentes", "Diarrea", "Pérdida de apetito"],
+      "sintomas_texto": "Vómitos frecuentes, Diarrea, Pérdida de apetito",
       "motivo_consulta": "Vómitos y diarrea desde hace 2 días",
       "tipo_consulta": "general",
+      "urgencia_reportada": "normal",
       "registrado_por": "María López",
       "atendido_por": "Dr. Carlos Martínez",
       "diagnostico": {
@@ -32,585 +34,396 @@
         "gravedad": "Media",
         "porcentaje_coincidencia": 75
       },
+      "diagnostico_preliminar": null,
       "tratamiento": {
-        "descripcion": "Ayuno de 12-24 horas seguido de dieta blanda, fluidoterapia para corregir deshidratación, antieméticos, protectores gástricos, probióticos.",
+        "descripcion": "Dieta blanda, hidratación, antieméticos",
         "duracion": "7 días",
-        "indicaciones": "Administrar medicamentos según prescripción. Dieta blanda por 5 días. Control en 1 semana."
+        "indicaciones": "Administrar medicamentos según prescripción"
       },
       "medicamentos_recetados": [
-        {
-          "id": 383,
-          "nombre": "AMOXICILINA 500MG TABLETAS X10",
-          "cantidad": 2,
-          "dosis": "1 tableta cada 12 horas",
-          "dias": 7
-        },
-        {
-          "id": 410,
-          "nombre": "OMEPRAZOL 20MG CAPSULAS X14",
-          "cantidad": 1,
-          "dosis": "1 cápsula cada 24 horas",
-          "dias": 7
-        }
+        {"id": 383, "nombre": "AMOXICILINA 500MG", "cantidad": 2, "dosis": "1 cada 12h", "dias": 7}
       ],
       "cobro": {
-        "consulta": 35000,
-        "medicamentos": 15200,
-        "total": 50200,
+        "consulta": 25000,
+        "medicamentos": 8500,
+        "total": 33500,
         "pagado": true,
         "metodo_pago": "Efectivo"
       },
-      "fecha_atencion": "2025-12-01T09:15:00",
-      "fecha_cierre": "2025-12-01T09:45:00"
+      "fecha_atencion": "2025-12-20T09:15:00",
+      "fecha_cierre": "2025-12-20T09:45:00"
     },
     {
       "id": 2,
       "numero_ticket": "BD-2025-0002",
-      "fecha_registro": "2025-12-03T10:00:00",
+      "fecha_registro": "2025-12-21T10:00:00",
       "estado": "completada",
-      "paciente_id": 3,
-      "paciente": {
-        "nombre": "Rocky",
-        "especie": "Perro",
-        "raza": "Pastor Alemán",
-        "edad": "5 años",
-        "peso": "35 kg",
-        "propietario": "Carlos Soto Muñoz",
-        "telefono": "+56 9 5555 1234"
-      },
-      "sintomas": [
-        "Cojera",
-        "Dolor al levantarse",
-        "Dificultad para subir escaleras"
-      ],
-      "motivo_consulta": "Cojera en pata trasera izquierda",
-      "tipo_consulta": "especialidad",
-      "registrado_por": "María López",
-      "atendido_por": "Dr. Carlos Martínez",
-      "diagnostico": {
-        "id": 30,
-        "nombre": "Displasia de Cadera",
-        "descripcion": "Malformación de la articulación coxofemoral",
-        "gravedad": "Media",
-        "porcentaje_coincidencia": 85
-      },
-      "tratamiento": {
-        "descripcion": "Antiinflamatorios, condroprotectores, control de peso, ejercicio moderado",
-        "duracion": "Tratamiento crónico",
-        "indicaciones": "Evitar ejercicio intenso. Mantener peso ideal. Control mensual."
-      },
-      "medicamentos_recetados": [
-        {
-          "id": 389,
-          "nombre": "MELOXICAM 1.5MG/ML SUSPENSION 30ML",
-          "cantidad": 1,
-          "dosis": "0.1mg/kg cada 24h",
-          "dias": 14
-        },
-        {
-          "id": 451,
-          "nombre": "CONDROPROTECTOR TABLETAS X60",
-          "cantidad": 1,
-          "dosis": "1 tableta al día",
-          "dias": 60
-        }
-      ],
-      "cobro": {
-        "consulta": 50000,
-        "medicamentos": 45000,
-        "total": 95000,
-        "pagado": true,
-        "metodo_pago": "Tarjeta"
-      },
-      "fecha_atencion": "2025-12-03T10:30:00",
-      "fecha_cierre": "2025-12-03T11:15:00"
-    },
-    {
-      "id": 3,
-      "numero_ticket": "BD-2025-0003",
-      "fecha_registro": "2025-12-05T14:30:00",
-      "estado": "completada",
+      "prioridad": 4,
+      "origen": "recepcion",
       "paciente_id": 2,
       "paciente": {
+        "id": 2,
         "nombre": "Luna",
         "especie": "Gato",
         "raza": "Siamés",
         "edad": "3 años",
         "peso": "4.5 kg",
-        "propietario": "María González Díaz",
-        "telefono": "+56 9 8765 4321"
+        "sexo": "Hembra",
+        "propietario": "Ana María González",
+        "telefono": "+56 9 8765 4321",
+        "email": "ana.gonzalez@email.com"
       },
-      "sintomas": [
-        "Pérdida de apetito",
-        "Vómitos",
-        "Apatía"
-      ],
-      "motivo_consulta": "No quiere comer desde hace 3 días",
+      "sintomas_reportados": ["Estornudos frecuentes", "Secreción nasal", "Ojos llorosos"],
+      "sintomas_texto": "Estornudos frecuentes, Secreción nasal, Ojos llorosos",
+      "motivo_consulta": "Resfriado, estornuda mucho",
       "tipo_consulta": "general",
+      "urgencia_reportada": "normal",
       "registrado_por": "María López",
-      "atendido_por": "Dra. Ana Rodríguez",
+      "atendido_por": "Dra. Patricia Rodríguez",
       "diagnostico": {
-        "id": 5,
-        "nombre": "Gastritis",
-        "descripcion": "Inflamación de la mucosa gástrica",
-        "gravedad": "Leve",
+        "id": 12,
+        "nombre": "Rinotraqueitis Viral Felina",
+        "descripcion": "Infección respiratoria superior",
+        "gravedad": "Baja",
         "porcentaje_coincidencia": 80
       },
-      "tratamiento": {
-        "descripcion": "Protector gástrico, dieta blanda, antieméticos si persisten vómitos",
-        "duracion": "5 días",
-        "indicaciones": "Alimentación fraccionada. Control en 5 días."
-      },
-      "medicamentos_recetados": [
-        {
-          "id": 410,
-          "nombre": "OMEPRAZOL 20MG CAPSULAS X14",
-          "cantidad": 1,
-          "dosis": "1/4 cápsula cada 24h",
-          "dias": 7
-        }
-      ],
+      "diagnostico_preliminar": null,
       "cobro": {
-        "consulta": 35000,
-        "medicamentos": 8500,
-        "total": 43500,
-        "pagado": true,
-        "metodo_pago": "Transferencia"
-      },
-      "fecha_atencion": "2025-12-05T15:00:00",
-      "fecha_cierre": "2025-12-05T15:35:00"
-    },
-    {
-      "id": 4,
-      "numero_ticket": "BD-2025-0004",
-      "fecha_registro": "2025-12-06T09:00:00",
-      "estado": "completada",
-      "paciente_id": 5,
-      "paciente": {
-        "nombre": "Toby",
-        "especie": "Perro",
-        "raza": "Beagle",
-        "edad": "3 años",
-        "peso": "12 kg",
-        "propietario": "Roberto Fernández Castro",
-        "telefono": "+56 9 4444 5555"
-      },
-      "sintomas": [],
-      "motivo_consulta": "Vacunación anual",
-      "tipo_consulta": "vacunacion",
-      "registrado_por": "María López",
-      "atendido_por": "Dr. Carlos Martínez",
-      "diagnostico": null,
-      "tratamiento": {
-        "descripcion": "Vacunación séxtuple + antirrábica + KC",
-        "indicaciones": "Observar 24h por posibles reacciones. Próxima vacuna en 1 año."
-      },
-      "medicamentos_recetados": [],
-      "cobro": {
-        "consulta": 0,
-        "vacunas": 55000,
-        "total": 55000,
-        "pagado": true,
-        "metodo_pago": "Efectivo"
-      },
-      "fecha_atencion": "2025-12-06T09:15:00",
-      "fecha_cierre": "2025-12-06T09:30:00"
-    },
-    {
-      "id": 5,
-      "numero_ticket": "BD-2025-0005",
-      "fecha_registro": "2025-12-08T11:00:00",
-      "estado": "completada",
-      "paciente_id": 4,
-      "paciente": {
-        "nombre": "Michi",
-        "especie": "Gato",
-        "raza": "Persa",
-        "edad": "2 años",
-        "peso": "5.2 kg",
-        "propietario": "Ana Martínez López",
-        "telefono": "+56 9 2222 3333"
-      },
-      "sintomas": [
-        "Estornudos frecuentes",
-        "Secreción nasal",
-        "Ojos llorosos"
-      ],
-      "motivo_consulta": "Resfrío, estornuda mucho",
-      "tipo_consulta": "general",
-      "registrado_por": "María López",
-      "atendido_por": "Dr. Carlos Martínez",
-      "diagnostico": {
-        "id": 15,
-        "nombre": "Rinotraqueitis Felina",
-        "descripcion": "Infección viral de vías respiratorias superiores",
-        "gravedad": "Leve",
-        "porcentaje_coincidencia": 90
-      },
-      "tratamiento": {
-        "descripcion": "Antibiótico para prevenir infección secundaria, lisina, limpieza nasal",
-        "duracion": "10 días",
-        "indicaciones": "Mantener en ambiente cálido. Limpiar secreciones. Control en 10 días."
-      },
-      "medicamentos_recetados": [
-        {
-          "id": 384,
-          "nombre": "DOXICICLINA 100MG TABLETAS X10",
-          "cantidad": 1,
-          "dosis": "1/4 tableta cada 12h",
-          "dias": 10
-        }
-      ],
-      "cobro": {
-        "consulta": 35000,
+        "consulta": 25000,
         "medicamentos": 12000,
-        "total": 47000,
+        "total": 37000,
         "pagado": true,
         "metodo_pago": "Tarjeta"
       },
-      "fecha_atencion": "2025-12-08T11:30:00",
-      "fecha_cierre": "2025-12-08T12:00:00"
+      "fecha_atencion": "2025-12-21T10:30:00",
+      "fecha_cierre": "2025-12-21T11:00:00"
     },
     {
-      "id": 6,
-      "numero_ticket": "BD-2025-0006",
-      "fecha_registro": "2025-12-10T16:00:00",
-      "estado": "completada",
-      "paciente_id": 6,
+      "id": 3,
+      "numero_ticket": "EMG-2025-0003",
+      "fecha_registro": "2025-12-22T08:15:00",
+      "estado": "en_atencion",
+      "prioridad": 1,
+      "origen": "chatbot",
+      "paciente_id": 5,
       "paciente": {
-        "nombre": "Cleo",
-        "especie": "Gato",
-        "raza": "Bengalí",
-        "edad": "4 años",
-        "peso": "4.8 kg",
-        "propietario": "Patricia Vargas Núñez",
-        "telefono": "+56 9 6666 7777"
-      },
-      "sintomas": [
-        "Aumento de sed",
-        "Orinar frecuente",
-        "Pérdida de peso leve"
-      ],
-      "motivo_consulta": "Control enfermedad renal",
-      "tipo_consulta": "control",
-      "registrado_por": "María López",
-      "atendido_por": "Dra. Ana Rodríguez",
-      "diagnostico": {
-        "id": 45,
-        "nombre": "Enfermedad Renal Crónica - Estadio II",
-        "descripcion": "Insuficiencia renal en etapa temprana",
-        "gravedad": "Media",
-        "porcentaje_coincidencia": 100
-      },
-      "tratamiento": {
-        "descripcion": "Dieta renal, control de fósforo, hidratación",
-        "duracion": "Tratamiento crónico",
-        "indicaciones": "Dieta Hills K/D. Control mensual de creatinina."
-      },
-      "medicamentos_recetados": [],
-      "cobro": {
-        "consulta": 35000,
-        "examenes": 25000,
-        "total": 60000,
-        "pagado": true,
-        "metodo_pago": "Efectivo"
-      },
-      "fecha_atencion": "2025-12-10T16:30:00",
-      "fecha_cierre": "2025-12-16T22:13:36"
-    },
-    {
-      "id": 7,
-      "numero_ticket": "BD-2025-0007",
-      "fecha_registro": "2025-12-11T10:30:00",
-      "estado": "completada",
-      "paciente_id": 7,
-      "paciente": {
-        "nombre": "Bruno",
-        "especie": "Perro",
-        "raza": "Bulldog Francés",
-        "edad": "2 años",
-        "peso": "11 kg",
-        "propietario": "Diego Morales Reyes",
-        "telefono": "+56 9 8888 9999"
-      },
-      "sintomas": [
-        "Sacude la cabeza",
-        "Se rasca las orejas",
-        "Mal olor en oídos"
-      ],
-      "motivo_consulta": "Se rasca mucho las orejas",
-      "tipo_consulta": "general",
-      "registrado_por": "María López",
-      "atendido_por": "Dr. Carlos Martínez",
-      "diagnostico": {
-        "id": 20,
-        "nombre": "Otitis Externa Bacteriana",
-        "descripcion": "Infección del conducto auditivo externo",
-        "gravedad": "Leve",
-        "porcentaje_coincidencia": 95
-      },
-      "tratamiento": {
-        "descripcion": "Limpieza ótica, gotas antibióticas, control de humedad",
-        "duracion": "14 días",
-        "indicaciones": "Aplicar gotas 2 veces al día. Evitar que entre agua. Control en 2 semanas."
-      },
-      "medicamentos_recetados": [
-        {
-          "id": 401,
-          "nombre": "SUROLAN GOTAS OTICAS 15ML",
-          "cantidad": 1,
-          "dosis": "5 gotas cada 12h por oído",
-          "dias": 14
-        }
-      ],
-      "cobro": {
-        "consulta": 35000,
-        "medicamentos": 18500,
-        "total": 53500,
-        "pagado": true,
-        "metodo_pago": "Efectivo"
-      },
-      "fecha_atencion": "2025-12-11T11:00:00",
-      "fecha_cierre": "2025-12-11T11:30:00"
-    },
-    {
-      "id": 8,
-      "numero_ticket": "BD-2025-0008",
-      "fecha_registro": "2025-12-11T15:00:00",
-      "estado": "completada",
-      "paciente_id": 9,
-      "paciente": {
+        "id": 5,
         "nombre": "Thor",
         "especie": "Perro",
         "raza": "Rottweiler",
         "edad": "6 años",
         "peso": "45 kg",
-        "propietario": "Fernando Guzmán Torres",
-        "telefono": "+56 9 3333 4444"
+        "sexo": "Macho",
+        "propietario": "Roberto Sánchez",
+        "telefono": "+56 9 7777 8888",
+        "email": "roberto.sanchez@email.com"
       },
-      "sintomas": [
-        "Cojera intermitente",
-        "Rigidez al levantarse",
-        "Menos activo"
-      ],
-      "motivo_consulta": "Control artrosis",
-      "tipo_consulta": "control",
-      "registrado_por": "María López",
+      "sintomas_reportados": ["Vómitos con sangre", "Abdomen hinchado", "Dificultad para respirar", "Colapso"],
+      "sintomas_texto": "Vómitos con sangre, abdomen hinchado, dificultad para respirar",
+      "motivo_consulta": "Emergencia - posible torsión gástrica",
+      "tipo_consulta": "emergencia",
+      "urgencia_reportada": "emergencia",
+      "registrado_por": "Sistema Chatbot",
       "atendido_por": "Dr. Carlos Martínez",
-      "diagnostico": {
-        "id": 32,
-        "nombre": "Artrosis Degenerativa",
-        "descripcion": "Desgaste articular progresivo",
-        "gravedad": "Media",
-        "porcentaje_coincidencia": 100
+      "diagnostico_preliminar": {
+        "posibles_condiciones": ["Torsión Gástrica", "Hemorragia digestiva", "Dilatación gástrica"],
+        "nivel_urgencia": "critica",
+        "recomendaciones": ["Radiografía urgente", "Estabilización", "Posible cirugía"],
+        "sintomas_analizados": ["Vómitos con sangre", "Abdomen hinchado", "Dificultad para respirar"],
+        "nota": "Diagnóstico preliminar automático - Requiere confirmación veterinaria"
       },
-      "tratamiento": {
-        "descripcion": "Continuar con condroprotectores, agregar omega 3, fisioterapia",
-        "duracion": "Tratamiento crónico",
-        "indicaciones": "Ejercicio moderado. Evitar superficies resbaladizas. Control en 2 meses."
-      },
-      "medicamentos_recetados": [
-        {
-          "id": 451,
-          "nombre": "CONDROPROTECTOR TABLETAS X60",
-          "cantidad": 1,
-          "dosis": "2 tabletas al día",
-          "dias": 30
-        },
-        {
-          "id": 450,
-          "nombre": "OMEGA 3-6-9 CAPSULAS X60",
-          "cantidad": 1,
-          "dosis": "1 cápsula al día",
-          "dias": 60
-        }
-      ],
-      "cobro": {
-        "consulta": 35000,
-        "medicamentos": 52000,
-        "total": 87000,
-        "pagado": false,
-        "metodo_pago": null
-      },
-      "fecha_atencion": "2025-12-11T15:30:00",
-      "fecha_cierre": "2025-12-11T16:00:00"
-    },
-    {
-      "id": 9,
-      "numero_ticket": "BD-2025-0009",
-      "fecha_registro": "2025-12-12T09:00:00",
-      "estado": "completada",
-      "paciente_id": 10,
-      "paciente": {
-        "nombre": "Simba",
-        "especie": "Gato",
-        "raza": "Maine Coon",
-        "edad": "3 años",
-        "peso": "7.5 kg",
-        "propietario": "Valentina Rojas Espinoza",
-        "telefono": "+56 9 7777 8888"
-      },
-      "sintomas": [],
-      "motivo_consulta": "Vacunación anual",
-      "tipo_consulta": "vacunacion",
-      "registrado_por": "María López",
-      "atendido_por": "Dra. Ana Rodríguez",
       "diagnostico": null,
-      "tratamiento": {
-        "descripcion": "Vacunación triple felina + leucemia + antirrábica",
-        "indicaciones": "Observar 24h. Próxima vacuna en 1 año."
-      },
-      "medicamentos_recetados": [],
-      "cobro": {
-        "consulta": 0,
-        "vacunas": 48000,
-        "total": 48000,
-        "pagado": true,
-        "metodo_pago": "Transferencia"
-      },
-      "fecha_atencion": "2025-12-12T09:15:00",
-      "fecha_cierre": "2025-12-12T09:30:00"
+      "cobro": null,
+      "fecha_atencion": "2025-12-22T08:20:00"
     },
     {
-      "id": 10,
-      "numero_ticket": "BD-2025-0010",
-      "fecha_registro": "2025-12-12T14:00:00",
-      "estado": "en_atencion",
-      "paciente_id": 8,
+      "id": 4,
+      "numero_ticket": "BD-2025-0004",
+      "fecha_registro": "2025-12-22T09:00:00",
+      "estado": "en_espera",
+      "prioridad": 4,
+      "origen": "recepcion",
+      "paciente_id": 3,
       "paciente": {
+        "id": 3,
         "nombre": "Pelusa",
         "especie": "Gato",
-        "raza": "Angora",
-        "edad": "5 años",
-        "peso": "3.8 kg",
+        "raza": "Persa",
+        "edad": "2 años",
+        "peso": "5 kg",
+        "sexo": "Hembra",
         "propietario": "Claudia Herrera Pizarro",
-        "telefono": "+56 9 1111 2222"
+        "telefono": "+56 9 1111 2222",
+        "email": "claudia.herrera@email.com"
       },
-      "sintomas": [
-        "Tos ocasional",
-        "Estornudos"
-      ],
-      "motivo_consulta": "Tos y estornudos",
+      "sintomas_reportados": ["Rascado excesivo", "Pérdida de pelo", "Costras en piel"],
+      "sintomas_texto": "Rascado excesivo, pérdida de pelo, costras en la piel",
+      "motivo_consulta": "Se rasca mucho, tiene costras",
       "tipo_consulta": "general",
+      "urgencia_reportada": "normal",
       "registrado_por": "María López",
-      "atendido_por": "Dr. Carlos Martínez",
+      "atendido_por": null,
+      "diagnostico_preliminar": {
+        "posibles_condiciones": ["Dermatitis alérgica", "Sarna", "Hongos en piel"],
+        "nivel_urgencia": "baja",
+        "recomendaciones": ["Raspado cutáneo", "Antihistamínico", "Revisión de piel"],
+        "sintomas_analizados": ["Rascado excesivo", "Pérdida de pelo", "Costras en piel"],
+        "nota": "Diagnóstico preliminar automático - Requiere confirmación veterinaria"
+      },
       "diagnostico": null,
-      "tratamiento": null,
-      "medicamentos_recetados": [],
-      "cobro": null,
-      "fecha_atencion": "2025-12-16T22:09:09",
-      "fecha_cierre": null
+      "cobro": null
     },
     {
-      "id": 11,
-      "numero_ticket": "BD-2025-0011",
-      "fecha_registro": "2025-12-12T14:30:00",
-      "estado": "en_atencion",
+      "id": 5,
+      "numero_ticket": "BD-2025-0005",
+      "fecha_registro": "2025-12-22T09:30:00",
+      "estado": "en_espera",
+      "prioridad": 2,
+      "origen": "chatbot",
+      "paciente_id": 6,
+      "paciente": {
+        "id": 6,
+        "nombre": "Toby",
+        "especie": "Perro",
+        "raza": "Beagle",
+        "edad": "5 años",
+        "peso": "12 kg",
+        "sexo": "Macho",
+        "propietario": "María Fernanda López",
+        "telefono": "+56 9 3333 4444",
+        "email": "mfernanda@email.com"
+      },
+      "sintomas_reportados": ["Cojera severa", "No apoya pata", "Gemidos de dolor"],
+      "sintomas_texto": "Cojera severa, no apoya la pata delantera, gime de dolor",
+      "motivo_consulta": "Se cayó de la escalera, no puede caminar",
+      "tipo_consulta": "urgente",
+      "urgencia_reportada": "urgente",
+      "registrado_por": "Sistema Chatbot",
+      "atendido_por": null,
+      "diagnostico_preliminar": {
+        "posibles_condiciones": ["Fractura", "Luxación", "Esguince severo"],
+        "nivel_urgencia": "alta",
+        "recomendaciones": ["Radiografía", "Analgésico", "Inmovilización"],
+        "sintomas_analizados": ["Cojera severa", "No apoya pata", "Gemidos de dolor"],
+        "nota": "Diagnóstico preliminar automático - Requiere confirmación veterinaria"
+      },
+      "diagnostico": null,
+      "cobro": null
+    },
+    {
+      "id": 6,
+      "numero_ticket": "BD-2025-0006",
+      "fecha_registro": "2025-12-22T10:00:00",
+      "estado": "en_espera",
+      "prioridad": 4,
+      "origen": "recepcion",
+      "paciente_id": 7,
+      "paciente": {
+        "id": 7,
+        "nombre": "Michi",
+        "especie": "Gato",
+        "raza": "Común Europeo",
+        "edad": "8 años",
+        "peso": "6 kg",
+        "sexo": "Macho",
+        "propietario": "Pedro Muñoz Castro",
+        "telefono": "+56 9 5555 6666",
+        "email": "pedro.munoz@email.com"
+      },
+      "sintomas_reportados": ["Orina con sangre", "Maulla al orinar", "Va frecuente al arenero"],
+      "sintomas_texto": "Orina con sangre, maulla al orinar, va muy seguido al arenero",
+      "motivo_consulta": "Problemas urinarios",
+      "tipo_consulta": "general",
+      "urgencia_reportada": "normal",
+      "registrado_por": "María López",
+      "atendido_por": null,
+      "diagnostico_preliminar": {
+        "posibles_condiciones": ["Cistitis", "Cálculos urinarios", "FLUTD"],
+        "nivel_urgencia": "media",
+        "recomendaciones": ["Urianálisis", "Ecografía", "Antibiótico"],
+        "sintomas_analizados": ["Orina con sangre", "Maulla al orinar"],
+        "nota": "Diagnóstico preliminar automático - Requiere confirmación veterinaria"
+      },
+      "diagnostico": null,
+      "cobro": null
+    },
+    {
+      "id": 7,
+      "numero_ticket": "BD-2025-0007",
+      "fecha_registro": "2025-12-22T10:30:00",
+      "estado": "en_espera",
+      "prioridad": 5,
+      "origen": "recepcion",
+      "paciente_id": 8,
+      "paciente": {
+        "id": 8,
+        "nombre": "Nina",
+        "especie": "Perro",
+        "raza": "Golden Retriever",
+        "edad": "2 años",
+        "peso": "28 kg",
+        "sexo": "Hembra",
+        "propietario": "Carolina Vega Díaz",
+        "telefono": "+56 9 7777 9999",
+        "email": "carolina.vega@email.com"
+      },
+      "sintomas_reportados": [],
+      "sintomas_texto": "Control de vacunas",
+      "motivo_consulta": "Vacunación anual",
+      "tipo_consulta": "control",
+      "urgencia_reportada": "baja",
+      "registrado_por": "María López",
+      "atendido_por": null,
+      "diagnostico_preliminar": {
+        "posibles_condiciones": ["Control preventivo"],
+        "nivel_urgencia": "baja",
+        "recomendaciones": ["Esquema de vacunación", "Examen físico completo"],
+        "sintomas_analizados": [],
+        "nota": "Control preventivo - Sin síntomas"
+      },
+      "diagnostico": null,
+      "cobro": null
+    },
+    {
+      "id": 8,
+      "numero_ticket": "BD-2025-0008",
+      "fecha_registro": "2025-12-22T11:00:00",
+      "estado": "atendida",
+      "prioridad": 4,
+      "origen": "recepcion",
       "paciente_id": 1,
       "paciente": {
+        "id": 1,
         "nombre": "Max",
         "especie": "Perro",
         "raza": "Labrador Retriever",
         "edad": "4 años",
         "peso": "28 kg",
+        "sexo": "Macho",
         "propietario": "Juan Pérez Sánchez",
-        "telefono": "+56 9 1234 5678"
+        "telefono": "+56 9 1234 5678",
+        "email": "juan.perez@email.com"
       },
-      "sintomas": [
-        "Sarna en patas",
-        "Picazón"
-      ],
+      "sintomas_reportados": ["Tos persistente", "Secreción nasal"],
+      "sintomas_texto": "Tos persistente, secreción nasal",
       "motivo_consulta": "Control post-tratamiento gastroenteritis",
       "tipo_consulta": "control",
-      "registrado_por": "María López",
-      "atendido_por": "Dr. Carlos Martínez",
-      "diagnostico": null,
-      "tratamiento": null,
-      "medicamentos_recetados": [],
-      "cobro": null,
-      "fecha_atencion": "2025-12-16T22:08:51",
-      "fecha_cierre": null
-    },
-    {
-      "id": 12,
-      "numero_ticket": "BD-2025-0012",
-      "fecha_registro": "2025-12-17T01:20:22",
-      "estado": "atendida",
-      "paciente_id": 13,
-      "paciente": {
-        "nombre": "Mateo",
-        "especie": "perro",
-        "raza": "boliviana",
-        "edad": "3 años y 10 meses",
-        "peso": "",
-        "propietario": "Javier Ignacio Fuica Brevis",
-        "telefono": "+56 9 7884 2850"
-      },
-      "sintomas": [
-        "Fiebre alta",
-        "Costras en la piel",
-        "Vómitos severos",
-        "Sangrado nasal"
-      ],
-      "motivo_consulta": "Fiebre , sarna , picazon",
-      "tipo_consulta": "emergencia",
+      "urgencia_reportada": "normal",
       "registrado_por": "María López",
       "atendido_por": "Dr. Carlos Martínez",
       "diagnostico": {
-        "id": 43,
-        "nombre": "Leptospirosis",
-        "descripcion": "Enfermedad bacteriana que afecta riñones e hígado, zoonótica.",
-        "gravedad": "Crítica",
-        "porcentaje_coincidencia": 63.7
+        "id": 15,
+        "nombre": "Traqueobronquitis (Tos de Perreras)",
+        "descripcion": "Infección respiratoria contagiosa",
+        "gravedad": "Baja",
+        "porcentaje_coincidencia": 85
+      },
+      "diagnostico_preliminar": {
+        "posibles_condiciones": ["Traqueobronquitis", "Infección respiratoria"],
+        "nivel_urgencia": "media",
+        "recomendaciones": ["Antitusígeno", "Radiografía de tórax"],
+        "sintomas_analizados": ["Tos persistente", "Secreción nasal"],
+        "nota": "Diagnóstico preliminar automático"
       },
       "tratamiento": {
-        "descripcion": "Antibióticos, fluidoterapia agresiva, diálisis si es necesario.",
-        "indicaciones": "Antibióticos, fluidoterapia agresiva, diálisis si es necesario."
+        "descripcion": "Antitusígenos, antibióticos, reposo",
+        "duracion": "10 días",
+        "indicaciones": "Evitar contacto con otros perros. Ambiente cálido."
       },
       "medicamentos_recetados": [
-        {
-          "id": 379,
-          "nombre": "AMOXICILINA 250MG SUSPENSION 60ML",
-          "categoria": "Antibioticos",
-          "presentacion": "Frasco 60ml",
-          "cantidad": 1,
-          "dosis": "Según indicación médica",
-          "frecuencia": 12,
-          "duracion": "",
-          "via_administracion": "Oral",
-          "instrucciones": "",
-          "precio_unitario": 12500,
-          "subtotal": 12500,
-          "stock_al_recetar": 26,
-          "estado_stock": "disponible",
-          "recetado_por": "Dr. Carlos Martínez",
-          "fecha_receta": "2025-12-17T01:25:40"
-        }
+        {"id": 200, "nombre": "DEXTROMETORFANO JARABE", "cantidad": 1, "dosis": "5ml cada 8h", "dias": 7},
+        {"id": 383, "nombre": "AMOXICILINA 500MG", "cantidad": 1, "dosis": "1 cada 12h", "dias": 10}
       ],
       "cobro": {
-        "consulta": 60000,
-        "medicamentos": 12500,
-        "total": 72500,
+        "consulta": 25000,
+        "medicamentos": 15000,
+        "total": 40000,
         "pagado": false,
-        "metodo_pago": null,
-        "detalle_medicamentos": [
-          {
-            "nombre": "AMOXICILINA 250MG SUSPENSION 60ML",
-            "cantidad": 1,
-            "precio_unitario": 12500,
-            "subtotal": 12500
-          }
-        ]
+        "metodo_pago": null
       },
-      "fecha_atencion": "2025-12-17T01:24:20",
-      "fecha_cierre": null
+      "fecha_atencion": "2025-12-22T11:15:00"
+    },
+    {
+      "id": 9,
+      "numero_ticket": "BD-2025-0009",
+      "fecha_registro": "2025-12-22T11:30:00",
+      "estado": "en_espera",
+      "prioridad": 3,
+      "origen": "chatbot",
+      "paciente_id": 9,
+      "paciente": {
+        "id": 9,
+        "nombre": "Rocky",
+        "especie": "Perro",
+        "raza": "Bulldog Francés",
+        "edad": "3 años",
+        "peso": "12 kg",
+        "sexo": "Macho",
+        "propietario": "Diego Díaz Araya",
+        "telefono": "+56 9 6552 4190",
+        "email": "diego.diaz@email.com"
+      },
+      "sintomas_reportados": ["Dificultad para respirar", "Ronquidos fuertes", "Se cansa rápido"],
+      "sintomas_texto": "Dificultad para respirar, ronquidos muy fuertes, se agota rápido al pasear",
+      "motivo_consulta": "Problemas respiratorios - raza braquicéfala",
+      "tipo_consulta": "especialidad",
+      "urgencia_reportada": "normal",
+      "registrado_por": "Sistema Chatbot",
+      "atendido_por": null,
+      "diagnostico_preliminar": {
+        "posibles_condiciones": ["Síndrome braquicefálico", "Estenosis de narinas", "Paladar blando elongado"],
+        "nivel_urgencia": "media",
+        "recomendaciones": ["Evaluación respiratoria", "Posible cirugía correctiva", "Evitar calor excesivo"],
+        "sintomas_analizados": ["Dificultad para respirar", "Ronquidos fuertes", "Se cansa rápido"],
+        "nota": "Diagnóstico preliminar automático - Requiere confirmación veterinaria"
+      },
+      "diagnostico": null,
+      "cobro": null
+    },
+    {
+      "id": 10,
+      "numero_ticket": "BD-2025-0010",
+      "fecha_registro": "2025-12-22T12:00:00",
+      "estado": "en_espera",
+      "prioridad": 4,
+      "origen": "chatbot",
+      "paciente_id": 10,
+      "paciente": {
+        "id": 10,
+        "nombre": "Simba",
+        "especie": "Gato",
+        "raza": "Maine Coon",
+        "edad": "5 años",
+        "peso": "8 kg",
+        "sexo": "Macho",
+        "propietario": "Valentina Rojas",
+        "telefono": "+56 9 8888 1111",
+        "email": "vale.rojas@email.com"
+      },
+      "sintomas_reportados": ["No come hace 2 días", "Muy decaído", "Se esconde"],
+      "sintomas_texto": "No quiere comer hace 2 días, está muy decaído y se esconde",
+      "motivo_consulta": "Anorexia y decaimiento",
+      "tipo_consulta": "general",
+      "urgencia_reportada": "normal",
+      "registrado_por": "Sistema Chatbot",
+      "atendido_por": null,
+      "diagnostico_preliminar": {
+        "posibles_condiciones": ["Infección sistémica", "Problema hepático", "Estrés/Ansiedad"],
+        "nivel_urgencia": "media",
+        "recomendaciones": ["Hemograma completo", "Perfil bioquímico", "Evaluación general"],
+        "sintomas_analizados": ["No come hace 2 días", "Muy decaído", "Se esconde"],
+        "nota": "Diagnóstico preliminar automático - Requiere confirmación veterinaria"
+      },
+      "diagnostico": null,
+      "cobro": null
     }
   ],
-  "ultimo_ticket": 12,
+  "ultimo_ticket": 10,
   "precios": {
-    "consulta_general": 35000,
-    "consulta_emergencia": 60000,
-    "consulta_especialidad": 50000,
-    "consulta_control": 35000
+    "consulta_general": 25000,
+    "consulta_emergencia": 50000,
+    "consulta_especialidad": 40000,
+    "consulta_control": 25000,
+    "consulta_urgente": 35000
   }
 }
