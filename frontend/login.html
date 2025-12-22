@@ -903,10 +903,8 @@
             : window.location.origin;
 
         // ========== N8N CONFIGURATION ==========
-        const N8N_WEBHOOK_URL = window.location.hostname === 'localhost'
-            ? 'http://localhost:5678/webhook/e1ad9a32-b091-483c-a80e-19200cbe1f38/chat'
-            : 'https://n8n-production-607c.up.railway.app/webhook/e1ad9a32-b091-483c-a80e-19200cbe1f38/chat';
-        const USE_N8N = true; // Usar n8n tanto en local como en producción
+        const N8N_WEBHOOK_URL = 'https://n8n-production-607c.up.railway.app/webhook/chat-web';
+        const USE_N8N = true; // Usar n8n para el chatbot
         let sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 
         // ========== CHATBOX STATE ==========
