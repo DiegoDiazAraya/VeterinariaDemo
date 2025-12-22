@@ -62,22 +62,25 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
+            min-height: 100dvh;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--secondary-dark) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1rem;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Elementos decorativos de fondo */
         body::before,
         body::after {
             content: '';
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
         }
         body::before {
             width: 800px;
@@ -398,10 +401,15 @@
 
         /* Responsive */
         @media (max-width: 900px) {
+            body {
+                align-items: flex-start;
+                padding: 1rem;
+            }
             .login-container {
                 flex-direction: column;
                 max-width: 500px;
                 min-height: auto;
+                margin: auto;
             }
             .brand-panel {
                 padding: 2rem;
@@ -420,10 +428,12 @@
         @media (max-width: 500px) {
             body {
                 padding: 0.5rem;
+                align-items: flex-start;
             }
             .login-container {
                 border-radius: var(--radius-lg);
                 max-width: 100%;
+                margin: 0.5rem auto;
             }
             .brand-panel {
                 padding: 1.5rem;

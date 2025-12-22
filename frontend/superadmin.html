@@ -512,14 +512,17 @@
                 top: 50px;
                 left: 0;
                 bottom: 0;
-                width: 240px;
-                z-index: 999;
+                width: 280px;
+                max-width: 85vw;
+                z-index: 1001;
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
             }
             .sidebar.mobile-open {
-                display: block;
                 transform: translateX(0);
+            }
+            .sidebar {
+                box-shadow: 4px 0 20px rgba(0,0,0,0.15);
             }
             .main-content {
                 margin-left: 0;
@@ -670,16 +673,47 @@
         .sidebar-overlay {
             display: none;
             position: fixed;
-            top: 50px;
+            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             background: rgba(0,0,0,0.5);
-            z-index: 998;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .sidebar-overlay.active {
             display: block;
+            opacity: 1;
+        }
+
+        /* Botón cerrar menú móvil */
+        .mobile-menu-close {
+            display: none;
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-close {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .sidebar {
+                padding-top: 2.5rem;
+            }
         }
 
         .desktop-only {
@@ -731,10 +765,11 @@
         </nav>
     </header>
     
-    <div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="sidebar-overlay" onclick="closeMobileMenu()"></div>
     
     <div class="app-container">
         <aside class="sidebar">
+            <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
             <div class="sidebar-section">
                 <div class="sidebar-title">Principal</div>
                 <ul class="sidebar-menu">
@@ -2140,6 +2175,16 @@
             const overlay = document.querySelector('.sidebar-overlay');
             sidebar.classList.toggle('mobile-open');
             overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('mobile-open') ? 'hidden' : '';
+        }
+
+        // Cerrar menú móvil
+        function closeMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.remove('mobile-open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         function logout() {
