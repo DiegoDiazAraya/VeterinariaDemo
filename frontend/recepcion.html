@@ -478,6 +478,80 @@
         .badge-chatbot.badge-urgente {
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
         }
+        
+        /* Estilos para diagnóstico preliminar */
+        .diagnostico-preliminar {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%);
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+        .diagnostico-preliminar.urgencia-critica {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #ef4444;
+        }
+        .diagnostico-preliminar.urgencia-alta {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-color: #f97316;
+        }
+        .diagnostico-preliminar-header {
+            font-weight: 600;
+            color: #0f766e;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .diagnostico-preliminar.urgencia-critica .diagnostico-preliminar-header { color: #dc2626; }
+        .diagnostico-preliminar.urgencia-alta .diagnostico-preliminar-header { color: #ea580c; }
+        .diagnostico-condiciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .condicion-tag {
+            background: rgba(16, 185, 129, 0.15);
+            color: #047857;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .urgencia-critica .condicion-tag { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
+        .urgencia-alta .condicion-tag { background: rgba(249, 115, 22, 0.15); color: #c2410c; }
+        .diagnostico-acciones {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .diagnostico-acciones strong { color: #334155; }
+        
+        /* Ficha del paciente expandida */
+        .paciente-ficha {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.25rem;
+            font-size: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .paciente-dato {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .paciente-dato-label {
+            color: #64748b;
+            font-size: 0.7rem;
+        }
+        .paciente-dato-valor {
+            font-weight: 500;
+            color: #334155;
+        }
         @keyframes pulse-badge {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -1437,8 +1511,12 @@
                 
                 // Mostrar síntomas si vienen del chatbot
                 let sintomasHtml = '';
-                if (esChatbot && c.sintomas && c.sintomas.length > 0) {
-                    const sintomasList = Array.isArray(c.sintomas) ? c.sintomas : [c.sintomas];
+                // Síntomas reportados (mejorado)
+                const sintomasReportados = c.sintomas_reportados || c.sintomas || [];
+                const sintomasList = Array.isArray(sintomasReportados) ? sintomasReportados : 
+                                    (typeof sintomasReportados === 'string' ? sintomasReportados.split(',').map(s => s.trim()) : []);
+                
+                if (esChatbot && sintomasList.length > 0) {
                     sintomasHtml = `
                         <div class="consulta-sintomas">
                             <strong>🩺 Síntomas reportados:</strong> ${sintomasList.join(', ')}
@@ -1452,6 +1530,50 @@
                     notasHtml = `<div class="consulta-notas">💬 ${c.notas_chatbot}</div>`;
                 }
                 
+                // Ficha del paciente expandida
+                let fichaHtml = '';
+                if (esChatbot && c.paciente) {
+                    const p = c.paciente;
+                    const datosExtra = [];
+                    if (p.raza) datosExtra.push(`<span class="paciente-dato">🏷️ <span class="paciente-dato-valor">${p.raza}</span></span>`);
+                    if (p.edad) datosExtra.push(`<span class="paciente-dato">📅 <span class="paciente-dato-valor">${p.edad}</span></span>`);
+                    if (p.peso) datosExtra.push(`<span class="paciente-dato">⚖️ <span class="paciente-dato-valor">${p.peso}</span></span>`);
+                    if (p.sexo && p.sexo !== 'No especificado') datosExtra.push(`<span class="paciente-dato">${p.sexo === 'Macho' ? '♂️' : '♀️'} <span class="paciente-dato-valor">${p.sexo}</span></span>`);
+                    
+                    if (datosExtra.length > 0) {
+                        fichaHtml = `<div class="paciente-ficha">${datosExtra.join('')}</div>`;
+                    }
+                }
+                
+                // Diagnóstico preliminar del chatbot
+                let diagnosticoPreliminarHtml = '';
+                if (esChatbot && c.diagnostico_preliminar && c.diagnostico_preliminar.posibles_condiciones?.length > 0) {
+                    const dp = c.diagnostico_preliminar;
+                    const urgenciaClass = dp.nivel_urgencia === 'critica' ? 'urgencia-critica' : 
+                                         dp.nivel_urgencia === 'alta' ? 'urgencia-alta' : '';
+                    const urgenciaIcon = dp.nivel_urgencia === 'critica' ? '🚨' : 
+                                        dp.nivel_urgencia === 'alta' ? '⚠️' : '🩺';
+                    const urgenciaTexto = dp.nivel_urgencia === 'critica' ? 'CRÍTICA' : 
+                                         dp.nivel_urgencia === 'alta' ? 'ALTA' : 
+                                         dp.nivel_urgencia === 'media' ? 'MEDIA' : 'BAJA';
+                    
+                    diagnosticoPreliminarHtml = `
+                        <div class="diagnostico-preliminar ${urgenciaClass}">
+                            <div class="diagnostico-preliminar-header">
+                                ${urgenciaIcon} Diagnóstico Preliminar (Urgencia: ${urgenciaTexto})
+                            </div>
+                            <div class="diagnostico-condiciones">
+                                ${dp.posibles_condiciones.map(c => `<span class="condicion-tag">${c}</span>`).join('')}
+                            </div>
+                            ${dp.recomendaciones && dp.recomendaciones.length > 0 ? `
+                                <div class="diagnostico-acciones">
+                                    <strong>📋 Acciones sugeridas:</strong> ${dp.recomendaciones.join(' • ')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+                
                 return `
                 <div class="consulta-item ${c.estado} ${esChatbot ? 'desde-chatbot' : ''} ${esEmergencia ? 'emergencia' : ''} ${esUrgente ? 'urgente-item' : ''}">
                     <div class="consulta-header">
@@ -1463,11 +1585,14 @@
                               c.estado === 'atendida' ? '✅ Atendida' : '✓ Completada'}
                         </span>
                     </div>
-                    <div class="consulta-paciente">🐾 ${c.paciente.nombre} (${c.paciente.especie})</div>
+                    <div class="consulta-paciente">🐾 ${c.paciente.nombre} (${c.paciente.especie || 'Sin especificar'})</div>
+                    ${fichaHtml}
                     <div class="consulta-info">
                         👤 ${c.paciente.propietario} · 📞 ${c.paciente.telefono || 'N/A'}
+                        ${c.paciente.email ? ` · 📧 ${c.paciente.email}` : ''}
                     </div>
                     ${sintomasHtml}
+                    ${diagnosticoPreliminarHtml}
                     ${notasHtml}
                     ${c.diagnostico ? `<div class="consulta-info" style="margin-top: 0.3rem;">📋 ${c.diagnostico.nombre}</div>` : ''}
                     <div class="consulta-actions">
