@@ -815,6 +815,7 @@
                 <ul class="sidebar-menu">
                     <li><button onclick="showSection('usuarios')"><span class="icon">👤</span> Usuarios</button></li>
                     <li><button onclick="showSection('reportes')"><span class="icon">📈</span> Reportes</button></li>
+                    <li><button onclick="showSection('backups')"><span class="icon">💾</span> Backups</button></li>
                 </ul>
             </div>
         </aside>
@@ -1386,6 +1387,70 @@
                     </div>
                 </div>
             </section>
+            
+            <!-- BACKUPS -->
+            <section id="section-backups" class="section">
+                <div class="page-header">
+                    <h2 class="page-title">💾 Copias de Seguridad</h2>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-primary" onclick="crearBackup()">➕ Crear Backup</button>
+                        <button class="btn btn-secondary" onclick="descargarBackupInstantaneo()">⬇️ Descargar Ahora</button>
+                    </div>
+                </div>
+                
+                <div class="grid-3">
+                    <div class="stat-mini">
+                        <h4>🕛 00:00</h4>
+                        <p>Backup automático diario</p>
+                    </div>
+                    <div class="stat-mini">
+                        <h4 id="total-backups">0</h4>
+                        <p>Backups almacenados</p>
+                    </div>
+                    <div class="stat-mini">
+                        <h4>7 días</h4>
+                        <p>Retención de backups</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-header">
+                        <span class="card-title">📁 Backups Disponibles</span>
+                        <button class="btn btn-sm btn-secondary" onclick="cargarBackups()">🔄 Actualizar</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Archivo</th>
+                                        <th>Fecha</th>
+                                        <th>Tamaño</th>
+                                        <th style="text-align: center;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-backups">
+                                    <tr><td colspan="4" style="text-align: center; padding: 2rem; color: #888;">Cargando backups...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-header">
+                        <span class="card-title">ℹ️ Información del Sistema de Backups</span>
+                    </div>
+                    <div class="card-body">
+                        <ul style="color: #666; line-height: 1.8;">
+                            <li>✅ <strong>Backup automático:</strong> Se ejecuta todos los días a las 00:00</li>
+                            <li>✅ <strong>Retención:</strong> Se mantienen los últimos 7 backups</li>
+                            <li>✅ <strong>Contenido:</strong> Incluye pacientes, consultas, inventario, usuarios y configuraciones</li>
+                            <li>⚠️ <strong>Restaurar:</strong> Crea un backup antes de restaurar para evitar pérdida de datos</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
     
@@ -1598,6 +1663,7 @@
                 case 'peluqueria': cargarPeluqueria(); break;
                 case 'usuarios': cargarUsuarios(); break;
                 case 'reportes': cargarReportes(); break;
+                case 'backups': cargarBackups(); break;
             }
         }
         
@@ -1616,6 +1682,93 @@
                 document.getElementById('rep-vacunas').textContent = Math.floor(Math.random() * 20) + 10;
             } catch (error) {
                 console.error('Error:', error);
+            }
+        }
+        
+        // ==================== SISTEMA DE BACKUPS ====================
+        
+        // Cargar lista de backups
+        async function cargarBackups() {
+            try {
+                const res = await fetch(`${API_URL}/api/backup/lista`);
+                const data = await res.json();
+                
+                const tbody = document.getElementById('tabla-backups');
+                
+                if (data.exito && data.backups.length > 0) {
+                    document.getElementById('total-backups').textContent = data.backups.length;
+                    tbody.innerHTML = data.backups.map(backup => `
+                        <tr>
+                            <td><strong>📦 ${backup.nombre}</strong></td>
+                            <td>${backup.fecha}</td>
+                            <td>${backup.tamaño}</td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-sm btn-secondary" onclick="descargarBackup('${backup.nombre}')" title="Descargar">
+                                    ⬇️
+                                </button>
+                                <button class="btn btn-sm btn-primary" onclick="restaurarBackup('${backup.nombre}')" title="Restaurar">
+                                    🔄
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    document.getElementById('total-backups').textContent = '0';
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem; color: #888;">No hay backups disponibles. Crea uno usando el botón "Crear Backup".</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error al cargar backups:', error);
+                document.getElementById('tabla-backups').innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem; color: #e74c3c;">Error al cargar los backups</td></tr>';
+            }
+        }
+        
+        // Crear nuevo backup
+        async function crearBackup() {
+            if (!confirm('¿Crear una nueva copia de seguridad?')) return;
+            
+            try {
+                const res = await fetch(`${API_URL}/api/backup/crear`, { method: 'POST' });
+                const data = await res.json();
+                
+                if (data.exito) {
+                    alert(`✅ Backup creado: ${data.archivo}`);
+                    cargarBackups();
+                } else {
+                    alert('❌ Error al crear backup: ' + data.mensaje);
+                }
+            } catch (error) {
+                alert('❌ Error de conexión al crear backup');
+                console.error(error);
+            }
+        }
+        
+        // Descargar backup específico
+        function descargarBackup(nombre) {
+            window.open(`${API_URL}/api/backup/descargar/${nombre}`, '_blank');
+        }
+        
+        // Descargar backup instantáneo
+        function descargarBackupInstantaneo() {
+            window.open(`${API_URL}/api/backup/descargar-ahora`, '_blank');
+        }
+        
+        // Restaurar backup
+        async function restaurarBackup(nombre) {
+            if (!confirm(`⚠️ ¿Restaurar el backup "${nombre}"?\n\nEsto reemplazará todos los datos actuales. Se creará un backup de seguridad antes de restaurar.`)) return;
+            
+            try {
+                const res = await fetch(`${API_URL}/api/backup/restaurar/${nombre}`, { method: 'POST' });
+                const data = await res.json();
+                
+                if (data.exito) {
+                    alert('✅ ' + data.mensaje);
+                    location.reload();
+                } else {
+                    alert('❌ Error: ' + data.mensaje);
+                }
+            } catch (error) {
+                alert('❌ Error de conexión al restaurar backup');
+                console.error(error);
             }
         }
         

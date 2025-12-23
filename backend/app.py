@@ -1,10 +1,15 @@
-from flask import Flask, request, jsonify, session, send_from_directory
+from flask import Flask, request, jsonify, session, send_from_directory, send_file
 from flask_cors import CORS
 import json
 import os
 import unicodedata
 from datetime import datetime
 from functools import wraps
+import zipfile
+import io
+import shutil
+from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
 
 # Import del Blueprint bot_api (compatible con local y producción)
 try:
@@ -2391,6 +2396,182 @@ def registrar_movimiento():
     })
 
 
+# ==================== SISTEMA DE BACKUP AUTOMÁTICO ====================
+
+BACKUP_FOLDER = os.path.join(os.path.dirname(__file__), 'backups')
+
+# Archivos a incluir en el backup
+ARCHIVOS_BACKUP = [
+    'consultas.json',
+    'data_simulada.json',
+    'diagnosticos_veterinarios.json',
+    'inventario.json',
+    'movimientos_stock.json',
+    'pacientes.json',
+    'razas.json',
+    'users.json'
+]
+
+def crear_backup():
+    """Crea una copia de seguridad de todos los archivos JSON"""
+    try:
+        # Crear carpeta de backups si no existe
+        if not os.path.exists(BACKUP_FOLDER):
+            os.makedirs(BACKUP_FOLDER)
+        
+        # Nombre del archivo con fecha y hora
+        fecha_hora = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        nombre_backup = f'backup_{fecha_hora}.zip'
+        ruta_backup = os.path.join(BACKUP_FOLDER, nombre_backup)
+        
+        # Crear archivo ZIP
+        with zipfile.ZipFile(ruta_backup, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for archivo in ARCHIVOS_BACKUP:
+                ruta_archivo = os.path.join(os.path.dirname(__file__), archivo)
+                if os.path.exists(ruta_archivo):
+                    zipf.write(ruta_archivo, archivo)
+        
+        # Limpiar backups antiguos (mantener solo los últimos 7)
+        limpiar_backups_antiguos()
+        
+        print(f"[BACKUP] ✅ Copia de seguridad creada: {nombre_backup}")
+        return nombre_backup
+    except Exception as e:
+        print(f"[BACKUP] ❌ Error al crear backup: {str(e)}")
+        return None
+
+def limpiar_backups_antiguos(mantener=7):
+    """Elimina backups antiguos, manteniendo solo los más recientes"""
+    try:
+        if not os.path.exists(BACKUP_FOLDER):
+            return
+        
+        backups = sorted([
+            f for f in os.listdir(BACKUP_FOLDER) 
+            if f.startswith('backup_') and f.endswith('.zip')
+        ], reverse=True)
+        
+        # Eliminar los más antiguos
+        for backup_antiguo in backups[mantener:]:
+            os.remove(os.path.join(BACKUP_FOLDER, backup_antiguo))
+            print(f"[BACKUP] 🗑️ Backup antiguo eliminado: {backup_antiguo}")
+    except Exception as e:
+        print(f"[BACKUP] ❌ Error al limpiar backups: {str(e)}")
+
+def obtener_lista_backups():
+    """Obtiene la lista de backups disponibles"""
+    if not os.path.exists(BACKUP_FOLDER):
+        return []
+    
+    backups = []
+    for f in sorted(os.listdir(BACKUP_FOLDER), reverse=True):
+        if f.startswith('backup_') and f.endswith('.zip'):
+            ruta = os.path.join(BACKUP_FOLDER, f)
+            tamaño = os.path.getsize(ruta)
+            backups.append({
+                'nombre': f,
+                'fecha': f.replace('backup_', '').replace('.zip', '').replace('_', ' '),
+                'tamaño': f"{tamaño / 1024:.1f} KB"
+            })
+    return backups
+
+# Endpoint para crear backup manual
+@app.route('/api/backup/crear', methods=['POST'])
+def api_crear_backup():
+    nombre = crear_backup()
+    if nombre:
+        return jsonify({'exito': True, 'mensaje': 'Backup creado correctamente', 'archivo': nombre})
+    return jsonify({'exito': False, 'mensaje': 'Error al crear el backup'}), 500
+
+# Endpoint para listar backups
+@app.route('/api/backup/lista', methods=['GET'])
+def api_listar_backups():
+    backups = obtener_lista_backups()
+    return jsonify({'exito': True, 'backups': backups})
+
+# Endpoint para descargar un backup específico
+@app.route('/api/backup/descargar/<nombre>', methods=['GET'])
+def api_descargar_backup(nombre):
+    try:
+        ruta = os.path.join(BACKUP_FOLDER, nombre)
+        if os.path.exists(ruta) and nombre.startswith('backup_') and nombre.endswith('.zip'):
+            return send_file(ruta, as_attachment=True, download_name=nombre)
+        return jsonify({'exito': False, 'mensaje': 'Backup no encontrado'}), 404
+    except Exception as e:
+        return jsonify({'exito': False, 'mensaje': str(e)}), 500
+
+# Endpoint para descargar backup instantáneo (sin guardar en servidor)
+@app.route('/api/backup/descargar-ahora', methods=['GET'])
+def api_descargar_backup_instantaneo():
+    """Genera y descarga un backup sin guardarlo en el servidor"""
+    try:
+        # Crear ZIP en memoria
+        memoria_zip = io.BytesIO()
+        with zipfile.ZipFile(memoria_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for archivo in ARCHIVOS_BACKUP:
+                ruta_archivo = os.path.join(os.path.dirname(__file__), archivo)
+                if os.path.exists(ruta_archivo):
+                    zipf.write(ruta_archivo, archivo)
+        
+        memoria_zip.seek(0)
+        fecha_hora = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        nombre = f'backup_artemisa_{fecha_hora}.zip'
+        
+        return send_file(
+            memoria_zip,
+            mimetype='application/zip',
+            as_attachment=True,
+            download_name=nombre
+        )
+    except Exception as e:
+        return jsonify({'exito': False, 'mensaje': str(e)}), 500
+
+# Endpoint para restaurar un backup
+@app.route('/api/backup/restaurar/<nombre>', methods=['POST'])
+def api_restaurar_backup(nombre):
+    try:
+        ruta_backup = os.path.join(BACKUP_FOLDER, nombre)
+        if not os.path.exists(ruta_backup) or not nombre.startswith('backup_') or not nombre.endswith('.zip'):
+            return jsonify({'exito': False, 'mensaje': 'Backup no encontrado'}), 404
+        
+        # Crear backup actual antes de restaurar
+        crear_backup()
+        
+        # Extraer archivos del backup
+        with zipfile.ZipFile(ruta_backup, 'r') as zipf:
+            for archivo in ARCHIVOS_BACKUP:
+                if archivo in zipf.namelist():
+                    contenido = zipf.read(archivo)
+                    ruta_destino = os.path.join(os.path.dirname(__file__), archivo)
+                    with open(ruta_destino, 'wb') as f:
+                        f.write(contenido)
+        
+        return jsonify({'exito': True, 'mensaje': f'Backup {nombre} restaurado correctamente'})
+    except Exception as e:
+        return jsonify({'exito': False, 'mensaje': str(e)}), 500
+
+# Configurar el scheduler para backups automáticos
+scheduler = BackgroundScheduler(daemon=True)
+
+# Programar backup diario a las 00:00
+scheduler.add_job(
+    func=crear_backup,
+    trigger='cron',
+    hour=0,
+    minute=0,
+    id='backup_diario',
+    name='Backup diario a las 00:00',
+    replace_existing=True
+)
+
+# Iniciar el scheduler
+scheduler.start()
+print("[BACKUP] 📅 Sistema de backup automático configurado (00:00 diario)")
+
+# Asegurar que el scheduler se detenga cuando la app se cierre
+atexit.register(lambda: scheduler.shutdown())
+
+
 if __name__ == '__main__':
     print("=" * 50)
     print("[+] BetterDoctor API v6.0")
@@ -2400,5 +2581,9 @@ if __name__ == '__main__':
     print("    - Veterinario: dr.martinez / vet2024")
     print("    - Admin: admin / admin2024")
     print("    - Recepcion: recepcion / recep2024")
+    print("\n[*] Sistema de backup automático activo")
+    print("    - Backup diario: 00:00")
+    print("    - Endpoint manual: POST /api/backup/crear")
+    print("    - Descargar: GET /api/backup/descargar-ahora")
     print("=" * 50)
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(debug=True, port=5000, host='0.0.0.0', use_reloader=False)
