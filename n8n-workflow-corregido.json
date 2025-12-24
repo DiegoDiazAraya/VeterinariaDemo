@@ -1,0 +1,420 @@
+{
+  "name": "veterinaria",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body?.chatInput ?? $json.body?.Body ?? $json.chatInput ?? $json.Body ?? '' }}",
+        "options": {
+          "systemMessage": "Eres el asistente virtual de BetterDoctor, una clínica veterinaria profesional y amigable.\n\n## REGLAS DE CONVERSACIÓN\n1. Responde SIEMPRE en español\n2. Sé amable, empático y profesional\n3. Usa emojis con moderación (máximo 2-3 por mensaje)\n4. Respuestas cortas y claras (máximo 3-4 oraciones)\n\n## ENTENDER RESPUESTAS CORTAS\nCuando el usuario responda con palabras cortas, interpreta según el CONTEXTO de tu última pregunta:\n- \"si\", \"sí\", \"ok\", \"dale\", \"bueno\", \"claro\", \"va\", \"ya\", \"porfa\", \"please\" = AFIRMACIÓN\n- \"no\", \"nop\", \"nel\", \"nah\", \"mejor no\" = NEGACIÓN\n- Si preguntaste \"¿quieres agendar una cita?\" y responde \"si\" → PROCEDE A AGENDAR\n\n## FLUJO DE AGENDAMIENTO DE CITAS\nCuando el usuario quiera agendar o confirme que SÍ quiere una cita:\n1. Pregunta: \"¿Cómo se llama tu mascota y qué tipo de animal es? (perro/gato)\"\n2. Pregunta: \"¿Cuál es tu nombre completo?\"\n3. Pregunta: \"¿Cuál es tu número de teléfono? 📱\"\n4. Si no lo mencionó antes, pregunta: \"¿Cuál es el motivo de la consulta o síntomas?\"\n5. Usa la herramienta Agendar_Cita con TODOS los datos recopilados\n\n## FLUJO DE SÍNTOMAS\n1. Escucha los síntomas del usuario\n2. Usa la herramienta Consultar_Sintomas para evaluar urgencia\n3. Da una evaluación breve\n4. SIEMPRE pregunta: \"¿Te gustaría agendar una cita ahora? 📅\"\n5. Si dice \"si\" o similar → INICIA EL FLUJO DE AGENDAMIENTO\n\n## FLUJO DE MEDICAMENTOS/PRODUCTOS\n1. Usa la herramienta Consultar_Inventario\n2. Indica disponibilidad SIN revelar cantidades exactas de stock\n3. Menciona que puede reservar o preguntar por alternativas\n\n## FLUJO DE ALIMENTOS\n1. Pregunta especie, edad y si tiene condición médica\n2. Usa la herramienta Recomendar_Alimento\n3. Presenta las opciones de forma clara\n\n## IMPORTANTE\n- NUNCA inventes datos del usuario\n- SIEMPRE recopila: nombre mascota, especie, nombre tutor, teléfono\n- Si el usuario da información parcial, pregunta lo que falta\n- Mantén el contexto de la conversación"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [-80, 0],
+      "id": "d7f52804-45f7-441e-969d-2d037805189c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [-128, 192],
+      "id": "c8e4fb1b-5541-4c2f-ad20-debd02bf8bc7",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pYxmMV936wNBBVCc",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Hace triage veterinario por síntomas. Parámetros: sintomas (string) - síntomas separados por coma, especie (string) - \"perro\" o \"gato\"",
+        "method": "POST",
+        "url": "https://veterinariademo-64pl.onrender.com/api/bot/diagnostico",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sintomas\": \"{{ $fromAI('sintomas', 'Los síntomas del animal separados por coma') }}\",\n  \"especie\": \"{{ $fromAI('especie', 'perro o gato') }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [400, 352],
+      "id": "58b2da03-661f-4481-b124-c38692a96268",
+      "name": "BUSCAR DIAGNOSTICO"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body?.sessionId ?? $json.body?.From?.replace('whatsapp:', '') ?? $json.sessionId ?? $json.From?.replace('whatsapp:', '') ?? 'default_session' }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [16, 192],
+      "id": "314b665f-97e2-4b70-9039-420aa16bfc59",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "from": "+14155238886",
+        "to": "={{ $node[\"CHAT WHATSAPP\"].json[\"body\"][\"From\"].replace('whatsapp:', '') }}",
+        "toWhatsapp": true,
+        "message": "={{ $node[\"AI Agent\"].json[\"output\"] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [432, 112],
+      "id": "a2b400f7-b5af-4cf7-a895-ced6d7555dab",
+      "name": "Send an SMS/MMS/WhatsApp message",
+      "credentials": {
+        "twilioApi": {
+          "id": "gEsYGdlzLf4nVsXN",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Agenda una cita veterinaria. Usa esta herramienta cuando tengas todos los datos del usuario: nombre de mascota, especie, nombre del propietario, teléfono y síntomas o motivo de consulta.",
+        "method": "POST",
+        "url": "https://veterinariademo-64pl.onrender.com/api/bot/agendar-cita",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"nombre_mascota\": \"{{ $fromAI('nombre_mascota', 'Nombre de la mascota') }}\",\n  \"especie\": \"{{ $fromAI('especie', 'perro o gato') }}\",\n  \"raza\": \"{{ $fromAI('raza', 'Raza de la mascota, si no se sabe poner mestizo') }}\",\n  \"edad\": \"{{ $fromAI('edad', 'Edad de la mascota') }}\",\n  \"sexo\": \"{{ $fromAI('sexo', 'macho o hembra') }}\",\n  \"peso\": \"{{ $fromAI('peso', 'Peso en kg') }}\",\n  \"propietario\": \"{{ $fromAI('propietario', 'Nombre completo del dueño') }}\",\n  \"telefono\": \"{{ $fromAI('telefono', 'Número de teléfono del dueño') }}\",\n  \"sintomas\": \"{{ $fromAI('sintomas', 'Síntomas o motivo de la consulta') }}\",\n  \"urgencia\": \"{{ $fromAI('urgencia', 'normal, urgente o emergencia según la gravedad') }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [64, 352],
+      "id": "2af9fd8f-452f-428a-a7da-b5ae55f3b059",
+      "name": "AGENDAR CITA"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Busca productos y medicamentos en el inventario de la clínica. Usa cuando el usuario pregunte por disponibilidad de medicamentos, vacunas o productos.",
+        "url": "=https://veterinariademo-64pl.onrender.com/api/bot/inventario?q={{ $fromAI('query', 'Término de búsqueda del producto') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [560, 352],
+      "id": "1c83ee95-4f79-434b-b4ec-a7cec8d30073",
+      "name": "BUSCAR PRODUCTO"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Recomienda alimentos según la especie, edad y condición médica de la mascota. Usa cuando el usuario pregunte por comida, alimento o alimentación para su mascota.",
+        "method": "POST",
+        "url": "https://veterinariademo-64pl.onrender.com/api/bot/recomendar-alimento",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"especie\": \"{{ $fromAI('especie', 'perro o gato') }}\",\n  \"edad\": \"{{ $fromAI('edad', 'cachorro, adulto o senior') }}\",\n  \"condicion_medica\": \"{{ $fromAI('condicion_medica', 'Condición médica si la tiene, vacío si no') }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [240, 352],
+      "id": "851743a7-1544-4955-be65-6f928d1149bf",
+      "name": "COMIDA"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [432, -64],
+      "id": "4ea9941d-e02e-4950-af82-3e48e37d78ed",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chat-web",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-496, -96],
+      "id": "2724a1aa-afd4-4e77-9841-acfbd1d42a27",
+      "name": "CHAT WEB",
+      "webhookId": "e591a355-5141-4ade-8f12-ac45093f5d68"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-496, 128],
+      "id": "b3d355ed-2b70-4081-a7aa-23a05ccbd5df",
+      "name": "CHAT WHATSAPP",
+      "webhookId": "c0c91df9-d5f4-42a3-990c-26289bc64891"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c6bbe6c1-1a4b-486e-a9cb-3f81d1cfd479",
+              "name": "canal",
+              "value": "whatsapp",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-304, 144],
+      "id": "3f45f7dc-a20c-4946-82b9-63b3c42d320f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c41dd388-43e5-41a2-a64b-4d878d8d448a",
+              "name": "canal",
+              "value": "web",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-288, -96],
+      "id": "2968deed-378c-4155-8c69-8e3238ff7eca",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.canal }}",
+                    "rightValue": "web",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "250d3298-8112-4a47-95dc-ec895983c9be"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "9c7d83b2-51c8-4bf8-8877-d7eb7100f12e",
+                    "leftValue": "={{ $json.canal }}",
+                    "rightValue": "whatsapp",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [208, 0],
+      "id": "8e2eddd7-6379-40f1-978e-40181042b059",
+      "name": "Switch"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUSCAR DIAGNOSTICO": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AGENDAR CITA": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUSCAR PRODUCTO": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "COMIDA": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CHAT WEB": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CHAT WHATSAPP": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send an SMS/MMS/WhatsApp message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "corregido-v1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2a2188f4a83445ed4ac9e57f9ac64c60063aa50e812ad41ce067b374b93ad721"
+  },
+  "id": "Zwcopn4WcH8lWD9x",
+  "tags": []
+}
+
