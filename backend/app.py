@@ -78,6 +78,19 @@ def cargar_diagnosticos_completos():
     with open(ruta_archivo, 'r', encoding='utf-8') as f:
         return json.load(f)
 
+def cargar_clientes():
+    ruta_archivo = os.path.join(os.path.dirname(__file__), 'clientes.json')
+    try:
+        with open(ruta_archivo, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {"clientes": [], "ultimo_id": 0}
+
+def guardar_clientes(clientes):
+    ruta_archivo = os.path.join(os.path.dirname(__file__), 'clientes.json')
+    with open(ruta_archivo, 'w', encoding='utf-8') as f:
+        json.dump(clientes, f, ensure_ascii=False, indent=2)
+
 # ==================== FUNCIONES DE UTILIDAD ====================
 
 def normalizar_texto(texto):
@@ -245,6 +258,413 @@ def check_session():
             }
         })
     return jsonify({'autenticado': False})
+
+# ==================== PORTAL DE CLIENTES (OAuth Google) ====================
+
+@app.route('/api/cliente/auth/google', methods=['POST'])
+def auth_google_cliente():
+    """
+    Autentica o registra un cliente usando Google OAuth.
+    El frontend envía los datos del usuario de Google después del login.
+    """
+    data = request.get_json()
+    
+    google_id = data.get('google_id')
+    email = data.get('email', '').lower().strip()
+    nombre = data.get('nombre', '')
+    foto = data.get('foto', '')
+    telefono = data.get('telefono', '')
+    
+    if not google_id or not email:
+        return jsonify({'exito': False, 'mensaje': 'Datos de Google incompletos'}), 400
+    
+    clientes_data = cargar_clientes()
+    pacientes_data = cargar_pacientes()
+    
+    # Buscar si el cliente ya existe
+    cliente_existente = None
+    for c in clientes_data.get('clientes', []):
+        if c.get('google_id') == google_id or c.get('email') == email:
+            cliente_existente = c
+            break
+    
+    if cliente_existente:
+        # Actualizar datos del cliente
+        cliente_existente['ultimo_acceso'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+        cliente_existente['nombre'] = nombre or cliente_existente.get('nombre', '')
+        cliente_existente['foto'] = foto or cliente_existente.get('foto', '')
+        if telefono:
+            cliente_existente['telefono'] = telefono
+        guardar_clientes(clientes_data)
+        cliente = cliente_existente
+    else:
+        # Crear nuevo cliente
+        nuevo_id = clientes_data.get('ultimo_id', 0) + 1
+        cliente = {
+            'id': nuevo_id,
+            'google_id': google_id,
+            'email': email,
+            'nombre': nombre,
+            'foto': foto,
+            'telefono': telefono,
+            'fecha_registro': datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
+            'ultimo_acceso': datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
+            'mascotas_vinculadas': [],
+            'activo': True
+        }
+        clientes_data['clientes'].append(cliente)
+        clientes_data['ultimo_id'] = nuevo_id
+        guardar_clientes(clientes_data)
+    
+    # Buscar mascotas vinculadas automáticamente por email o teléfono
+    mascotas_encontradas = []
+    for paciente in pacientes_data.get('pacientes', []):
+        tutor = paciente.get('tutor', {})
+        tutor_email = tutor.get('email', '').lower().strip()
+        tutor_telefono = tutor.get('telefono', '').replace(' ', '').replace('-', '')
+        cliente_telefono = (cliente.get('telefono') or '').replace(' ', '').replace('-', '')
+        
+        # Vincular si coincide email o teléfono
+        if (tutor_email and tutor_email == email) or (cliente_telefono and tutor_telefono and cliente_telefono in tutor_telefono):
+            if paciente['id'] not in cliente.get('mascotas_vinculadas', []):
+                cliente.setdefault('mascotas_vinculadas', []).append(paciente['id'])
+            mascotas_encontradas.append({
+                'id': paciente['id'],
+                'nombre': paciente.get('nombre'),
+                'especie': paciente.get('especie'),
+                'raza': paciente.get('raza'),
+                'foto': paciente.get('foto', '')
+            })
+    
+    # Guardar vinculaciones
+    guardar_clientes(clientes_data)
+    
+    return jsonify({
+        'exito': True,
+        'mensaje': 'Autenticación exitosa',
+        'cliente': {
+            'id': cliente['id'],
+            'nombre': cliente['nombre'],
+            'email': cliente['email'],
+            'foto': cliente.get('foto', ''),
+            'telefono': cliente.get('telefono', ''),
+            'mascotas_vinculadas': cliente.get('mascotas_vinculadas', [])
+        },
+        'mascotas_encontradas': mascotas_encontradas,
+        'token': f"cliente_{cliente['id']}_{google_id[:10]}"
+    })
+
+
+@app.route('/api/cliente/vincular-telefono', methods=['POST'])
+def vincular_telefono_cliente():
+    """Permite al cliente agregar/actualizar su teléfono para vincular mascotas."""
+    data = request.get_json()
+    cliente_id = data.get('cliente_id')
+    telefono = data.get('telefono', '').strip()
+    
+    if not cliente_id or not telefono:
+        return jsonify({'exito': False, 'mensaje': 'Datos incompletos'}), 400
+    
+    clientes_data = cargar_clientes()
+    pacientes_data = cargar_pacientes()
+    
+    # Buscar cliente
+    cliente = None
+    for c in clientes_data.get('clientes', []):
+        if c['id'] == cliente_id:
+            cliente = c
+            break
+    
+    if not cliente:
+        return jsonify({'exito': False, 'mensaje': 'Cliente no encontrado'}), 404
+    
+    # Actualizar teléfono
+    cliente['telefono'] = telefono
+    telefono_limpio = telefono.replace(' ', '').replace('-', '').replace('+', '')
+    
+    # Buscar nuevas mascotas por teléfono
+    nuevas_mascotas = []
+    for paciente in pacientes_data.get('pacientes', []):
+        tutor = paciente.get('tutor', {})
+        tutor_telefono = tutor.get('telefono', '').replace(' ', '').replace('-', '').replace('+', '')
+        
+        if tutor_telefono and telefono_limpio in tutor_telefono:
+            if paciente['id'] not in cliente.get('mascotas_vinculadas', []):
+                cliente.setdefault('mascotas_vinculadas', []).append(paciente['id'])
+                nuevas_mascotas.append({
+                    'id': paciente['id'],
+                    'nombre': paciente.get('nombre'),
+                    'especie': paciente.get('especie')
+                })
+    
+    guardar_clientes(clientes_data)
+    
+    return jsonify({
+        'exito': True,
+        'mensaje': f'Teléfono actualizado. {len(nuevas_mascotas)} mascota(s) vinculada(s).',
+        'nuevas_mascotas': nuevas_mascotas,
+        'total_mascotas': len(cliente.get('mascotas_vinculadas', []))
+    })
+
+
+@app.route('/api/cliente/mis-mascotas', methods=['GET'])
+def obtener_mascotas_cliente():
+    """Obtiene las mascotas vinculadas a un cliente."""
+    cliente_id = request.args.get('cliente_id', type=int)
+    
+    if not cliente_id:
+        return jsonify({'exito': False, 'mensaje': 'Cliente ID requerido'}), 400
+    
+    clientes_data = cargar_clientes()
+    pacientes_data = cargar_pacientes()
+    consultas_data = cargar_consultas()
+    
+    # Buscar cliente
+    cliente = None
+    for c in clientes_data.get('clientes', []):
+        if c['id'] == cliente_id:
+            cliente = c
+            break
+    
+    if not cliente:
+        return jsonify({'exito': False, 'mensaje': 'Cliente no encontrado'}), 404
+    
+    # Obtener datos completos de las mascotas vinculadas
+    mascotas = []
+    for mascota_id in cliente.get('mascotas_vinculadas', []):
+        for paciente in pacientes_data.get('pacientes', []):
+            if paciente['id'] == mascota_id:
+                # Contar consultas de esta mascota
+                consultas_mascota = [c for c in consultas_data.get('consultas', []) 
+                                    if c.get('paciente_id') == mascota_id or 
+                                    c.get('paciente', {}).get('id') == mascota_id]
+                
+                mascotas.append({
+                    'id': paciente['id'],
+                    'nombre': paciente.get('nombre'),
+                    'especie': paciente.get('especie'),
+                    'raza': paciente.get('raza'),
+                    'sexo': paciente.get('sexo'),
+                    'edad': paciente.get('edad'),
+                    'peso': paciente.get('peso'),
+                    'color': paciente.get('color', ''),
+                    'microchip': paciente.get('microchip', ''),
+                    'esterilizado': paciente.get('esterilizado'),
+                    'foto': paciente.get('foto', ''),
+                    'alergias': paciente.get('alergias', []),
+                    'condiciones_cronicas': paciente.get('condiciones_cronicas', []),
+                    'vacunas': paciente.get('vacunas', []),
+                    'ultima_visita': paciente.get('ultima_visita', ''),
+                    'total_consultas': len(consultas_mascota)
+                })
+                break
+    
+    return jsonify({
+        'exito': True,
+        'mascotas': mascotas,
+        'total': len(mascotas)
+    })
+
+
+@app.route('/api/cliente/mascota/<int:mascota_id>/historial', methods=['GET'])
+def obtener_historial_mascota_cliente(mascota_id):
+    """Obtiene el historial médico de una mascota para el cliente."""
+    cliente_id = request.args.get('cliente_id', type=int)
+    
+    if not cliente_id:
+        return jsonify({'exito': False, 'mensaje': 'Cliente ID requerido'}), 400
+    
+    clientes_data = cargar_clientes()
+    consultas_data = cargar_consultas()
+    pacientes_data = cargar_pacientes()
+    
+    # Verificar que el cliente tiene acceso a esta mascota
+    cliente = None
+    for c in clientes_data.get('clientes', []):
+        if c['id'] == cliente_id:
+            cliente = c
+            break
+    
+    if not cliente or mascota_id not in cliente.get('mascotas_vinculadas', []):
+        return jsonify({'exito': False, 'mensaje': 'No tienes acceso a esta mascota'}), 403
+    
+    # Obtener datos de la mascota
+    mascota = None
+    for p in pacientes_data.get('pacientes', []):
+        if p['id'] == mascota_id:
+            mascota = p
+            break
+    
+    if not mascota:
+        return jsonify({'exito': False, 'mensaje': 'Mascota no encontrada'}), 404
+    
+    # Obtener historial de consultas
+    historial = []
+    for consulta in consultas_data.get('consultas', []):
+        if consulta.get('paciente_id') == mascota_id or consulta.get('paciente', {}).get('id') == mascota_id:
+            historial.append({
+                'id': consulta.get('id'),
+                'fecha': consulta.get('fecha_registro', ''),
+                'motivo': consulta.get('motivo_consulta', consulta.get('sintomas_texto', '')),
+                'diagnostico': consulta.get('diagnostico', ''),
+                'tratamiento': consulta.get('tratamiento', ''),
+                'veterinario': consulta.get('atendido_por', ''),
+                'estado': consulta.get('estado', ''),
+                'notas': consulta.get('notas', '')
+            })
+    
+    # Ordenar por fecha más reciente
+    historial.sort(key=lambda x: x['fecha'], reverse=True)
+    
+    return jsonify({
+        'exito': True,
+        'mascota': {
+            'id': mascota['id'],
+            'nombre': mascota.get('nombre'),
+            'especie': mascota.get('especie'),
+            'raza': mascota.get('raza')
+        },
+        'historial': historial,
+        'vacunas': mascota.get('vacunas', []),
+        'alergias': mascota.get('alergias', []),
+        'condiciones_cronicas': mascota.get('condiciones_cronicas', [])
+    })
+
+
+@app.route('/api/cliente/solicitar-cita', methods=['POST'])
+def solicitar_cita_cliente():
+    """Permite al cliente solicitar una cita para una de sus mascotas."""
+    data = request.get_json()
+    
+    cliente_id = data.get('cliente_id')
+    mascota_id = data.get('mascota_id')
+    motivo = data.get('motivo', '')
+    urgencia = data.get('urgencia', 'normal')
+    fecha_preferida = data.get('fecha_preferida', '')
+    
+    if not cliente_id or not mascota_id:
+        return jsonify({'exito': False, 'mensaje': 'Datos incompletos'}), 400
+    
+    clientes_data = cargar_clientes()
+    pacientes_data = cargar_pacientes()
+    consultas_data = cargar_consultas()
+    
+    # Verificar acceso
+    cliente = None
+    for c in clientes_data.get('clientes', []):
+        if c['id'] == cliente_id:
+            cliente = c
+            break
+    
+    if not cliente or mascota_id not in cliente.get('mascotas_vinculadas', []):
+        return jsonify({'exito': False, 'mensaje': 'No tienes acceso a esta mascota'}), 403
+    
+    # Obtener datos de la mascota
+    mascota = None
+    for p in pacientes_data.get('pacientes', []):
+        if p['id'] == mascota_id:
+            mascota = p
+            break
+    
+    if not mascota:
+        return jsonify({'exito': False, 'mensaje': 'Mascota no encontrada'}), 404
+    
+    # Crear la cita
+    ultimo_ticket = consultas_data.get('ultimo_ticket', 0) + 1
+    año = datetime.now().year
+    numero_ticket = f"WEB-{año}-{str(ultimo_ticket).zfill(4)}"
+    
+    nueva_cita = {
+        'id': len(consultas_data.get('consultas', [])) + 1,
+        'numero_ticket': numero_ticket,
+        'fecha_registro': datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
+        'estado': 'en_espera',
+        'prioridad': 2 if urgencia == 'urgente' else 4,
+        'origen': 'portal_cliente',
+        'paciente_id': mascota_id,
+        'paciente': {
+            'id': mascota_id,
+            'nombre': mascota.get('nombre'),
+            'especie': mascota.get('especie'),
+            'raza': mascota.get('raza'),
+            'propietario': cliente.get('nombre'),
+            'telefono': cliente.get('telefono', ''),
+            'email': cliente.get('email', '')
+        },
+        'motivo_consulta': motivo,
+        'sintomas_texto': motivo,
+        'tipo_consulta': 'general',
+        'urgencia_reportada': urgencia,
+        'fecha_preferida': fecha_preferida,
+        'registrado_por': f"Cliente: {cliente.get('nombre')}",
+        'atendido_por': None,
+        'cliente_id': cliente_id
+    }
+    
+    consultas_data['consultas'].append(nueva_cita)
+    consultas_data['ultimo_ticket'] = ultimo_ticket
+    guardar_consultas(consultas_data)
+    
+    return jsonify({
+        'exito': True,
+        'mensaje': 'Cita solicitada correctamente',
+        'cita': {
+            'numero_ticket': numero_ticket,
+            'mascota': mascota.get('nombre'),
+            'motivo': motivo,
+            'estado': 'en_espera'
+        }
+    })
+
+
+@app.route('/api/cliente/mis-citas', methods=['GET'])
+def obtener_citas_cliente():
+    """Obtiene las citas del cliente."""
+    cliente_id = request.args.get('cliente_id', type=int)
+    
+    if not cliente_id:
+        return jsonify({'exito': False, 'mensaje': 'Cliente ID requerido'}), 400
+    
+    clientes_data = cargar_clientes()
+    consultas_data = cargar_consultas()
+    
+    # Buscar cliente
+    cliente = None
+    for c in clientes_data.get('clientes', []):
+        if c['id'] == cliente_id:
+            cliente = c
+            break
+    
+    if not cliente:
+        return jsonify({'exito': False, 'mensaje': 'Cliente no encontrado'}), 404
+    
+    # Obtener citas de las mascotas del cliente
+    mascotas_ids = cliente.get('mascotas_vinculadas', [])
+    citas = []
+    
+    for consulta in consultas_data.get('consultas', []):
+        paciente_id = consulta.get('paciente_id') or consulta.get('paciente', {}).get('id')
+        if paciente_id in mascotas_ids or consulta.get('cliente_id') == cliente_id:
+            citas.append({
+                'id': consulta.get('id'),
+                'numero_ticket': consulta.get('numero_ticket'),
+                'fecha': consulta.get('fecha_registro'),
+                'mascota': consulta.get('paciente', {}).get('nombre', ''),
+                'motivo': consulta.get('motivo_consulta', ''),
+                'estado': consulta.get('estado'),
+                'veterinario': consulta.get('atendido_por', ''),
+                'origen': consulta.get('origen', '')
+            })
+    
+    # Ordenar por fecha más reciente
+    citas.sort(key=lambda x: x['fecha'], reverse=True)
+    
+    return jsonify({
+        'exito': True,
+        'citas': citas,
+        'total': len(citas)
+    })
+
 
 # ==================== GESTIÓN DE CONSULTAS ====================
 
