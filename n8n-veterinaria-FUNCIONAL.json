@@ -1,0 +1,478 @@
+{
+  "name": "Veterinaria BetterDoctor",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chat-web",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-500, -100],
+      "id": "webhook-web",
+      "name": "CHAT WEB",
+      "webhookId": "e591a355-5141-4ade-8f12-ac45093f5d68"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-500, 150],
+      "id": "webhook-wa",
+      "name": "CHAT WHATSAPP",
+      "webhookId": "c0c91df9-d5f4-42a3-990c-26289bc64891"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "canal",
+              "value": "web",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "mensaje",
+              "value": "={{ $json.body?.chatInput ?? $json.chatInput ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "sessionId",
+              "value": "={{ $json.body?.sessionId ?? $json.sessionId ?? 'web_' + Date.now() }}",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "telefonoRemitente",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-280, -100],
+      "id": "set-web",
+      "name": "Set Web"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "canal",
+              "value": "whatsapp",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "mensaje",
+              "value": "={{ $json.body?.Body ?? $json.Body ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "sessionId",
+              "value": "={{ ($json.body?.From ?? $json.From ?? 'wa_default').replace('whatsapp:', '') }}",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "telefonoRemitente",
+              "value": "={{ ($json.body?.From ?? $json.From ?? '').replace('whatsapp:', '') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-280, 150],
+      "id": "set-wa",
+      "name": "Set WhatsApp"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.mensaje }}",
+        "options": {
+          "systemMessage": "Eres el asistente virtual de BetterDoctor, una clínica veterinaria profesional.\n\nREGLAS:\n1. Responde SIEMPRE en español\n2. Sé amable y profesional\n3. Respuestas cortas (máximo 4 oraciones)\n4. NO uses asteriscos ni formato markdown\n5. Usa máximo 2 emojis por mensaje\n\nFLUJO DE CITAS:\nCuando quieran agendar, pregunta EN ORDEN:\n1. Nombre de la mascota y qué animal es (perro/gato)\n2. Tu nombre completo\n3. Tu número de teléfono\n4. Motivo de la consulta o síntomas\nCuando tengas TODOS los datos, usa la herramienta AGENDAR_CITA\n\nFLUJO DE SÍNTOMAS:\n1. Escucha los síntomas\n2. Usa BUSCAR_DIAGNOSTICO para evaluar\n3. Da una recomendación breve\n4. Pregunta: ¿Quieres agendar una cita?\n\nFLUJO DE PRODUCTOS:\n1. Usa BUSCAR_PRODUCTO con el nombre del producto\n2. Indica si está disponible (sin mencionar cantidades exactas)\n\nFLUJO DE ALIMENTOS:\n1. Pregunta especie y edad de la mascota\n2. Usa RECOMENDAR_ALIMENTO\n3. Presenta las opciones\n\nIMPORTANTE:\n- NUNCA inventes datos del usuario\n- Si falta información, pregúntala\n- Respuestas cortas y directas"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [0, 20],
+      "id": "ai-agent",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [-120, 220],
+      "id": "gemini",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pYxmMV936wNBBVCc",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [0, 220],
+      "id": "memory",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Agenda una cita veterinaria. Usa SOLO cuando tengas: nombre_mascota, especie, propietario, telefono y sintomas.",
+        "method": "POST",
+        "url": "https://veterinariademo-64pl.onrender.com/api/bot/agendar-cita",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"nombre_mascota\": \"{{ $fromAI('nombre_mascota', 'Nombre de la mascota') }}\",\n  \"especie\": \"{{ $fromAI('especie', 'perro o gato') }}\",\n  \"raza\": \"{{ $fromAI('raza', 'Raza si la sabe, sino mestizo') }}\",\n  \"edad\": \"{{ $fromAI('edad', 'Edad aproximada') }}\",\n  \"sexo\": \"{{ $fromAI('sexo', 'macho o hembra') }}\",\n  \"propietario\": \"{{ $fromAI('propietario', 'Nombre del dueño') }}\",\n  \"telefono\": \"{{ $fromAI('telefono', 'Telefono del dueño') }}\",\n  \"sintomas\": \"{{ $fromAI('sintomas', 'Sintomas o motivo de consulta') }}\",\n  \"urgencia\": \"{{ $fromAI('urgencia', 'normal, urgente o emergencia') }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [120, 220],
+      "id": "tool-cita",
+      "name": "AGENDAR_CITA"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Evalua sintomas y da un diagnostico preliminar. Usa cuando el usuario mencione sintomas de su mascota.",
+        "method": "POST",
+        "url": "https://veterinariademo-64pl.onrender.com/api/bot/diagnostico",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sintomas\": \"{{ $fromAI('sintomas', 'Lista de sintomas separados por coma') }}\",\n  \"especie\": \"{{ $fromAI('especie', 'perro o gato') }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [240, 220],
+      "id": "tool-diag",
+      "name": "BUSCAR_DIAGNOSTICO"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Busca productos o medicamentos en el inventario de la clinica.",
+        "url": "=https://veterinariademo-64pl.onrender.com/api/bot/inventario?q={{ encodeURIComponent($fromAI('producto', 'Nombre del producto a buscar')) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [360, 220],
+      "id": "tool-prod",
+      "name": "BUSCAR_PRODUCTO"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Recomienda alimentos segun especie, edad y condicion de la mascota.",
+        "method": "POST",
+        "url": "https://veterinariademo-64pl.onrender.com/api/bot/recomendar-alimento",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"especie\": \"{{ $fromAI('especie', 'perro o gato') }}\",\n  \"edad\": \"{{ $fromAI('edad', 'cachorro, adulto o senior') }}\",\n  \"condicion_medica\": \"{{ $fromAI('condicion', 'Condicion medica si tiene, vacio si no') }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.3,
+      "position": [480, 220],
+      "id": "tool-food",
+      "name": "RECOMENDAR_ALIMENTO"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener el output del AI Agent\nconst aiOutput = $input.first().json.output;\n\n// Intentar obtener datos del canal web\nlet canal = 'web';\nlet telefonoRemitente = '';\nlet sessionId = '';\n\ntry {\n  const setWebData = $('Set Web').first().json;\n  canal = setWebData.canal || 'web';\n  sessionId = setWebData.sessionId || '';\n  telefonoRemitente = setWebData.telefonoRemitente || '';\n} catch (e) {\n  // Si no existe Set Web, intentar con Set WhatsApp\n  try {\n    const setWaData = $('Set WhatsApp').first().json;\n    canal = setWaData.canal || 'whatsapp';\n    sessionId = setWaData.sessionId || '';\n    telefonoRemitente = setWaData.telefonoRemitente || '';\n  } catch (e2) {\n    // Usar defaults\n  }\n}\n\nreturn {\n  json: {\n    output: aiOutput,\n    canal: canal,\n    telefonoRemitente: telefonoRemitente,\n    sessionId: sessionId\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 20],
+      "id": "code-merge",
+      "name": "Combinar Datos"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cond-web",
+                    "leftValue": "={{ $json.canal }}",
+                    "rightValue": "web",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Web"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cond-wa",
+                    "leftValue": "={{ $json.canal }}",
+                    "rightValue": "whatsapp",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "WhatsApp"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [440, 20],
+      "id": "switch",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\"output\": $json.output} }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [660, -80],
+      "id": "respond",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "from": "+14155238886",
+        "to": "={{ $json.telefonoRemitente }}",
+        "toWhatsapp": true,
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [660, 120],
+      "id": "twilio",
+      "name": "Send WhatsApp",
+      "credentials": {
+        "twilioApi": {
+          "id": "gEsYGdlzLf4nVsXN",
+          "name": "Twilio account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "CHAT WEB": {
+      "main": [
+        [
+          {
+            "node": "Set Web",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CHAT WHATSAPP": {
+      "main": [
+        [
+          {
+            "node": "Set WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Web": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AGENDAR_CITA": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUSCAR_DIAGNOSTICO": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BUSCAR_PRODUCTO": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RECOMENDAR_ALIMENTO": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Combinar Datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combinar Datos": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "funcional-v3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2a2188f4a83445ed4ac9e57f9ac64c60063aa50e812ad41ce067b374b93ad721"
+  },
+  "id": "veterinaria-funcional",
+  "tags": []
+}
