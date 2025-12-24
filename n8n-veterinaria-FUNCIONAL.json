@@ -19,6 +19,7 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "whatsapp",
+        "responseMode": "responseNode",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
@@ -287,8 +288,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [660, -80],
-      "id": "respond",
-      "name": "Respond to Webhook"
+      "id": "respond-web",
+      "name": "Respond Web"
     },
     {
       "parameters": {
@@ -309,6 +310,18 @@
           "name": "Twilio account"
         }
       }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"status\": \"ok\"}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [880, 120],
+      "id": "respond-wa",
+      "name": "Respond WhatsApp"
     }
   ],
   "pinData": {},
@@ -449,7 +462,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook",
+            "node": "Respond Web",
             "type": "main",
             "index": 0
           }
@@ -462,13 +475,24 @@
           }
         ]
       ]
+    },
+    "Send WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Respond WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "funcional-v3",
+  "versionId": "funcional-v4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "2a2188f4a83445ed4ac9e57f9ac64c60063aa50e812ad41ce067b374b93ad721"
