@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetterDoctor - Consulta Veterinaria</title>
+    <title>DP Sistemas - Consulta Veterinaria</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --color-bg: #0f1419;
@@ -48,7 +51,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 20% 80%, rgba(74, 222, 128, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(244, 114, 182, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(34, 211, 238, 0.03) 0%, transparent 30%);
@@ -76,6 +79,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -125,7 +129,7 @@
             border: 1px solid var(--color-border);
             border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: 
+            box-shadow:
                 0 4px 6px rgba(0, 0, 0, 0.1),
                 0 10px 40px rgba(0, 0, 0, 0.2);
             animation: fadeInUp 0.8s ease-out 0.2s both;
@@ -136,6 +140,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -268,7 +273,7 @@
             border: 1px solid var(--color-border);
             border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: 
+            box-shadow:
                 0 4px 6px rgba(0, 0, 0, 0.1),
                 0 10px 40px rgba(0, 0, 0, 0.2);
         }
@@ -351,12 +356,20 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <div class="logo-icon">🐾</div>
-                <h1>BetterDoctor</h1>
+            <div class="logo-container"
+                style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 0.5rem;">
+                <img src="Sistemas.svg" alt="DP Sistemas Logo"
+                    style="height: 64px; width: auto; background: white; border-radius: 12px; padding: 4px; box-shadow: 0 4px 15px rgba(74, 222, 128, 0.2);">
+                <div style="display: flex; flex-direction: column; line-height: 1.2; text-align: left;">
+                    <span style="font-size: 2rem; font-weight: 700; color: #4ade80; letter-spacing: -0.5px;">DP
+                        Sistemas</span>
+                    <span style="font-size: 0.9rem; font-weight: 400; color: #9ca3af;">Sistema de gestion diseñado para
+                        clínicas veterinarias</span>
+                </div>
             </div>
             <p class="subtitle">Nueva Consulta</p>
         </header>
@@ -373,13 +386,8 @@
                         <label for="nombre-paciente">
                             Nombre del Paciente <span>*</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="nombre-paciente" 
-                            name="nombre_paciente" 
-                            placeholder="Ej: Max, Luna, Rocky..."
-                            required
-                        >
+                        <input type="text" id="nombre-paciente" name="nombre_paciente"
+                            placeholder="Ej: Max, Luna, Rocky..." required>
                     </div>
 
                     <div class="form-group">
@@ -419,9 +427,9 @@
         </main>
 
         <footer>
-            <p>BetterDoctor © 2024 — Sistema de Diagnóstico Veterinario</p>
+            <p>DP Sistemas © 2024 — Sistema de Gestión para Veterinarias</p>
         </footer>
     </div>
 </body>
-</html>
 
+</html>

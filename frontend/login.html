@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetterDoctor - Iniciar Sesión</title>
+    <title>DP Sistemas - Iniciar Sesión</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         /* ========================================
-           SISTEMA DE DISEÑO BETTERDOCTOR v2.0
+           SISTEMA DE DISEÑO DP SISTEMAS v2.0
            ======================================== */
         :root {
             /* Colores principales */
@@ -17,18 +19,18 @@
             --primary-dark: #0e7490;
             --primary-light: #22d3ee;
             --primary-bg: #ecfeff;
-            
+
             /* Colores secundarios */
             --secondary: #10b981;
             --secondary-dark: #059669;
             --secondary-light: #34d399;
-            
+
             /* Estados */
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
-            
+
             /* Neutros */
             --white: #ffffff;
             --gray-50: #f8fafc;
@@ -41,14 +43,14 @@
             --gray-700: #334155;
             --gray-800: #1e293b;
             --gray-900: #0f172a;
-            
+
             /* Sombras */
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
             --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
             --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-            
+
             /* Bordes */
             --radius-sm: 6px;
             --radius-md: 10px;
@@ -57,102 +59,81 @@
             --radius-full: 9999px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
             min-height: 100dvh;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--secondary-dark) 100%);
+            background: var(--gray-100);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1rem;
             position: relative;
-            overflow-x: hidden;
-            overflow-y: auto;
         }
 
-        /* Elementos decorativos de fondo */
-        body::before,
-        body::after {
-            content: '';
-            position: fixed;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.03);
-            pointer-events: none;
-        }
-        body::before {
-            width: 800px;
-            height: 800px;
-            top: -400px;
-            left: -200px;
-        }
-        body::after {
-            width: 600px;
-            height: 600px;
-            bottom: -300px;
-            right: -150px;
-        }
+        /* Removidos bgglow y texturas anteriores */
 
         .login-container {
             display: flex;
             background: var(--white);
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-2xl);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             max-width: 1100px;
             width: 100%;
             min-height: 650px;
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
         /* Panel izquierdo - Branding */
         .brand-panel {
             flex: 1.2;
-            background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 60%, var(--secondary-dark) 100%);
-            padding: 3rem;
+            background: var(--gray-50);
+            padding: 3.5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             position: relative;
             overflow: hidden;
+            border-right: 1px solid var(--gray-200);
         }
 
-        .brand-panel::before {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50%;
-            top: -100px;
-            right: -100px;
-        }
-
-        .brand-panel::after {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 50%;
-            bottom: -80px;
-            left: -80px;
-        }
+        /* Círculos decorativos removidos para look clínico */
 
         .brand-content {
             position: relative;
             z-index: 1;
-            color: white;
+            color: var(--gray-800);
         }
 
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            justify-content: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 24px;
             margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 180px;
+            border: 1px solid var(--gray-100);
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
         }
 
         .brand-icon {
@@ -190,28 +171,33 @@
             display: flex;
             align-items: flex-start;
             gap: 1rem;
-            padding: 1rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: var(--radius-md);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            padding: 1.15rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            color: var(--gray-700);
         }
 
         .feature-item:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateX(5px);
+            background: var(--white);
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
         }
 
         .feature-icon {
             width: 45px;
             height: 45px;
-            background: rgba(255,255,255,0.2);
+            background: var(--gray-50);
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.25rem;
             flex-shrink: 0;
+            color: var(--primary);
         }
 
         .feature-text h3 {
@@ -390,14 +376,41 @@
             color: var(--gray-500);
         }
 
-        .demo-btn.admin { border-color: #fcd34d; background: #fffbeb; }
-        .demo-btn.admin:hover { border-color: #f59e0b; }
-        .demo-btn.vet { border-color: var(--primary-light); background: var(--primary-bg); }
-        .demo-btn.vet:hover { border-color: var(--primary); }
-        .demo-btn.recep { border-color: #a5b4fc; background: #eef2ff; }
-        .demo-btn.recep:hover { border-color: #6366f1; }
-        .demo-btn.inv { border-color: #86efac; background: #f0fdf4; }
-        .demo-btn.inv:hover { border-color: var(--secondary); }
+        .demo-btn.admin {
+            border-color: #fcd34d;
+            background: #fffbeb;
+        }
+
+        .demo-btn.admin:hover {
+            border-color: #f59e0b;
+        }
+
+        .demo-btn.vet {
+            border-color: var(--primary-light);
+            background: var(--primary-bg);
+        }
+
+        .demo-btn.vet:hover {
+            border-color: var(--primary);
+        }
+
+        .demo-btn.recep {
+            border-color: #a5b4fc;
+            background: #eef2ff;
+        }
+
+        .demo-btn.recep:hover {
+            border-color: #6366f1;
+        }
+
+        .demo-btn.inv {
+            border-color: #86efac;
+            background: #f0fdf4;
+        }
+
+        .demo-btn.inv:hover {
+            border-color: var(--secondary);
+        }
 
         /* Responsive */
         @media (max-width: 900px) {
@@ -405,21 +418,26 @@
                 align-items: flex-start;
                 padding: 1rem;
             }
+
             .login-container {
                 flex-direction: column;
                 max-width: 500px;
                 min-height: auto;
                 margin: auto;
             }
+
             .brand-panel {
                 padding: 2rem;
             }
+
             .features-list {
                 display: none;
             }
+
             .brand-name {
                 font-size: 2rem;
             }
+
             .login-panel {
                 padding: 2rem;
             }
@@ -430,55 +448,71 @@
                 padding: 0.5rem;
                 align-items: flex-start;
             }
+
             .login-container {
                 border-radius: var(--radius-lg);
                 max-width: 100%;
                 margin: 0.5rem auto;
             }
+
             .brand-panel {
                 padding: 1.5rem;
             }
+
             .brand-logo {
                 gap: 0.75rem;
                 margin-bottom: 1rem;
             }
+
             .brand-icon {
                 width: 50px;
                 height: 50px;
                 font-size: 1.5rem;
             }
+
             .brand-name {
                 font-size: 1.5rem;
             }
+
             .brand-tagline {
                 font-size: 0.9rem;
                 margin-bottom: 0;
             }
+
             .login-panel {
                 padding: 1.5rem;
             }
+
             .login-header h2 {
                 font-size: 1.4rem;
             }
+
             .login-header p {
                 font-size: 0.85rem;
             }
+
             .form-group {
                 margin-bottom: 1rem;
             }
+
             .form-input {
                 padding: 0.75rem 1rem 0.75rem 2.75rem;
-                font-size: 16px; /* Evita zoom en iOS */
+                font-size: 16px;
+                /* Evita zoom en iOS */
             }
+
             .btn-login {
                 padding: 0.875rem;
             }
+
             .demo-users {
                 grid-template-columns: 1fr;
             }
+
             .demo-btn {
                 padding: 0.6rem 0.75rem;
             }
+
             .divider {
                 margin: 1.25rem 0;
             }
@@ -488,34 +522,40 @@
             .brand-panel {
                 padding: 1.25rem;
             }
+
             .brand-icon {
                 width: 40px;
                 height: 40px;
                 font-size: 1.25rem;
             }
+
             .brand-name {
                 font-size: 1.3rem;
             }
+
             .login-panel {
                 padding: 1.25rem;
             }
+
             .login-header h2 {
                 font-size: 1.25rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <!-- Panel Izquierdo - Branding -->
         <div class="brand-panel">
             <div class="brand-content">
                 <div class="brand-logo">
-                    <div class="brand-icon">🏥</div>
-                    <span class="brand-name">BetterDoctor</span>
+                    <img src="Sistemas.svg" alt="Logo">
                 </div>
-                <p class="brand-tagline">Sistema Integral de Gestión Veterinaria</p>
-                
+                <p class="brand-tagline"
+                    style="text-align: center; margin-bottom: 2.5rem; font-weight: 500; color: var(--gray-600);">Sistema
+                    de gestion diseñado para clínicas veterinarias</p>
+
                 <div class="features-list">
                     <div class="feature-item">
                         <div class="feature-icon">📋</div>
@@ -569,16 +609,20 @@
                     <label class="form-label">Contraseña</label>
                     <div class="input-wrapper">
                         <span class="input-icon">🔒</span>
-                        <input type="password" id="password" class="form-input" placeholder="Ingresa tu contraseña" required>
+                        <input type="password" id="password" class="form-input" placeholder="Ingresa tu contraseña"
+                            required>
                     </div>
                 </div>
 
                 <button type="submit" class="btn-login">Iniciar Sesión</button>
             </form>
 
-            <div class="cliente-portal-link" style="text-align: center; margin: 1.5rem 0; padding: 1rem; background: linear-gradient(135deg, #f0fdf4, #ecfeff); border-radius: 12px; border: 1px solid #a7f3d0;">
-                <p style="color: #065f46; font-size: 0.9rem; margin-bottom: 0.5rem;">¿Eres cliente y quieres ver tus mascotas?</p>
-                <a href="cliente.html" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #0891b2; font-weight: 600; text-decoration: none; padding: 0.5rem 1rem; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.3s;">
+            <div class="cliente-portal-link"
+                style="text-align: center; margin: 1.5rem 0; padding: 1rem; background: linear-gradient(135deg, #f0fdf4, #ecfeff); border-radius: 12px; border: 1px solid #a7f3d0;">
+                <p style="color: #065f46; font-size: 0.9rem; margin-bottom: 0.5rem;">¿Eres cliente y quieres ver tus
+                    mascotas?</p>
+                <a href="cliente.html"
+                    style="display: inline-flex; align-items: center; gap: 0.5rem; color: #0891b2; font-weight: 600; text-decoration: none; padding: 0.5rem 1rem; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.3s;">
                     🐾 Acceder al Portal de Clientes
                 </a>
             </div>
@@ -616,25 +660,25 @@
             <span class="chat-icon">💬</span>
             <span class="close-icon">✕</span>
         </button>
-        
+
         <!-- Ventana de chat -->
         <div id="chatbox-window" class="chatbox-window">
             <div class="chatbox-header">
                 <div class="chatbox-header-info">
                     <div class="chatbox-avatar">🐾</div>
                     <div class="chatbox-title">
-                        <h4>Asistente BetterDoctor</h4>
+                        <h4>Asistente DP Sistemas</h4>
                         <span class="chatbox-status">● En línea</span>
                     </div>
                 </div>
                 <button class="chatbox-close" onclick="toggleChatbox()">✕</button>
             </div>
-            
+
             <div id="chatbox-messages" class="chatbox-messages">
                 <div class="chat-message bot">
                     <div class="message-avatar">🐾</div>
                     <div class="message-content">
-                        <p>¡Hola! 👋 Soy el asistente virtual de BetterDoctor.</p>
+                        <p>¡Hola! 👋 Soy el asistente virtual de DP Sistemas.</p>
                         <p>Puedo ayudarte con:</p>
                         <ul>
                             <li>🔍 Consultar disponibilidad de productos</li>
@@ -645,18 +689,19 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="chatbox-quick-actions">
                 <button onclick="sendQuickMessage('¿Tienen antiparasitarios disponibles?')">💊 Medicamentos</button>
                 <button onclick="sendQuickMessage('Mi mascota tiene vómitos y diarrea')">🩺 Síntomas</button>
                 <button onclick="sendQuickMessage('Quiero agendar una cita')">📅 Agendar cita</button>
             </div>
-            
+
             <div class="chatbox-input-area">
-                <input type="text" id="chatbox-input" placeholder="Escribe tu mensaje..." onkeypress="handleChatKeypress(event)">
+                <input type="text" id="chatbox-input" placeholder="Escribe tu mensaje..."
+                    onkeypress="handleChatKeypress(event)">
                 <button id="chatbox-send" onclick="sendMessage()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
                     </svg>
                 </button>
             </div>
@@ -817,6 +862,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -970,12 +1016,25 @@
             animation: typing 1.4s infinite;
         }
 
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
 
         @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-8px); }
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-8px);
+            }
         }
 
         /* Responsive chatbox */
@@ -984,10 +1043,12 @@
                 bottom: 16px;
                 right: 16px;
             }
+
             .chatbox-toggle {
                 width: 54px;
                 height: 54px;
             }
+
             .chatbox-window {
                 position: fixed;
                 width: calc(100vw - 20px);
@@ -997,39 +1058,50 @@
                 left: 10px;
                 border-radius: 16px;
             }
+
             .chatbox-header {
                 padding: 12px 16px;
             }
+
             .chatbox-avatar {
                 width: 36px;
                 height: 36px;
                 font-size: 18px;
             }
+
             .chatbox-title h4 {
                 font-size: 14px;
             }
+
             .chatbox-messages {
                 padding: 12px;
             }
+
             .message-content {
                 padding: 10px 14px;
                 font-size: 13px;
             }
+
             .chatbox-quick-actions {
                 padding: 6px 12px;
                 gap: 6px;
             }
+
             .chatbox-quick-actions button {
                 padding: 5px 10px;
                 font-size: 11px;
             }
+
             .chatbox-input-area {
                 padding: 12px;
             }
+
             #chatbox-input {
                 padding: 10px 14px;
-                font-size: 16px; /* Evita zoom en iOS */
+                font-size: 16px;
+                /* Evita zoom en iOS */
             }
+
             #chatbox-send {
                 width: 40px;
                 height: 40px;
@@ -1038,12 +1110,12 @@
     </style>
 
     <script>
-        const API_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:5000' 
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
             : window.location.origin;
 
         // ========== N8N CONFIGURATION ==========
-        const N8N_WEBHOOK_URL = 'https://n8n-production-607c.up.railway.app/webhook/chat-web';
+        const N8N_WEBHOOK_URL = 'https://diegoproyects8.app.n8n.cloud/webhook/chat-web';
         const USE_N8N = true; // Usar n8n para el chatbot
         let sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 
@@ -1081,14 +1153,14 @@
             const messagesContainer = document.getElementById('chatbox-messages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-message ${isUser ? 'user' : 'bot'}`;
-            
+
             const avatar = isUser ? '👤' : '🐾';
-            
+
             messageDiv.innerHTML = `
                 <div class="message-avatar">${avatar}</div>
                 <div class="message-content">${content}</div>
             `;
-            
+
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
@@ -1118,14 +1190,14 @@
         async function sendMessage() {
             const input = document.getElementById('chatbox-input');
             const message = input.value.trim();
-            
+
             if (!message) return;
-            
+
             addMessage(`<p>${message}</p>`, true);
             input.value = '';
-            
+
             showTyping();
-            
+
             try {
                 const response = await processMessage(message);
                 hideTyping();
@@ -1137,72 +1209,28 @@
         }
 
         async function processMessage(message) {
-            // ========== INTENTAR N8N PRIMERO (solo en localhost) ==========
-            if (USE_N8N) {
-                try {
-                    const n8nResponse = await sendToN8N(message);
-                    if (n8nResponse) {
-                        return n8nResponse;
-                    }
-                } catch (error) {
-                    console.log('n8n no disponible, usando lógica local:', error.message);
+            // ========== USAR ÚNICAMENTE N8N PARA LOOK CLÍNICO Y PRECISIÓN ==========
+            try {
+                const n8nResponse = await sendToN8N(message);
+                if (n8nResponse) {
+                    return n8nResponse;
                 }
+            } catch (error) {
+                console.error('Error de conexión con n8n:', error);
             }
-            
-            // ========== LÓGICA LOCAL (fallback o producción) ==========
-            const msgLower = message.toLowerCase();
-            
-            // Detectar si está esperando información específica
-            if (chatContext.waitingFor) {
-                return await handleWaitingResponse(message);
-            }
-            
-            // Detectar intención
-            if (containsAny(msgLower, ['producto', 'medicamento', 'tienen', 'hay', 'stock', 'disponible', 'antiparasitario', 'vacuna', 'simparica', 'nexgard', 'bravecto', 'alimento', 'comida'])) {
-                return await handleInventoryQuery(message);
-            }
-            
-            if (containsAny(msgLower, ['sintoma', 'enfermo', 'vomit', 'diarrea', 'tos', 'fiebre', 'no come', 'decaido', 'dolor', 'sangre', 'herida', 'cojea', 'rascarse', 'picazon'])) {
-                return await handleSymptomQuery(message);
-            }
-            
-            if (containsAny(msgLower, ['cita', 'agendar', 'reservar', 'turno', 'consulta', 'hora', 'atencion', 'veterinario'])) {
-                return handleAppointmentStart();
-            }
-            
-            if (containsAny(msgLower, ['hola', 'buenos', 'buenas', 'hey', 'hi'])) {
-                return `<p>¡Hola! 👋 ¿En qué puedo ayudarte hoy?</p>
-                        <p>Puedo asistirte con:</p>
-                        <ul>
-                            <li>🔍 Disponibilidad de productos</li>
-                            <li>🩺 Evaluación de síntomas</li>
-                            <li>📅 Agendar citas</li>
-                        </ul>`;
-            }
-            
-            if (containsAny(msgLower, ['gracias', 'thanks', 'genial', 'perfecto'])) {
-                return `<p>¡De nada! 😊 ¿Hay algo más en lo que pueda ayudarte?</p>`;
-            }
-            
-            // Respuesta por defecto
-            return `<p>No estoy seguro de entender tu consulta. 🤔</p>
-                    <p>Puedo ayudarte con:</p>
-                    <ul>
-                        <li>📦 "¿Tienen Simparica?" - para consultar productos</li>
-                        <li>🩺 "Mi perro tiene vómitos" - para evaluar síntomas</li>
-                        <li>📅 "Quiero agendar una cita" - para reservar</li>
-                    </ul>`;
+
+            return `<p>Lo siento, no puedo procesar tu solicitud en este momento. Por favor, intenta de nuevo o comunícate directamente con la clínica DP Sistemas. 🏥</p>`;
         }
 
         // ========== N8N INTEGRATION ==========
         async function sendToN8N(message) {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-            
+
             try {
                 const response = await fetch(N8N_WEBHOOK_URL, {
                     method: 'POST',
-                    headers: { 
+                    headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -1212,18 +1240,18 @@
                     }),
                     signal: controller.signal
                 });
-                
+
                 clearTimeout(timeoutId);
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}`);
                 }
-                
+
                 const data = await response.json();
-                
+
                 // n8n puede devolver la respuesta en diferentes formatos
                 let botResponse = data.output || data.response || data.text || data.message || data;
-                
+
                 // Si es un string, convertir a HTML
                 if (typeof botResponse === 'string') {
                     // Convertir saltos de línea a <br> y envolver en <p>
@@ -1232,9 +1260,9 @@
                         .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
                         .join('');
                 }
-                
+
                 return botResponse;
-                
+
             } catch (error) {
                 clearTimeout(timeoutId);
                 console.error('Error al conectar con n8n:', error);
@@ -1251,31 +1279,31 @@
             const palabras = message.toLowerCase().split(/\s+/);
             const stopWords = ['tienen', 'hay', 'tienes', 'el', 'la', 'un', 'una', 'de', 'para', 'que', 'en', 'disponible', 'stock', 'producto', 'medicamento', 'busco', 'necesito', 'quiero'];
             const producto = palabras.filter(p => !stopWords.includes(p) && p.length > 2).join(' ');
-            
+
             if (!producto) {
                 return `<p>¿Qué producto te gustaría consultar? 🔍</p>
                         <p>Por ejemplo: antiparasitarios, vacunas, alimentos, etc.</p>`;
             }
-            
+
             try {
                 const response = await fetch(`${API_URL}/api/bot/inventario?q=${encodeURIComponent(producto)}`);
                 const data = await response.json();
-                
+
                 if (data.encontrados && data.encontrados > 0) {
                     let html = `<p>✅ Encontré <strong>${data.encontrados}</strong> producto(s) relacionados:</p><ul>`;
-                    
+
                     data.productos.slice(0, 5).forEach(prod => {
                         const disponible = prod.stock > 0;
                         const icon = disponible ? '✅' : '❌';
                         html += `<li>${icon} <strong>${prod.nombre}</strong> - ${disponible ? 'Disponible' : 'Sin stock'}</li>`;
                     });
-                    
+
                     html += '</ul>';
-                    
+
                     if (data.encontrados > 5) {
                         html += `<p><em>...y ${data.encontrados - 5} más</em></p>`;
                     }
-                    
+
                     html += `<p>¿Te gustaría saber más detalles o agendar una cita? 📅</p>`;
                     return html;
                 } else {
@@ -1303,34 +1331,34 @@
                 'picazon': ['rasca', 'picazon', 'comezón', 'rascarse'],
                 'sangrado': ['sangre', 'sangrado', 'hemorragia']
             };
-            
+
             const msgLower = message.toLowerCase();
             for (const [sintoma, keywords] of Object.entries(sintomasKeywords)) {
                 if (keywords.some(k => msgLower.includes(k))) {
                     sintomasDetectados.push(sintoma);
                 }
             }
-            
+
             if (sintomasDetectados.length === 0) {
                 chatContext.waitingFor = 'sintomas';
                 return `<p>Entiendo que tu mascota no se siente bien 😟</p>
                         <p>¿Podrías describirme los síntomas específicos que presenta?</p>
                         <p><em>Por ejemplo: vómitos, diarrea, no come, está decaído, etc.</em></p>`;
             }
-            
+
             chatContext.sintomas = sintomasDetectados;
-            
+
             try {
                 const response = await fetch(`${API_URL}/api/bot/diagnostico`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ sintomas: sintomasDetectados })
                 });
-                
+
                 const data = await response.json();
-                
+
                 let html = `<p>Basándome en los síntomas descritos (<strong>${sintomasDetectados.join(', ')}</strong>), aquí está mi evaluación:</p>`;
-                
+
                 if (data.nivel_urgencia === 'alto') {
                     html += `<p style="color: #ef4444; font-weight: 600;">🚨 URGENCIA ALTA - Te recomiendo acudir a la veterinaria lo antes posible.</p>`;
                 } else if (data.nivel_urgencia === 'medio') {
@@ -1338,7 +1366,7 @@
                 } else {
                     html += `<p style="color: #10b981;">✅ No parece ser una emergencia, pero siempre es bueno consultar.</p>`;
                 }
-                
+
                 if (data.posibles_diagnosticos && data.posibles_diagnosticos.length > 0) {
                     html += `<p>Posibles condiciones a evaluar:</p><ul>`;
                     data.posibles_diagnosticos.slice(0, 3).forEach(dx => {
@@ -1346,12 +1374,12 @@
                     });
                     html += '</ul>';
                 }
-                
+
                 html += `<p><strong>¿Te gustaría agendar una cita ahora?</strong> 📅</p>`;
-                
+
                 chatContext.lastIntent = 'sintomas';
                 return html;
-                
+
             } catch (error) {
                 console.error('Error en diagnóstico:', error);
                 return `<p>No pude procesar los síntomas. Sin embargo, si tu mascota presenta estos síntomas, te recomiendo consultar con un veterinario.</p>
@@ -1362,48 +1390,48 @@
         function handleAppointmentStart() {
             chatContext.waitingFor = 'nombre_mascota';
             chatContext.lastIntent = 'cita';
-            
+
             return `<p>¡Perfecto! Vamos a agendar tu cita 📅</p>
                     <p>Por favor, dime el <strong>nombre de tu mascota</strong>:</p>`;
         }
 
         async function handleWaitingResponse(message) {
             const waiting = chatContext.waitingFor;
-            
+
             if (waiting === 'sintomas') {
                 chatContext.waitingFor = null;
                 return await handleSymptomQuery(message);
             }
-            
+
             if (waiting === 'nombre_mascota') {
                 chatContext.pacienteNombre = message.trim();
                 chatContext.waitingFor = 'especie';
                 return `<p>Gracias. <strong>${chatContext.pacienteNombre}</strong> 🐾</p>
                         <p>¿Qué tipo de mascota es? (perro, gato, otro)</p>`;
             }
-            
+
             if (waiting === 'especie') {
                 chatContext.pacienteEspecie = message.trim().toLowerCase();
                 chatContext.waitingFor = 'nombre_tutor';
                 return `<p>Entendido, un <strong>${chatContext.pacienteEspecie}</strong>.</p>
                         <p>¿Cuál es tu nombre completo?</p>`;
             }
-            
+
             if (waiting === 'nombre_tutor') {
                 chatContext.tutorNombre = message.trim();
                 chatContext.waitingFor = 'telefono';
                 return `<p>Gracias, <strong>${chatContext.tutorNombre}</strong>.</p>
                         <p>¿Cuál es tu número de teléfono de contacto? 📱</p>`;
             }
-            
+
             if (waiting === 'telefono') {
                 chatContext.tutorTelefono = message.trim();
                 chatContext.waitingFor = null;
-                
+
                 // Crear la cita
                 return await createAppointment();
             }
-            
+
             return `<p>Lo siento, no entendí. ¿Podrías repetir?</p>`;
         }
 
@@ -1411,13 +1439,13 @@
             // Determinar nivel de urgencia basado en síntomas
             const sintomasTexto = chatContext.sintomas.join(' ');
             let urgencia = 'normal';
-            
+
             if (containsAny(sintomasTexto, ['sangrado', 'convulsion', 'envenenamiento', 'atropello'])) {
                 urgencia = 'emergencia';
             } else if (containsAny(sintomasTexto, ['vomito', 'diarrea', 'fiebre', 'dolor'])) {
                 urgencia = 'urgente';
             }
-            
+
             try {
                 const response = await fetch(`${API_URL}/api/bot/agendar-cita`, {
                     method: 'POST',
@@ -1432,22 +1460,22 @@
                         notas: `Cita agendada via chatbot. Síntomas reportados: ${chatContext.sintomas.join(', ') || 'ninguno especificado'}`
                     })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.exito) {
                     let html = `<p>🎉 <strong>¡Cita registrada exitosamente!</strong></p>`;
                     html += `<p>📋 <strong>Ticket:</strong> ${data.ticket || 'Pendiente'}</p>`;
                     html += `<p>🐾 <strong>Paciente:</strong> ${chatContext.pacienteNombre} (${chatContext.pacienteEspecie})</p>`;
                     html += `<p>👤 <strong>Tutor:</strong> ${chatContext.tutorNombre}</p>`;
-                    
+
                     if (esUrgente) {
                         html += `<p style="color: #ef4444; font-weight: 600;">🚨 Se ha marcado como URGENTE</p>`;
                     }
-                    
+
                     html += `<p>Nos pondremos en contacto contigo pronto al 📱 ${chatContext.tutorTelefono}</p>`;
-                    html += `<p>¡Gracias por confiar en BetterDoctor! 🏥</p>`;
-                    
+                    html += `<p>¡Gracias por confiar en DP Sistemas! 🏥</p>`;
+
                     // Limpiar contexto
                     chatContext = {
                         lastIntent: null,
@@ -1458,7 +1486,7 @@
                         sintomas: [],
                         waitingFor: null
                     };
-                    
+
                     return html;
                 } else {
                     return `<p>❌ No se pudo registrar la cita: ${data.mensaje || 'Error desconocido'}</p>
@@ -1479,10 +1507,10 @@
 
         async function handleLogin(e) {
             e.preventDefault();
-            
+
             const usuario = document.getElementById('usuario').value;
             const password = document.getElementById('password').value;
-            
+
             const btn = document.querySelector('.btn-login');
             const originalText = btn.textContent;
             btn.textContent = 'Iniciando sesión...';
@@ -1500,7 +1528,7 @@
 
                 if (data.exito) {
                     localStorage.setItem('vetclinic_user', JSON.stringify(data.usuario));
-                    
+
                     const rol = data.usuario.rol;
                     if (rol === 'admin' || rol === 'superadmin' || rol === 'administracion') {
                         window.location.href = 'superadmin.html';
@@ -1527,4 +1555,5 @@
         }
     </script>
 </body>
+
 </html>

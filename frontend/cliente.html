@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Portal - BetterDoctor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Mi Portal - DP Sistemas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root {
@@ -19,7 +21,7 @@
             --text-light: #64748b;
             --card-bg: #ffffff;
             --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 12px;
         }
 
@@ -209,7 +211,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.5);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             object-fit: cover;
         }
 
@@ -219,7 +221,7 @@
         }
 
         .btn-logout {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
             padding: 0.5rem 1rem;
@@ -230,7 +232,7 @@
         }
 
         .btn-logout:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         /* Main Content */
@@ -391,7 +393,7 @@
         .pet-avatar {
             width: 60px;
             height: 60px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -548,7 +550,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -699,7 +701,7 @@
             height: 500px;
             background: white;
             border-radius: var(--radius);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -816,13 +818,18 @@
         }
     </style>
 </head>
+
 <body>
     <!-- LOGIN SCREEN -->
     <div class="login-screen" id="login-screen">
         <div class="login-container">
-            <div class="login-logo">🐾</div>
-            <h1 class="login-title">Portal de Clientes</h1>
-            <p class="login-subtitle">BetterDoctor Veterinaria</p>
+            <div class="login-logo-container"
+                style="display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem;">
+                <img src="Sistemas.svg" alt="DP Sistemas Logo"
+                    style="height: 100px; width: auto; background: white; border-radius: 16px; padding: 6px; margin-bottom: 1rem;">
+                <h1 class="login-title" style="margin-bottom: 0.25rem;">Portal de Clientes</h1>
+                <p class="login-subtitle">Sistema de gestión para veterinarias</p>
+            </div>
 
             <div class="login-features">
                 <h4>Accede a tu cuenta para:</h4>
@@ -849,9 +856,14 @@
     <div class="portal-screen" id="portal-screen">
         <!-- Header -->
         <header class="header">
-            <div class="header-brand">
-                <span style="font-size: 1.5rem;">🐾</span>
-                <h1>Mi Portal</h1>
+            <div class="header-brand" style="gap: 12px;">
+                <img src="Sistemas.svg" alt="DP Sistemas Logo"
+                    style="height: 42px; width: auto; background: white; border-radius: 6px; padding: 2px;">
+                <div style="display: flex; flex-direction: column; line-height: 1;">
+                    <span style="font-size: 1rem; font-weight: 700; color: white;">DP Sistemas</span>
+                    <span style="font-size: 0.65rem; font-weight: 400; color: rgba(255,255,255,0.9);">Sistema de Gestión
+                        para Veterinarias</span>
+                </div>
             </div>
             <div class="header-user">
                 <span class="user-name" id="user-name"></span>
@@ -865,7 +877,7 @@
             <!-- Welcome Card -->
             <div class="welcome-card">
                 <h2>¡Hola, <span id="welcome-name"></span>! 👋</h2>
-                <p>Bienvenido al portal de BetterDoctor. Aquí puedes gestionar todo sobre tus mascotas.</p>
+                <p>Bienvenido al portal de DP Sistemas. Aquí puedes gestionar todo sobre tus mascotas.</p>
             </div>
 
             <!-- Phone Input Card -->
@@ -911,7 +923,8 @@
 
             <!-- Tab: Nueva Cita -->
             <div class="tab-content" id="tab-nueva-cita">
-                <div style="background: white; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); max-width: 500px;">
+                <div
+                    style="background: white; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); max-width: 500px;">
                     <h3 style="color: var(--primary); margin-bottom: 1.5rem;">📅 Solicitar Nueva Cita</h3>
                     <form id="form-nueva-cita" onsubmit="solicitarCita(event)">
                         <div class="form-group">
@@ -922,7 +935,8 @@
                         </div>
                         <div class="form-group">
                             <label>Motivo de la consulta</label>
-                            <textarea id="cita-motivo" placeholder="Describe el motivo de la visita..." required></textarea>
+                            <textarea id="cita-motivo" placeholder="Describe el motivo de la visita..."
+                                required></textarea>
                         </div>
                         <div class="form-group">
                             <label>Urgencia</label>
@@ -964,16 +978,17 @@
         <button class="chatbox-toggle" onclick="toggleChat()">💬</button>
         <div class="chatbox-window" id="chatbox-window">
             <div class="chatbox-header">
-                <h4>🐾 Asistente BetterDoctor</h4>
+                <h4>🐾 Asistente DP Sistemas</h4>
                 <button class="chatbox-close" onclick="toggleChat()">✕</button>
             </div>
             <div class="chatbox-messages" id="chatbox-messages">
                 <div class="chat-message bot">
-                    ¡Hola! Soy el asistente de BetterDoctor. ¿En qué puedo ayudarte hoy? 🐾
+                    ¡Hola! Soy el asistente de DP Sistemas. ¿En qué puedo ayudarte hoy? 🐾
                 </div>
             </div>
             <div class="chatbox-input">
-                <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." onkeypress="handleChatKeypress(event)">
+                <input type="text" id="chat-input" placeholder="Escribe tu mensaje..."
+                    onkeypress="handleChatKeypress(event)">
                 <button onclick="sendChatMessage()">➤</button>
             </div>
         </div>
@@ -981,12 +996,12 @@
 
     <script>
         // ==================== CONFIG ====================
-        const API_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:5000' 
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
             : window.location.origin;
-        
-        const N8N_WEBHOOK_URL = 'https://n8n-production-607c.up.railway.app/webhook/chat-web';
-        
+
+        const N8N_WEBHOOK_URL = 'https://diegoproyects8.app.n8n.cloud/webhook/chat-web';
+
         // Google Client ID - REEMPLAZAR con tu ID real
         const GOOGLE_CLIENT_ID = '441422249498-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com';
 
@@ -996,7 +1011,7 @@
         // ==================== GOOGLE AUTH ====================
         function initGoogleAuth() {
             // Verificar si hay sesión guardada
-            const savedCliente = localStorage.getItem('betterdoctor_cliente');
+            const savedCliente = localStorage.getItem('DP Sistemas_cliente');
             if (savedCliente) {
                 clienteData = JSON.parse(savedCliente);
                 showPortal();
@@ -1023,7 +1038,7 @@
                     nombre: prompt('Ingresa tu nombre:', 'Cliente Demo'),
                     foto: ''
                 };
-                
+
                 if (demoUser.email) {
                     authenticateWithBackend(demoUser);
                 }
@@ -1060,16 +1075,16 @@
                 });
 
                 const data = await response.json();
-                
+
                 if (data.exito) {
                     clienteData = data.cliente;
                     clienteData.token = data.token;
-                    localStorage.setItem('betterdoctor_cliente', JSON.stringify(clienteData));
-                    
+                    localStorage.setItem('DP Sistemas_cliente', JSON.stringify(clienteData));
+
                     if (data.mascotas_encontradas.length > 0) {
                         alert(`¡Bienvenido! Encontramos ${data.mascotas_encontradas.length} mascota(s) vinculada(s) a tu cuenta.`);
                     }
-                    
+
                     showPortal();
                 } else {
                     alert('Error: ' + data.mensaje);
@@ -1089,7 +1104,7 @@
             // Mostrar datos del usuario
             document.getElementById('user-name').textContent = clienteData.nombre;
             document.getElementById('welcome-name').textContent = clienteData.nombre.split(' ')[0];
-            
+
             if (clienteData.foto) {
                 document.getElementById('user-avatar').src = clienteData.foto;
             } else {
@@ -1107,7 +1122,7 @@
         }
 
         function logout() {
-            localStorage.removeItem('betterdoctor_cliente');
+            localStorage.removeItem('DP Sistemas_cliente');
             clienteData = null;
             location.reload();
         }
@@ -1131,11 +1146,11 @@
                 });
 
                 const data = await response.json();
-                
+
                 if (data.exito) {
                     alert(data.mensaje);
                     clienteData.telefono = telefono;
-                    localStorage.setItem('betterdoctor_cliente', JSON.stringify(clienteData));
+                    localStorage.setItem('DP Sistemas_cliente', JSON.stringify(clienteData));
                     document.getElementById('phone-card').classList.remove('show');
                     cargarMascotas();
                 } else {
@@ -1150,7 +1165,7 @@
         function showTab(tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
+
             event.target.classList.add('active');
             document.getElementById('tab-' + tabId).classList.add('active');
         }
@@ -1231,9 +1246,9 @@
 
                 if (data.exito) {
                     document.getElementById('historial-mascota-nombre').textContent = data.mascota.nombre;
-                    
+
                     let html = '';
-                    
+
                     // Vacunas
                     if (data.vacunas && data.vacunas.length > 0) {
                         html += '<h4 style="color: var(--primary); margin-bottom: 1rem;">💉 Vacunas</h4>';
@@ -1310,9 +1325,9 @@
                         <h4>${cita.mascota || 'Mascota'} - ${cita.numero_ticket}</h4>
                         <p>${cita.motivo || 'Sin motivo especificado'}</p>
                         <p style="font-size: 0.8rem; color: var(--text-light);">
-                            ${new Date(cita.fecha).toLocaleDateString('es-CL', { 
-                                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-                            })}
+                            ${new Date(cita.fecha).toLocaleDateString('es-CL', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            })}
                         </p>
                     </div>
                     <span class="cita-status ${cita.estado}">${formatearEstado(cita.estado)}</span>
@@ -1332,7 +1347,7 @@
 
         async function solicitarCita(event) {
             event.preventDefault();
-            
+
             const mascotaId = document.getElementById('cita-mascota').value;
             const motivo = document.getElementById('cita-motivo').value;
             const urgencia = document.getElementById('cita-urgencia').value;
@@ -1357,7 +1372,7 @@
                 });
 
                 const data = await response.json();
-                
+
                 if (data.exito) {
                     alert(`✅ ${data.mensaje}\nTicket: ${data.cita.numero_ticket}`);
                     document.getElementById('form-nueva-cita').reset();
@@ -1417,7 +1432,7 @@
                 });
 
                 const data = await response.json();
-                
+
                 // Remover indicador de escritura
                 document.getElementById(typingId)?.remove();
 
@@ -1461,5 +1476,5 @@
         });
     </script>
 </body>
-</html>
 
+</html>

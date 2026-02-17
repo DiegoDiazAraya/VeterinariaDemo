@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetterDoctor - Recepción</title>
+    <title>DP Sistemas - Recepción</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Sistema de diseño BetterDoctor v2.0 */
+            /* Sistema de diseño DP Sistemas v2.0 */
             --color-bg: #f1f5f9;
             --color-bg-white: #ffffff;
             --color-primary: #0891b2;
@@ -28,8 +29,12 @@
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--color-bg);
@@ -72,7 +77,10 @@
             font-size: 1.25rem;
         }
 
-        .logo h1 { font-size: 1.25rem; font-weight: 700; }
+        .logo h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
 
         .user-info {
             display: flex;
@@ -83,7 +91,7 @@
 
         .btn-logout {
             padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border: none;
             border-radius: 8px;
             color: white;
@@ -91,7 +99,9 @@
             font-size: 0.85rem;
         }
 
-        .btn-logout:hover { background: rgba(255,255,255,0.3); }
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
 
         .main-container {
             max-width: 1400px;
@@ -131,7 +141,10 @@
             color: white;
         }
 
-        .card-title { font-size: 1.1rem; font-weight: 600; }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
 
         /* Búsqueda de pacientes */
         .search-paciente-section {
@@ -189,7 +202,9 @@
             display: none;
         }
 
-        .search-results.active { display: block; }
+        .search-results.active {
+            display: block;
+        }
 
         .search-result-item {
             padding: 0.75rem 1rem;
@@ -200,7 +215,9 @@
             gap: 0.75rem;
         }
 
-        .search-result-item:hover { background: var(--color-bg); }
+        .search-result-item:hover {
+            background: var(--color-bg);
+        }
 
         .search-result-item .pet-icon {
             font-size: 1.5rem;
@@ -229,7 +246,9 @@
             display: none;
         }
 
-        .paciente-seleccionado.active { display: block; }
+        .paciente-seleccionado.active {
+            display: block;
+        }
 
         .paciente-seleccionado-header {
             display: flex;
@@ -271,7 +290,10 @@
             margin-top: 0.5rem;
         }
 
-        .form-group { margin-bottom: 1rem; }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
         .form-group label {
             display: block;
             font-size: 0.85rem;
@@ -279,9 +301,14 @@
             margin-bottom: 0.4rem;
             color: var(--color-text);
         }
-        .form-group label span { color: var(--color-danger); }
 
-        input, select, textarea {
+        .form-group label span {
+            color: var(--color-danger);
+        }
+
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 2px solid var(--color-border);
@@ -291,7 +318,9 @@
             transition: all 0.2s;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: var(--color-primary);
             box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
@@ -327,17 +356,37 @@
             box-shadow: var(--shadow-lg);
         }
 
-        .btn-success { background: var(--color-success); color: white; }
-        .btn-warning { background: var(--color-warning); color: white; }
-        .btn-danger { background: var(--color-danger); color: white; }
-        .btn-secondary { background: var(--color-bg); color: var(--color-text); border: 1px solid var(--color-border); }
+        .btn-success {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--color-warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--color-danger);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--color-bg);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
 
         /* Síntomas */
-        .sintomas-section { margin-top: 1rem; }
+        .sintomas-section {
+            margin-top: 1rem;
+        }
+
         .sintomas-search {
             position: relative;
             margin-bottom: 0.75rem;
         }
+
         .sintomas-dropdown {
             position: absolute;
             top: 100%;
@@ -353,7 +402,11 @@
             display: none;
             box-shadow: var(--shadow-lg);
         }
-        .sintomas-dropdown.active { display: block; }
+
+        .sintomas-dropdown.active {
+            display: block;
+        }
+
         .sintoma-option {
             padding: 0.6rem 1rem;
             cursor: pointer;
@@ -361,15 +414,18 @@
             border-bottom: 1px solid var(--color-border);
             transition: all 0.15s;
         }
-        .sintoma-option:hover { 
-            background: var(--color-primary-light, #ecfeff); 
+
+        .sintoma-option:hover {
+            background: var(--color-primary-light, #ecfeff);
             color: var(--color-primary-dark);
         }
+
         .sintoma-option mark {
             background: #fef08a;
             padding: 0 2px;
             border-radius: 2px;
         }
+
         .sintomas-selected {
             display: flex;
             flex-wrap: wrap;
@@ -379,6 +435,7 @@
             background: var(--color-bg);
             border-radius: 8px;
         }
+
         .sintoma-tag {
             display: inline-flex;
             align-items: center;
@@ -390,12 +447,16 @@
             font-size: 0.75rem;
             color: var(--color-primary-dark);
         }
+
         .sintoma-tag-remove {
             cursor: pointer;
             font-size: 1rem;
             opacity: 0.6;
         }
-        .sintoma-tag-remove:hover { opacity: 1; }
+
+        .sintoma-tag-remove:hover {
+            opacity: 1;
+        }
 
         .sintomas-hint {
             font-size: 0.75rem;
@@ -405,7 +466,10 @@
         }
 
         /* Consultas */
-        .consultas-list { margin-top: 1rem; }
+        .consultas-list {
+            margin-top: 1rem;
+        }
+
         .consulta-item {
             background: var(--color-bg);
             border-radius: 12px;
@@ -414,11 +478,26 @@
             border-left: 4px solid var(--color-warning);
             transition: all 0.2s;
         }
-        .consulta-item:hover { box-shadow: var(--shadow-md); }
-        .consulta-item.en_espera { border-left-color: var(--color-warning); }
-        .consulta-item.en_atencion { border-left-color: var(--color-primary); }
-        .consulta-item.atendida { border-left-color: var(--color-success); }
-        .consulta-item.completada { border-left-color: #94a3b8; }
+
+        .consulta-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .consulta-item.en_espera {
+            border-left-color: var(--color-warning);
+        }
+
+        .consulta-item.en_atencion {
+            border-left-color: var(--color-primary);
+        }
+
+        .consulta-item.atendida {
+            border-left-color: var(--color-success);
+        }
+
+        .consulta-item.completada {
+            border-left-color: #94a3b8;
+        }
 
         .consulta-header {
             display: flex;
@@ -426,21 +505,39 @@
             align-items: flex-start;
             margin-bottom: 0.5rem;
         }
+
         .consulta-ticket {
             font-weight: 700;
             color: var(--color-primary-dark);
             font-size: 0.9rem;
         }
+
         .consulta-estado {
             padding: 0.2rem 0.6rem;
             border-radius: 12px;
             font-size: 0.7rem;
             font-weight: 600;
         }
-        .estado-en_espera { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
-        .estado-en_atencion { background: rgba(8, 145, 178, 0.1); color: var(--color-primary); }
-        .estado-atendida { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
-        .estado-completada { background: rgba(148, 163, 184, 0.1); color: #64748b; }
+
+        .estado-en_espera {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+        }
+
+        .estado-en_atencion {
+            background: rgba(8, 145, 178, 0.1);
+            color: var(--color-primary);
+        }
+
+        .estado-atendida {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .estado-completada {
+            background: rgba(148, 163, 184, 0.1);
+            color: #64748b;
+        }
 
         /* Estilos para citas del Chatbot */
         .consulta-item.desde-chatbot {
@@ -448,19 +545,30 @@
             border-left-color: #f59e0b !important;
             border-left-width: 4px;
         }
+
         .consulta-item.emergencia {
             background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
             border-left-color: #ef4444 !important;
             animation: pulse-emergency 2s infinite;
         }
+
         .consulta-item.urgente-item {
             background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
             border-left-color: #f97316 !important;
         }
+
         @keyframes pulse-emergency {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
         }
+
         .badge-chatbot {
             display: inline-block;
             padding: 0.2rem 0.5rem;
@@ -471,14 +579,16 @@
             color: white;
             margin-left: 0.5rem;
         }
+
         .badge-chatbot.badge-emergencia {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             animation: pulse-badge 1s infinite;
         }
+
         .badge-chatbot.badge-urgente {
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
         }
-        
+
         /* Estilos para diagnóstico preliminar */
         .diagnostico-preliminar {
             background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%);
@@ -488,14 +598,17 @@
             margin-top: 0.5rem;
             font-size: 0.8rem;
         }
+
         .diagnostico-preliminar.urgencia-critica {
             background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
             border-color: #ef4444;
         }
+
         .diagnostico-preliminar.urgencia-alta {
             background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
             border-color: #f97316;
         }
+
         .diagnostico-preliminar-header {
             font-weight: 600;
             color: #0f766e;
@@ -504,14 +617,22 @@
             align-items: center;
             gap: 0.5rem;
         }
-        .diagnostico-preliminar.urgencia-critica .diagnostico-preliminar-header { color: #dc2626; }
-        .diagnostico-preliminar.urgencia-alta .diagnostico-preliminar-header { color: #ea580c; }
+
+        .diagnostico-preliminar.urgencia-critica .diagnostico-preliminar-header {
+            color: #dc2626;
+        }
+
+        .diagnostico-preliminar.urgencia-alta .diagnostico-preliminar-header {
+            color: #ea580c;
+        }
+
         .diagnostico-condiciones {
             display: flex;
             flex-wrap: wrap;
             gap: 0.25rem;
             margin-bottom: 0.5rem;
         }
+
         .condicion-tag {
             background: rgba(16, 185, 129, 0.15);
             color: #047857;
@@ -520,14 +641,26 @@
             font-size: 0.7rem;
             font-weight: 500;
         }
-        .urgencia-critica .condicion-tag { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
-        .urgencia-alta .condicion-tag { background: rgba(249, 115, 22, 0.15); color: #c2410c; }
+
+        .urgencia-critica .condicion-tag {
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
+        }
+
+        .urgencia-alta .condicion-tag {
+            background: rgba(249, 115, 22, 0.15);
+            color: #c2410c;
+        }
+
         .diagnostico-acciones {
             font-size: 0.75rem;
             color: #64748b;
         }
-        .diagnostico-acciones strong { color: #334155; }
-        
+
+        .diagnostico-acciones strong {
+            color: #334155;
+        }
+
         /* Ficha del paciente expandida */
         .paciente-ficha {
             background: #f8fafc;
@@ -539,23 +672,35 @@
             flex-wrap: wrap;
             gap: 0.75rem;
         }
+
         .paciente-dato {
             display: flex;
             align-items: center;
             gap: 0.25rem;
         }
+
         .paciente-dato-label {
             color: #64748b;
             font-size: 0.7rem;
         }
+
         .paciente-dato-valor {
             font-weight: 500;
             color: #334155;
         }
+
         @keyframes pulse-badge {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
+
         .consulta-sintomas {
             margin-top: 0.5rem;
             padding: 0.5rem;
@@ -564,6 +709,7 @@
             font-size: 0.8rem;
             color: #6d28d9;
         }
+
         .consulta-notas {
             margin-top: 0.3rem;
             font-size: 0.75rem;
@@ -576,15 +722,18 @@
             font-size: 1rem;
             margin-bottom: 0.25rem;
         }
+
         .consulta-info {
             font-size: 0.8rem;
             color: var(--color-text-muted);
         }
+
         .consulta-actions {
             display: flex;
             gap: 0.5rem;
             margin-top: 0.75rem;
         }
+
         .btn-sm {
             padding: 0.4rem 0.75rem;
             font-size: 0.8rem;
@@ -596,6 +745,7 @@
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
+
         .tab {
             padding: 0.6rem 1.25rem;
             border: none;
@@ -607,12 +757,19 @@
             border-radius: 8px;
             transition: all 0.2s;
         }
+
         .tab.active {
             background: var(--color-primary);
             color: white;
         }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
 
         /* Modal */
         .modal {
@@ -622,12 +779,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 2000;
             align-items: center;
             justify-content: center;
         }
-        .modal.show { display: flex; }
+
+        .modal.show {
+            display: flex;
+        }
+
         .modal-content {
             background: white;
             border-radius: 16px;
@@ -637,13 +798,19 @@
             max-height: 90vh;
             overflow-y: auto;
         }
+
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
         }
-        .modal-title { font-size: 1.25rem; font-weight: 600; }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
         .modal-close {
             background: none;
             border: none;
@@ -659,6 +826,7 @@
             padding: 1rem;
             margin-bottom: 1rem;
         }
+
         .cobro-linea {
             display: flex;
             justify-content: space-between;
@@ -666,7 +834,11 @@
             border-bottom: 1px solid var(--color-border);
             font-size: 0.9rem;
         }
-        .cobro-linea:last-child { border-bottom: none; }
+
+        .cobro-linea:last-child {
+            border-bottom: none;
+        }
+
         .cobro-total {
             font-weight: 700;
             font-size: 1.1rem;
@@ -680,23 +852,28 @@
             padding: 1rem;
             margin-bottom: 1rem;
         }
+
         .ficha-section h4 {
             color: var(--color-success);
             margin-bottom: 0.75rem;
             font-size: 0.9rem;
         }
+
         .ficha-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0.5rem;
         }
+
         .ficha-item {
             font-size: 0.85rem;
         }
+
         .ficha-item strong {
             color: var(--color-text-muted);
             font-weight: 500;
         }
+
         .alerta-alergias {
             background: #fef2f2;
             border: 1px solid var(--color-danger);
@@ -708,11 +885,20 @@
         }
 
         /* Impresión */
-        .print-section { display: none; }
+        .print-section {
+            display: none;
+        }
 
         @media print {
-            body * { visibility: hidden; }
-            .print-section, .print-section * { visibility: visible; }
+            body * {
+                visibility: hidden;
+            }
+
+            .print-section,
+            .print-section * {
+                visibility: visible;
+            }
+
             .print-section {
                 display: block;
                 position: absolute;
@@ -729,26 +915,41 @@
             padding: 20px;
             font-size: 12px;
         }
+
         .doc-header {
             text-align: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 2px dashed #000;
         }
-        .doc-header h1 { font-size: 18px; margin-bottom: 5px; }
-        .doc-header p { margin: 2px 0; font-size: 11px; }
-        .doc-section { margin: 10px 0; }
+
+        .doc-header h1 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .doc-header p {
+            margin: 2px 0;
+            font-size: 11px;
+        }
+
+        .doc-section {
+            margin: 10px 0;
+        }
+
         .doc-section-title {
             font-weight: bold;
             border-bottom: 1px solid #000;
             margin-bottom: 5px;
             padding-bottom: 3px;
         }
+
         .doc-row {
             display: flex;
             justify-content: space-between;
             padding: 3px 0;
         }
+
         .doc-total {
             border-top: 2px dashed #000;
             margin-top: 10px;
@@ -756,6 +957,7 @@
             font-weight: bold;
             font-size: 14px;
         }
+
         .doc-footer {
             text-align: center;
             margin-top: 15px;
@@ -769,7 +971,12 @@
             padding: 2rem;
             color: var(--color-text-muted);
         }
-        .empty-icon { font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.5; }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.5;
+        }
 
         /* ========== RESPONSIVE STYLES ========== */
         @media (max-width: 1200px) {
@@ -791,89 +998,113 @@
             .header {
                 padding: 0.75rem 1rem;
             }
+
             .header-content {
                 flex-wrap: wrap;
                 gap: 0.5rem;
             }
+
             .logo h1 {
                 font-size: 1.2rem;
             }
+
             .logo-icon {
                 width: 36px;
                 height: 36px;
                 font-size: 1.1rem;
             }
+
             .user-info {
                 gap: 0.5rem;
                 font-size: 0.85rem;
             }
+
             .btn-logout {
                 padding: 0.4rem 0.75rem;
                 font-size: 0.8rem;
             }
+
             .main-container {
                 padding: 0.75rem;
                 gap: 1rem;
             }
+
             .card {
                 padding: 1rem;
                 border-radius: 12px;
             }
+
             .card-header {
                 margin-bottom: 1rem;
                 padding-bottom: 0.75rem;
             }
+
             .card-icon {
                 width: 36px;
                 height: 36px;
                 font-size: 1.1rem;
             }
+
             .card-title {
                 font-size: 1rem;
             }
+
             .search-paciente-section {
                 padding: 0.875rem;
             }
+
             .search-wrapper input {
                 padding: 0.65rem 1rem 0.65rem 2.25rem;
-                font-size: 16px; /* Evita zoom iOS */
+                font-size: 16px;
+                /* Evita zoom iOS */
             }
+
             .consulta-item {
                 padding: 1rem;
             }
+
             .consulta-header {
                 flex-direction: column;
                 gap: 0.5rem;
             }
+
             .consulta-paciente {
                 font-size: 1rem;
             }
+
             .consulta-sintomas {
                 gap: 0.3rem;
             }
+
             .sintoma-tag {
                 font-size: 0.7rem;
                 padding: 0.2rem 0.5rem;
             }
+
             .paciente-ficha {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.5rem;
             }
+
             .paciente-dato {
                 padding: 0.5rem;
                 font-size: 0.75rem;
             }
+
             .diagnostico-preliminar {
                 padding: 0.75rem;
             }
+
             .condicion-tag {
                 font-size: 0.7rem;
                 padding: 0.2rem 0.4rem;
             }
+
             .form-group input,
             .form-group select,
             .form-group textarea {
-                font-size: 16px; /* Evita zoom iOS */
+                font-size: 16px;
+                /* Evita zoom iOS */
             }
         }
 
@@ -881,68 +1112,87 @@
             .header {
                 padding: 0.5rem 0.75rem;
             }
+
             .logo {
                 gap: 0.5rem;
             }
+
             .logo h1 {
                 font-size: 1.1rem;
             }
+
             .logo-icon {
                 width: 32px;
                 height: 32px;
                 font-size: 1rem;
             }
+
             .user-info {
                 font-size: 0.8rem;
             }
+
             .user-info span:first-child {
                 display: none;
             }
+
             .btn-logout {
                 padding: 0.35rem 0.5rem;
                 font-size: 0.75rem;
             }
+
             .main-container {
                 padding: 0.5rem;
             }
+
             .card {
                 padding: 0.875rem;
                 border-radius: 10px;
             }
+
             .paciente-ficha {
                 grid-template-columns: 1fr 1fr;
                 gap: 0.4rem;
             }
+
             .paciente-dato {
                 padding: 0.4rem;
                 font-size: 0.7rem;
             }
+
             .consulta-item {
                 padding: 0.875rem;
             }
+
             .consulta-ticket {
                 font-size: 0.75rem;
             }
+
             .consulta-hora {
                 font-size: 0.7rem;
             }
+
             .consulta-paciente {
                 font-size: 0.95rem;
             }
+
             .consulta-propietario {
                 font-size: 0.75rem;
             }
+
             .btn-accion {
                 padding: 0.4rem 0.6rem;
                 font-size: 0.75rem;
             }
+
             .stats-mini {
                 flex-wrap: wrap;
                 gap: 0.5rem;
             }
+
             .stat-item {
                 font-size: 0.75rem;
             }
+
             .search-result-item {
                 padding: 0.6rem;
             }
@@ -952,23 +1202,28 @@
             .paciente-ficha {
                 grid-template-columns: 1fr;
             }
+
             .header-content {
                 justify-content: space-between;
             }
+
             .logo h1 {
                 font-size: 1rem;
             }
         }
     </style>
 </head>
+
 <body>
     <header class="header">
         <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">🏥</div>
-                <div>
-                    <h1>BetterDoctor</h1>
-                    <small style="opacity: 0.8; font-size: 0.7rem;">Panel de Recepción</small>
+            <div class="logo-container" style="display: flex; align-items: center; gap: 12px; color: white;">
+                <img src="Sistemas.svg" alt="DP Sistemas Logo"
+                    style="height: 48px; width: auto; background: white; border-radius: 8px; padding: 2px;">
+                <div style="display: flex; flex-direction: column; line-height: 1.2;">
+                    <span style="font-size: 1.25rem; font-weight: 700; color: white;">DP Sistemas - Recepción</span>
+                    <span style="font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.9);">Sistema de Gestión
+                        para Veterinarias</span>
                 </div>
             </div>
             <div class="user-info">
@@ -1087,12 +1342,14 @@
                 <div class="sintomas-section">
                     <label>Síntomas Observados</label>
                     <div class="sintomas-search">
-                        <input type="text" id="sintoma-search" placeholder="Escriba para buscar síntomas (ej: vomit, fiebre, tos...)" autocomplete="off">
+                        <input type="text" id="sintoma-search"
+                            placeholder="Escriba para buscar síntomas (ej: vomit, fiebre, tos...)" autocomplete="off">
                         <div class="sintomas-dropdown" id="sintomas-dropdown"></div>
                     </div>
                     <p class="sintomas-hint">💡 Escriba al menos 2 letras para ver sugerencias de la base de datos</p>
                     <div class="sintomas-selected" id="sintomas-selected">
-                        <span style="color: var(--color-text-muted); font-size: 0.8rem; font-style: italic;" id="sintomas-placeholder">
+                        <span style="color: var(--color-text-muted); font-size: 0.8rem; font-style: italic;"
+                            id="sintomas-placeholder">
                             Los síntomas seleccionados aparecerán aquí...
                         </span>
                     </div>
@@ -1171,7 +1428,7 @@
             </div>
             <form id="form-nuevo-paciente" onsubmit="crearNuevoPaciente(event)">
                 <h4 style="margin-bottom: 1rem; color: var(--color-primary);">Datos de la Mascota</h4>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nombre <span>*</span></label>
@@ -1256,8 +1513,8 @@
     <div class="print-section" id="print-section"></div>
 
     <script>
-        const API_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:5000' 
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
             : window.location.origin;
         let sintomasSeleccionados = [];
         let currentUser = null;
@@ -1297,7 +1554,7 @@
             localStorage.removeItem('vetclinic_user');
             window.location.href = 'login.html';
         }
-        
+
         // Hacer logout global para que funcione desde onclick
         window.logout = logout;
 
@@ -1310,15 +1567,15 @@
         }
 
         // ==================== BÚSQUEDA DE PACIENTES ====================
-        
+
         const buscarPacienteInput = document.getElementById('buscar-paciente');
         const searchResults = document.getElementById('search-results');
 
         buscarPacienteInput.addEventListener('input', (e) => {
             const query = e.target.value.trim();
-            
+
             clearTimeout(searchTimeout);
-            
+
             if (query.length < 2) {
                 searchResults.classList.remove('active');
                 return;
@@ -1328,7 +1585,7 @@
                 try {
                     const res = await fetch(`${API_URL}/api/pacientes/buscar?q=${encodeURIComponent(query)}`);
                     const data = await res.json();
-                    
+
                     if (data.pacientes && data.pacientes.length > 0) {
                         searchResults.innerHTML = data.pacientes.map(p => `
                             <div class="search-result-item" onclick="seleccionarPaciente(${p.id})">
@@ -1364,26 +1621,26 @@
             try {
                 const res = await fetch(`${API_URL}/api/pacientes/${id}`);
                 const data = await res.json();
-                
+
                 if (data.exito) {
                     pacienteSeleccionado = data.paciente;
-                    
+
                     // Mostrar paciente seleccionado
                     document.getElementById('paciente-seleccionado').classList.add('active');
                     document.getElementById('sel-nombre').textContent = pacienteSeleccionado.nombre;
-                    document.getElementById('sel-detalle').textContent = 
+                    document.getElementById('sel-detalle').textContent =
                         `(${pacienteSeleccionado.especie}) - ${pacienteSeleccionado.propietario.nombre}`;
-                    
+
                     // Ocultar formulario de datos y mostrar ficha
                     document.getElementById('datos-paciente').style.display = 'none';
                     document.getElementById('ficha-paciente').style.display = 'block';
                     document.getElementById('paciente_id').value = pacienteSeleccionado.id;
-                    
+
                     // Rellenar campos ocultos para que pasen la validación del formulario
                     document.getElementById('nombre_mascota').value = pacienteSeleccionado.nombre;
                     document.getElementById('especie').value = pacienteSeleccionado.especie;
                     document.getElementById('propietario').value = pacienteSeleccionado.propietario.nombre;
-                    
+
                     // Llenar ficha (usar edad_calculada del servidor si existe)
                     const edadMostrar = pacienteSeleccionado.edad_calculada || pacienteSeleccionado.edad || 'N/A';
                     document.getElementById('ficha-datos').innerHTML = `
@@ -1396,7 +1653,7 @@
                         <div class="ficha-item"><strong>Propietario:</strong> ${pacienteSeleccionado.propietario.nombre}</div>
                         <div class="ficha-item"><strong>Teléfono:</strong> ${pacienteSeleccionado.propietario.telefono}</div>
                     `;
-                    
+
                     // Mostrar alergias si hay
                     if (pacienteSeleccionado.alergias && pacienteSeleccionado.alergias.length > 0) {
                         document.getElementById('ficha-alergias').innerHTML = `
@@ -1407,7 +1664,7 @@
                     } else {
                         document.getElementById('ficha-alergias').innerHTML = '';
                     }
-                    
+
                     // Limpiar búsqueda
                     buscarPacienteInput.value = '';
                     searchResults.classList.remove('active');
@@ -1423,7 +1680,7 @@
             document.getElementById('datos-paciente').style.display = 'block';
             document.getElementById('ficha-paciente').style.display = 'none';
             document.getElementById('paciente_id').value = '';
-            
+
             // Limpiar campos ocultos
             document.getElementById('nombre_mascota').value = '';
             document.getElementById('especie').value = '';
@@ -1436,7 +1693,7 @@
 
         async function crearNuevoPaciente(e) {
             e.preventDefault();
-            
+
             const data = {
                 nombre: document.getElementById('np-nombre').value,
                 especie: document.getElementById('np-especie').value,
@@ -1450,7 +1707,7 @@
                 propietario_email: document.getElementById('np-prop-email').value,
                 propietario_direccion: document.getElementById('np-prop-direccion').value
             };
-            
+
             try {
                 const res = await fetch(`${API_URL}/api/pacientes/nuevo`, {
                     method: 'POST',
@@ -1458,12 +1715,12 @@
                     body: JSON.stringify(data)
                 });
                 const result = await res.json();
-                
+
                 if (result.exito) {
                     alert('✅ Paciente registrado exitosamente');
                     cerrarModal('modal-nuevo-paciente');
                     document.getElementById('form-nuevo-paciente').reset();
-                    
+
                     // Seleccionar el paciente recién creado
                     seleccionarPaciente(result.paciente.id);
                 }
@@ -1473,13 +1730,13 @@
         }
 
         // ==================== SÍNTOMAS CON AUTOCOMPLETADO ====================
-        
+
         const sintomaSearchInput = document.getElementById('sintoma-search');
         const sintomasDropdown = document.getElementById('sintomas-dropdown');
 
         sintomaSearchInput.addEventListener('input', async (e) => {
             const query = e.target.value.trim();
-            
+
             if (query.length < 2) {
                 sintomasDropdown.classList.remove('active');
                 return;
@@ -1488,11 +1745,11 @@
             try {
                 const res = await fetch(`${API_URL}/api/sintomas/buscar?q=${encodeURIComponent(query)}&limite=10`);
                 const data = await res.json();
-                
+
                 if (data.sintomas && data.sintomas.length > 0) {
                     // Filtrar síntomas ya seleccionados
                     const disponibles = data.sintomas.filter(s => !sintomasSeleccionados.includes(s));
-                    
+
                     if (disponibles.length > 0) {
                         // Resaltar coincidencia
                         const regex = new RegExp(`(${query})`, 'gi');
@@ -1541,7 +1798,7 @@
         function renderizarSintomas() {
             const container = document.getElementById('sintomas-selected');
             const placeholder = document.getElementById('sintomas-placeholder');
-            
+
             if (sintomasSeleccionados.length === 0) {
                 container.innerHTML = `
                     <span style="color: var(--color-text-muted); font-size: 0.8rem; font-style: italic;" id="sintomas-placeholder">
@@ -1559,12 +1816,12 @@
         }
 
         // ==================== REGISTRO DE CONSULTA ====================
-        
+
         async function registrarConsulta(e) {
             e.preventDefault();
-            
+
             let data;
-            
+
             if (pacienteSeleccionado) {
                 // Usar datos del paciente seleccionado (preferir edad calculada)
                 const edadUsar = pacienteSeleccionado.edad_calculada || pacienteSeleccionado.edad;
@@ -1601,17 +1858,17 @@
 
             try {
                 console.log('Enviando datos de consulta:', data);
-                
+
                 const response = await fetch(`${API_URL}/api/consultas/nueva`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-                
+
                 console.log('Response status:', response.status);
                 const result = await response.json();
                 console.log('Resultado:', result);
-                
+
                 if (result.exito) {
                     // Si hay paciente seleccionado, agregar consulta a su historial
                     if (pacienteSeleccionado) {
@@ -1625,10 +1882,10 @@
                             console.error('Error al agregar consulta al historial:', e);
                         }
                     }
-                    
+
                     document.getElementById('ticket-numero').textContent = result.numero_ticket;
                     document.getElementById('modal-ticket').classList.add('show');
-                    
+
                     // Limpiar formulario
                     document.getElementById('form-consulta').reset();
                     sintomasSeleccionados = [];
@@ -1646,7 +1903,7 @@
         }
 
         // ==================== CONSULTAS ====================
-        
+
         async function cargarConsultas() {
             try {
                 const resPend = await fetch(`${API_URL}/api/consultas/pendientes`);
@@ -1667,7 +1924,7 @@
 
         function renderizarLista(containerId, consultas, tipo) {
             const container = document.getElementById(containerId);
-            
+
             if (!consultas || consultas.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
@@ -1683,7 +1940,7 @@
                 const esChatbot = c.origen === 'chatbot' || c.numero_ticket?.startsWith('EMG-') || c.numero_ticket?.startsWith('ESP-');
                 const esEmergencia = c.prioridad === 1 || c.urgencia_reportada === 'emergencia' || c.numero_ticket?.startsWith('EMG-');
                 const esUrgente = c.prioridad === 2 || c.urgencia_reportada === 'urgente';
-                
+
                 // Badge de origen
                 let badgeOrigen = '';
                 if (esChatbot) {
@@ -1695,14 +1952,14 @@
                         badgeOrigen = '<span class="badge-chatbot">🤖 Chatbot</span>';
                     }
                 }
-                
+
                 // Mostrar síntomas si vienen del chatbot
                 let sintomasHtml = '';
                 // Síntomas reportados (mejorado)
                 const sintomasReportados = c.sintomas_reportados || c.sintomas || [];
-                const sintomasList = Array.isArray(sintomasReportados) ? sintomasReportados : 
-                                    (typeof sintomasReportados === 'string' ? sintomasReportados.split(',').map(s => s.trim()) : []);
-                
+                const sintomasList = Array.isArray(sintomasReportados) ? sintomasReportados :
+                    (typeof sintomasReportados === 'string' ? sintomasReportados.split(',').map(s => s.trim()) : []);
+
                 if (esChatbot && sintomasList.length > 0) {
                     sintomasHtml = `
                         <div class="consulta-sintomas">
@@ -1710,13 +1967,13 @@
                         </div>
                     `;
                 }
-                
+
                 // Notas del chatbot
                 let notasHtml = '';
                 if (c.notas_chatbot) {
                     notasHtml = `<div class="consulta-notas">💬 ${c.notas_chatbot}</div>`;
                 }
-                
+
                 // Ficha del paciente expandida
                 let fichaHtml = '';
                 if (esChatbot && c.paciente) {
@@ -1726,24 +1983,24 @@
                     if (p.edad) datosExtra.push(`<span class="paciente-dato">📅 <span class="paciente-dato-valor">${p.edad}</span></span>`);
                     if (p.peso) datosExtra.push(`<span class="paciente-dato">⚖️ <span class="paciente-dato-valor">${p.peso}</span></span>`);
                     if (p.sexo && p.sexo !== 'No especificado') datosExtra.push(`<span class="paciente-dato">${p.sexo === 'Macho' ? '♂️' : '♀️'} <span class="paciente-dato-valor">${p.sexo}</span></span>`);
-                    
+
                     if (datosExtra.length > 0) {
                         fichaHtml = `<div class="paciente-ficha">${datosExtra.join('')}</div>`;
                     }
                 }
-                
+
                 // Diagnóstico preliminar del chatbot
                 let diagnosticoPreliminarHtml = '';
                 if (esChatbot && c.diagnostico_preliminar && c.diagnostico_preliminar.posibles_condiciones?.length > 0) {
                     const dp = c.diagnostico_preliminar;
-                    const urgenciaClass = dp.nivel_urgencia === 'critica' ? 'urgencia-critica' : 
-                                         dp.nivel_urgencia === 'alta' ? 'urgencia-alta' : '';
-                    const urgenciaIcon = dp.nivel_urgencia === 'critica' ? '🚨' : 
-                                        dp.nivel_urgencia === 'alta' ? '⚠️' : '🩺';
-                    const urgenciaTexto = dp.nivel_urgencia === 'critica' ? 'CRÍTICA' : 
-                                         dp.nivel_urgencia === 'alta' ? 'ALTA' : 
-                                         dp.nivel_urgencia === 'media' ? 'MEDIA' : 'BAJA';
-                    
+                    const urgenciaClass = dp.nivel_urgencia === 'critica' ? 'urgencia-critica' :
+                        dp.nivel_urgencia === 'alta' ? 'urgencia-alta' : '';
+                    const urgenciaIcon = dp.nivel_urgencia === 'critica' ? '🚨' :
+                        dp.nivel_urgencia === 'alta' ? '⚠️' : '🩺';
+                    const urgenciaTexto = dp.nivel_urgencia === 'critica' ? 'CRÍTICA' :
+                        dp.nivel_urgencia === 'alta' ? 'ALTA' :
+                            dp.nivel_urgencia === 'media' ? 'MEDIA' : 'BAJA';
+
                     diagnosticoPreliminarHtml = `
                         <div class="diagnostico-preliminar ${urgenciaClass}">
                             <div class="diagnostico-preliminar-header">
@@ -1760,16 +2017,16 @@
                         </div>
                     `;
                 }
-                
+
                 return `
                 <div class="consulta-item ${c.estado} ${esChatbot ? 'desde-chatbot' : ''} ${esEmergencia ? 'emergencia' : ''} ${esUrgente ? 'urgente-item' : ''}">
                     <div class="consulta-header">
                         <span class="consulta-ticket">${c.numero_ticket}</span>
                         ${badgeOrigen}
                         <span class="consulta-estado estado-${c.estado}">
-                            ${c.estado === 'en_espera' ? '⏳ En Espera' : 
-                              c.estado === 'en_atencion' ? '🩺 En Atención' : 
-                              c.estado === 'atendida' ? '✅ Atendida' : '✓ Completada'}
+                            ${c.estado === 'en_espera' ? '⏳ En Espera' :
+                        c.estado === 'en_atencion' ? '🩺 En Atención' :
+                            c.estado === 'atendida' ? '✅ Atendida' : '✓ Completada'}
                         </span>
                     </div>
                     <div class="consulta-paciente">🐾 ${c.paciente.nombre} (${c.paciente.especie || 'Sin especificar'})</div>
@@ -1797,11 +2054,11 @@
         }
 
         // ==================== COBRO ====================
-        
+
         let cobroActual = null;
         let medicamentosParaCobro = [];
         let inventarioDisponible = [];
-        
+
         async function abrirCobro(id) {
             try {
                 // Cargar consulta y inventario
@@ -1809,13 +2066,13 @@
                     fetch(`${API_URL}/api/consultas/${id}`),
                     fetch(`${API_URL}/api/inventario`)
                 ]);
-                
+
                 const dataConsulta = await resConsulta.json();
                 const dataInventario = await resInventario.json();
-                
+
                 cobroActual = dataConsulta.consulta;
                 inventarioDisponible = dataInventario.medicamentos || [];
-                
+
                 // Copiar medicamentos recetados con precios
                 medicamentosParaCobro = (cobroActual.medicamentos_recetados || []).map(m => {
                     const medInventario = inventarioDisponible.find(inv => inv.id === m.id);
@@ -1825,7 +2082,7 @@
                         incluido: true
                     };
                 });
-                
+
                 renderizarCobro();
                 document.getElementById('modal-cobro').classList.add('show');
             } catch (error) {
@@ -1833,14 +2090,14 @@
                 console.error(error);
             }
         }
-        
+
         function renderizarCobro() {
             const c = cobroActual;
             const totalMeds = medicamentosParaCobro
                 .filter(m => m.incluido)
                 .reduce((sum, m) => sum + (m.cantidad * m.precio), 0);
             const totalGeneral = c.cobro.consulta + totalMeds;
-            
+
             let html = `
                 <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0;">
                     <strong>Paciente:</strong> ${c.paciente.nombre} (${c.paciente.especie})<br>
@@ -1955,15 +2212,15 @@
                     ✅ Confirmar Cobro - ${formatCLP(totalGeneral)}
                 </button>
             `;
-            
+
             document.getElementById('cobro-contenido').innerHTML = html;
         }
-        
+
         function toggleMedicamentoCobro(idx) {
             medicamentosParaCobro[idx].incluido = !medicamentosParaCobro[idx].incluido;
             renderizarCobro();
         }
-        
+
         function cambiarCantidadCobro(idx, delta) {
             const nuevaCant = medicamentosParaCobro[idx].cantidad + delta;
             if (nuevaCant >= 1) {
@@ -1971,24 +2228,24 @@
                 renderizarCobro();
             }
         }
-        
+
         function mostrarAgregarMedicamento() {
             document.getElementById('agregar-med-section').style.display = 'block';
         }
-        
+
         function ocultarAgregarMedicamento() {
             document.getElementById('agregar-med-section').style.display = 'none';
         }
-        
+
         function agregarMedicamentoCobro() {
             const select = document.getElementById('nuevo-med-select');
             const cantidad = parseInt(document.getElementById('nuevo-med-cant').value) || 1;
-            
+
             if (!select.value) {
                 alert('Seleccione un medicamento');
                 return;
             }
-            
+
             const option = select.options[select.selectedIndex];
             const nuevoMed = {
                 id: parseInt(select.value),
@@ -1999,7 +2256,7 @@
                 incluido: true,
                 agregadoEnCobro: true
             };
-            
+
             // Verificar si ya existe
             const existente = medicamentosParaCobro.findIndex(m => m.id === nuevoMed.id);
             if (existente >= 0) {
@@ -2008,25 +2265,25 @@
             } else {
                 medicamentosParaCobro.push(nuevoMed);
             }
-            
+
             ocultarAgregarMedicamento();
             renderizarCobro();
         }
 
         async function procesarCobro(id) {
             const metodo = document.getElementById('metodo-pago').value;
-            
+
             // Filtrar solo medicamentos incluidos
             const medsFinales = medicamentosParaCobro.filter(m => m.incluido);
-            
+
             // Recalcular totales
             const totalMeds = medsFinales.reduce((sum, m) => sum + (m.cantidad * m.precio), 0);
-            
+
             try {
                 const res = await fetch(`${API_URL}/api/consultas/${id}/cobrar`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         metodo_pago: metodo,
                         medicamentos_actualizados: medsFinales,
                         total_medicamentos: totalMeds
@@ -2045,7 +2302,7 @@
         }
 
         // ==================== IMPRESIÓN ====================
-        
+
         async function imprimirBoleta(id) {
             try {
                 const res = await fetch(`${API_URL}/api/consultas/${id}/boleta`);
@@ -2080,12 +2337,12 @@
                             <div class="doc-row"><span>Pago:</span><span>${b.metodo_pago}</span></div>
                         </div>
                         <div class="doc-footer">
-                            <p>¡Gracias por confiar en BetterDoctor!</p>
+                            <p>¡Gracias por confiar en DP Sistemas!</p>
                             <p>${b.clinica.email}</p>
                         </div>
                     </div>
                 `;
-                
+
                 document.getElementById('print-section').innerHTML = html;
                 window.print();
             } catch (error) {
@@ -2128,7 +2385,7 @@
                             <div class="doc-section-title">MEDICAMENTOS</div>
                             ${r.medicamentos.map((m, i) => `
                                 <div style="margin: 8px 0; padding: 8px; background: #f9f9f9; border-radius: 5px;">
-                                    <p style="margin: 0;"><strong>${i+1}. ${m.nombre}</strong></p>
+                                    <p style="margin: 0;"><strong>${i + 1}. ${m.nombre}</strong></p>
                                     <p style="margin: 3px 0 0 10px; font-size: 11px;">
                                         📦 Cantidad: ${m.cantidad} unidades
                                     </p>
@@ -2151,7 +2408,7 @@
                         </div>
                     </div>
                 `;
-                
+
                 document.getElementById('print-section').innerHTML = html;
                 window.print();
             } catch (error) {
@@ -2169,13 +2426,8 @@
         setInterval(cargarConsultas, 30000);
     </script>
 </body>
+
 </html>
-
-
-
-
-
-
 
 
 

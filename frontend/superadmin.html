@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetterDoctor - Administración</title>
+    <title>DP Sistemas - Administración</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Sistema de diseño BetterDoctor v2.0 */
+            /* Sistema de diseño DP Sistemas v2.0 */
             --primary: #0891b2;
             --primary-dark: #0e7490;
             --primary-light: #22d3ee;
@@ -33,15 +34,19 @@
             --gray-800: #1e293b;
             --gray-900: #0f172a;
         }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--gray-100);
             color: var(--gray-900);
         }
-        
+
         /* Header */
         .header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -57,42 +62,51 @@
             z-index: 100;
             box-shadow: 0 4px 20px rgba(8, 145, 178, 0.25);
         }
-        
-        .header h1 { 
-            font-size: 1.35rem; 
-            display: flex; 
-            align-items: center; 
-            gap: 0.5rem; 
+
+        .header h1 {
+            font-size: 1.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .header-nav { display: flex; gap: 0.5rem; align-items: center; }
-        .header-nav a, .header-nav button {
+
+        .header-nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .header-nav a,
+        .header-nav button {
             color: white;
             text-decoration: none;
             padding: 0.55rem 1rem;
             border-radius: 10px;
             font-size: 0.85rem;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
             backdrop-filter: blur(10px);
         }
-        .header-nav a:hover, .header-nav button:hover { 
-            background: rgba(255,255,255,0.25); 
+
+        .header-nav a:hover,
+        .header-nav button:hover {
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         /* Layout */
         .app-container {
             display: flex;
             padding-top: 56px;
             min-height: 100vh;
         }
-        
+
         /* Sidebar */
         .sidebar {
             width: 240px;
@@ -105,12 +119,12 @@
             overflow-y: auto;
             padding: 1rem 0;
         }
-        
+
         .sidebar-section {
             padding: 0 0.75rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .sidebar-title {
             font-size: 0.7rem;
             text-transform: uppercase;
@@ -120,9 +134,15 @@
             margin-bottom: 0.5rem;
             letter-spacing: 0.5px;
         }
-        
-        .sidebar-menu { list-style: none; }
-        .sidebar-menu li { margin-bottom: 3px; }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 3px;
+        }
+
         .sidebar-menu button {
             display: flex;
             align-items: center;
@@ -139,18 +159,27 @@
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
         }
-        .sidebar-menu button:hover { 
-            background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-50) 100%); 
-            color: var(--primary); 
+
+        .sidebar-menu button:hover {
+            background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-50) 100%);
+            color: var(--primary);
             transform: translateX(4px);
         }
-        .sidebar-menu button.active { 
-            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%); 
-            color: white; 
+
+        .sidebar-menu button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            color: white;
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
-        .sidebar-menu button.active:hover { transform: none; }
-        .sidebar-menu button .icon { font-size: 1.15rem; }
+
+        .sidebar-menu button.active:hover {
+            transform: none;
+        }
+
+        .sidebar-menu button .icon {
+            font-size: 1.15rem;
+        }
+
         .sidebar-menu .badge {
             margin-left: auto;
             background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
@@ -161,7 +190,7 @@
             font-weight: 700;
             box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
         }
-        
+
         /* Content */
         .main-content {
             flex: 1;
@@ -169,7 +198,7 @@
             padding: 1.5rem;
             min-height: calc(100vh - 56px);
         }
-        
+
         /* Page Header */
         .page-header {
             display: flex;
@@ -177,13 +206,13 @@
             align-items: center;
             margin-bottom: 1.5rem;
         }
-        
+
         .page-title {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--gray-900);
         }
-        
+
         /* KPI Cards */
         .kpi-grid {
             display: grid;
@@ -191,12 +220,12 @@
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .kpi-card {
             background: white;
             border-radius: 16px;
             padding: 1.25rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -206,7 +235,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .kpi-card::before {
             content: '';
             position: absolute;
@@ -218,17 +247,21 @@
             opacity: 0;
             transition: opacity 0.3s;
         }
-        
+
         .kpi-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
             border-color: var(--primary);
         }
-        
-        .kpi-card:hover::before { opacity: 1; }
-        
-        .kpi-card:active { transform: translateY(-2px); }
-        
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-card:active {
+            transform: translateY(-2px);
+        }
+
         .kpi-icon {
             width: 56px;
             height: 56px;
@@ -239,48 +272,93 @@
             font-size: 1.75rem;
             transition: transform 0.3s;
         }
-        
-        .kpi-card:hover .kpi-icon { transform: scale(1.1); }
-        
-        .kpi-icon.blue { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
-        .kpi-icon.green { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
-        .kpi-icon.yellow { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
-        .kpi-icon.red { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); }
-        .kpi-icon.purple { background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); }
-        .kpi-icon.pink { background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); }
-        
-        .kpi-info h3 { font-size: 1.85rem; font-weight: 700; line-height: 1; color: var(--gray-900); }
-        .kpi-info p { color: var(--gray-500); font-size: 0.8rem; margin-top: 0.25rem; font-weight: 500; }
-        .kpi-trend { font-size: 0.75rem; margin-top: 0.25rem; font-weight: 600; }
-        .kpi-trend.up { color: var(--success); }
-        .kpi-trend.down { color: var(--danger); }
-        
-        .kpi-card .arrow { 
-            position: absolute; 
-            right: 1rem; 
-            top: 50%; 
-            transform: translateY(-50%); 
-            opacity: 0; 
+
+        .kpi-card:hover .kpi-icon {
+            transform: scale(1.1);
+        }
+
+        .kpi-icon.blue {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        .kpi-icon.green {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        }
+
+        .kpi-icon.yellow {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+
+        .kpi-icon.red {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        }
+
+        .kpi-icon.purple {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+        }
+
+        .kpi-icon.pink {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+
+        .kpi-info h3 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--gray-900);
+        }
+
+        .kpi-info p {
+            color: var(--gray-500);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+
+        .kpi-trend {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            font-weight: 600;
+        }
+
+        .kpi-trend.up {
+            color: var(--success);
+        }
+
+        .kpi-trend.down {
+            color: var(--danger);
+        }
+
+        .kpi-card .arrow {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
             transition: all 0.3s;
             color: var(--primary);
             font-size: 1.25rem;
         }
-        .kpi-card:hover .arrow { opacity: 1; right: 0.75rem; }
-        
+
+        .kpi-card:hover .arrow {
+            opacity: 1;
+            right: 0.75rem;
+        }
+
         /* Cards */
         .card {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             margin-bottom: 1.5rem;
             border: 1px solid var(--gray-100);
             transition: all 0.3s;
         }
-        
+
         .card:hover {
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
         }
-        
+
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -290,17 +368,48 @@
             background: var(--gray-50);
             border-radius: 16px 16px 0 0;
         }
-        
-        .card-title { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
-        .card-body { padding: 1.25rem; }
-        
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
         /* Tables */
-        .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--gray-100); }
-        th { background: var(--gray-50); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: var(--gray-500); }
-        tr:hover { background: var(--gray-50); }
-        
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        th {
+            background: var(--gray-50);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--gray-500);
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
         /* Badges */
         .badge {
             display: inline-block;
@@ -311,12 +420,32 @@
             letter-spacing: 0.3px;
             text-transform: uppercase;
         }
-        .badge-success { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); color: #065f46; }
-        .badge-warning { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #92400e; }
-        .badge-danger { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); color: #991b1b; }
-        .badge-info { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); color: #1e40af; }
-        .badge-purple { background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); color: #5b21b6; }
-        
+
+        .badge-success {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+        }
+
+        .badge-danger {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+        }
+
+        .badge-info {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
+        }
+
+        .badge-purple {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            color: #5b21b6;
+        }
+
         /* List Items */
         .list-item {
             display: flex;
@@ -326,12 +455,33 @@
             border-bottom: 1px solid var(--gray-100);
             transition: all 0.2s;
         }
-        .list-item:last-child { border-bottom: none; }
-        .list-item:hover { background: var(--gray-50); margin: 0 -0.5rem; padding: 0.75rem 0.5rem; border-radius: 8px; }
-        .list-item-info { display: flex; flex-direction: column; }
-        .list-item-title { font-weight: 600; font-size: 0.9rem; }
-        .list-item-subtitle { font-size: 0.8rem; color: var(--gray-500); }
-        
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item:hover {
+            background: var(--gray-50);
+            margin: 0 -0.5rem;
+            padding: 0.75rem 0.5rem;
+            border-radius: 8px;
+        }
+
+        .list-item-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .list-item-subtitle {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
         /* Buttons */
         .btn {
             padding: 0.6rem 1.25rem;
@@ -344,23 +494,75 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .btn:active { transform: translateY(0); }
-        .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%); color: white; }
-        .btn-primary:hover { background: linear-gradient(135deg, var(--primary-dark) 0%, #7c3aed 100%); }
-        .btn-success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
-        .btn-success:hover { background: linear-gradient(135deg, #059669 0%, #047857 100%); }
-        .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; }
-        .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
-        .btn-secondary { background: white; color: var(--gray-700); border: 2px solid var(--gray-200); box-shadow: none; }
-        .btn-secondary:hover { background: var(--gray-50); border-color: var(--gray-300); }
-        .btn-sm { padding: 0.4rem 0.85rem; font-size: 0.8rem; }
-        
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #7c3aed 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-200);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.85rem;
+            font-size: 0.8rem;
+        }
+
         /* Forms */
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.875rem; }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
         .form-control {
             width: 100%;
             padding: 0.6rem 0.75rem;
@@ -369,16 +571,25 @@
             font-size: 0.9rem;
             transition: border-color 0.2s;
         }
-        .form-control:focus { outline: none; border-color: var(--primary); }
-        
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-        
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
         /* Search */
         .search-box {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
+
         .search-box input {
             flex: 1;
             padding: 0.6rem 1rem;
@@ -386,9 +597,15 @@
             border-radius: 8px;
             font-size: 0.9rem;
         }
-        
+
         /* Tabs */
-        .tabs { display: flex; gap: 0.25rem; margin-bottom: 1rem; border-bottom: 2px solid var(--gray-200); }
+        .tabs {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
         .tab {
             padding: 0.75rem 1.25rem;
             border: none;
@@ -400,17 +617,39 @@
             margin-bottom: -2px;
             transition: all 0.2s;
         }
-        .tab:hover { color: var(--primary); }
-        .tab.active { color: var(--primary); border-color: var(--primary); font-weight: 600; }
-        
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-color: var(--primary);
+            font-weight: 600;
+        }
+
         /* Section visibility */
-        .section { display: none; }
-        .section.active { display: block; }
-        
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
         /* Grid layouts */
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
         /* Stats mini cards */
         .stat-mini {
             background: var(--gray-50);
@@ -418,9 +657,17 @@
             padding: 1rem;
             text-align: center;
         }
-        .stat-mini h4 { font-size: 1.5rem; color: var(--primary); }
-        .stat-mini p { font-size: 0.75rem; color: var(--gray-500); }
-        
+
+        .stat-mini h4 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .stat-mini p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
         /* Avatar */
         .avatar {
             width: 40px;
@@ -433,7 +680,7 @@
             font-weight: 600;
             font-size: 0.9rem;
         }
-        
+
         /* Modal */
         .modal-overlay {
             display: none;
@@ -442,12 +689,16 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             align-items: center;
             justify-content: center;
         }
-        .modal-overlay.active { display: flex; }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
         .modal {
             background: white;
             border-radius: 16px;
@@ -456,6 +707,7 @@
             max-height: 90vh;
             overflow-y: auto;
         }
+
         .modal-header {
             padding: 1rem 1.5rem;
             border-bottom: 1px solid var(--gray-200);
@@ -463,7 +715,11 @@
             justify-content: space-between;
             align-items: center;
         }
-        .modal-body { padding: 1.5rem; }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
         .modal-footer {
             padding: 1rem 1.5rem;
             border-top: 1px solid var(--gray-200);
@@ -471,41 +727,78 @@
             justify-content: flex-end;
             gap: 0.75rem;
         }
-        .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-500); }
-        
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-500);
+        }
+
         /* ========== RESPONSIVE STYLES ========== */
         @media (max-width: 1200px) {
-            .sidebar { width: 200px; }
-            .main-content { margin-left: 200px; padding: 1.25rem; }
-            .grid-2 { grid-template-columns: 1fr; }
-            .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+                padding: 1.25rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         @media (max-width: 1024px) {
-            .sidebar { width: 180px; }
-            .main-content { margin-left: 180px; padding: 1rem; }
-            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-            .sidebar-menu button { padding: 0.6rem 0.75rem; font-size: 0.8rem; }
+            .sidebar {
+                width: 180px;
+            }
+
+            .main-content {
+                margin-left: 180px;
+                padding: 1rem;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sidebar-menu button {
+                padding: 0.6rem 0.75rem;
+                font-size: 0.8rem;
+            }
         }
 
         @media (max-width: 768px) {
             .header {
                 padding: 0.65rem 1rem;
             }
+
             .header h1 {
                 font-size: 1.1rem;
             }
+
             .header-nav {
                 gap: 0.3rem;
             }
+
             .header-nav a,
             .header-nav button {
                 padding: 0.4rem 0.6rem;
                 font-size: 0.75rem;
             }
+
             .app-container {
                 padding-top: 50px;
             }
+
             .sidebar {
                 display: none;
                 position: fixed;
@@ -518,55 +811,71 @@
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
             }
+
             .sidebar.mobile-open {
                 transform: translateX(0);
             }
+
             .sidebar {
-                box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 0.875rem;
             }
+
             .kpi-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.75rem;
             }
+
             .kpi-card {
                 padding: 1rem;
             }
+
             .kpi-value {
                 font-size: 1.25rem;
             }
+
             .kpi-label {
                 font-size: 0.7rem;
             }
+
             .page-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.75rem;
             }
+
             .page-title {
                 font-size: 1.25rem;
             }
+
             .card {
                 padding: 1rem;
                 border-radius: 12px;
             }
+
             .card-header {
                 flex-direction: column;
                 gap: 0.75rem;
             }
+
             table {
                 font-size: 0.8rem;
             }
-            th, td {
+
+            th,
+            td {
                 padding: 0.6rem 0.5rem;
             }
+
             .action-btns {
                 flex-direction: column;
                 gap: 0.25rem;
             }
+
             .btn-icon {
                 padding: 0.3rem 0.5rem;
                 font-size: 0.7rem;
@@ -577,65 +886,81 @@
             .header {
                 padding: 0.5rem 0.75rem;
             }
+
             .header h1 {
                 font-size: 1rem;
             }
+
             .header-nav a,
             .header-nav button {
                 padding: 0.35rem 0.5rem;
                 font-size: 0.7rem;
             }
+
             .main-content {
                 padding: 0.5rem;
             }
+
             .kpi-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 0.5rem;
             }
+
             .kpi-card {
                 padding: 0.875rem;
                 border-radius: 12px;
             }
+
             .kpi-icon {
                 width: 40px;
                 height: 40px;
                 font-size: 1.1rem;
             }
+
             .kpi-value {
                 font-size: 1.1rem;
             }
+
             .page-title {
                 font-size: 1.1rem;
             }
+
             .card {
                 padding: 0.875rem;
                 border-radius: 10px;
                 margin-bottom: 1rem;
             }
+
             .card-title {
                 font-size: 0.95rem;
             }
+
             /* Tabla horizontal scroll */
             .table-wrapper {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
             }
+
             table {
                 min-width: 600px;
             }
+
             .modal-content {
                 width: 95%;
                 max-height: 90vh;
                 padding: 1rem;
                 border-radius: 12px;
             }
+
             .modal-header h3 {
                 font-size: 1rem;
             }
+
             .form-group input,
             .form-group select,
             .form-group textarea {
-                font-size: 16px; /* Evita zoom iOS */
+                font-size: 16px;
+                /* Evita zoom iOS */
             }
         }
 
@@ -643,6 +968,7 @@
             .kpi-grid {
                 grid-template-columns: 1fr;
             }
+
             .header h1 span {
                 display: none;
             }
@@ -651,7 +977,7 @@
         /* Mobile menu toggle */
         .mobile-menu-toggle {
             display: none;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
             width: 36px;
@@ -677,7 +1003,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -711,6 +1037,7 @@
                 align-items: center;
                 justify-content: center;
             }
+
             .sidebar {
                 padding-top: 2.5rem;
             }
@@ -727,8 +1054,16 @@
         }
 
         /* Timeline */
-        .timeline { padding-left: 1.5rem; border-left: 2px solid var(--gray-200); }
-        .timeline-item { position: relative; padding-bottom: 1.5rem; }
+        .timeline {
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--gray-200);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -739,22 +1074,63 @@
             border-radius: 50%;
             background: var(--primary);
         }
-        .timeline-item.success::before { background: var(--success); }
-        .timeline-item.warning::before { background: var(--warning); }
-        .timeline-time { font-size: 0.75rem; color: var(--gray-500); }
-        .timeline-content { margin-top: 0.25rem; }
+
+        .timeline-item.success::before {
+            background: var(--success);
+        }
+
+        .timeline-item.warning::before {
+            background: var(--warning);
+        }
+
+        .timeline-time {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .timeline-content {
+            margin-top: 0.25rem;
+        }
 
         /* Progress bar */
-        .progress { height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden; }
-        .progress-bar { height: 100%; background: var(--primary); transition: width 0.3s; }
-        .progress-bar.success { background: var(--success); }
-        .progress-bar.warning { background: var(--warning); }
-        .progress-bar.danger { background: var(--danger); }
+        .progress {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .progress-bar.success {
+            background: var(--success);
+        }
+
+        .progress-bar.warning {
+            background: var(--warning);
+        }
+
+        .progress-bar.danger {
+            background: var(--danger);
+        }
     </style>
 </head>
+
 <body>
     <header class="header">
-        <h1>👑 <span>VetClinic - </span>Super Admin</h1>
+        <div class="logo-container" style="display: flex; align-items: center; gap: 12px; color: white;">
+            <img src="Sistemas.svg" alt="DP Sistemas Logo"
+                style="height: 48px; width: auto; background: white; border-radius: 8px; padding: 2px;">
+            <div style="display: flex; flex-direction: column; line-height: 1.2;">
+                <span style="font-size: 1.25rem; font-weight: 700; color: white;">DP Sistemas - Super Admin</span>
+                <span style="font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.9);">Sistema de Gestión
+                    para Veterinarias</span>
+            </div>
+        </div>
         <nav class="header-nav">
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
             <span id="fecha-hora" class="desktop-only"></span>
@@ -764,52 +1140,58 @@
             <button onclick="logout()">🚪 Salir</button>
         </nav>
     </header>
-    
+
     <div class="sidebar-overlay" onclick="closeMobileMenu()"></div>
-    
+
     <div class="app-container">
         <aside class="sidebar">
             <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
             <div class="sidebar-section">
                 <div class="sidebar-title">Principal</div>
                 <ul class="sidebar-menu">
-                    <li><button class="active" onclick="showSection('dashboard')"><span class="icon">📊</span> Dashboard</button></li>
+                    <li><button class="active" onclick="showSection('dashboard')"><span class="icon">📊</span>
+                            Dashboard</button></li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-section">
                 <div class="sidebar-title">Gestión Clínica</div>
                 <ul class="sidebar-menu">
-                    <li><button onclick="showSection('fichas')"><span class="icon">🐾</span> Fichas<span class="badge" id="badge-pacientes">0</span></button></li>
+                    <li><button onclick="showSection('fichas')"><span class="icon">🐾</span> Fichas<span class="badge"
+                                id="badge-pacientes">0</span></button></li>
                     <li><button onclick="showSection('tutores')"><span class="icon">👥</span> Tutores</button></li>
                     <li><button onclick="showSection('agenda')"><span class="icon">📅</span> Agenda</button></li>
                     <li><button onclick="showSection('consultas')"><span class="icon">🩺</span> Consultas</button></li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-section">
                 <div class="sidebar-title">Finanzas</div>
                 <ul class="sidebar-menu">
-                    <li><button onclick="showSection('pagos')"><span class="icon">💰</span> Pagos<span class="badge" id="badge-pendientes">0</span></button></li>
-                    <li><button onclick="showSection('facturacion')"><span class="icon">🧾</span> Facturación</button></li>
+                    <li><button onclick="showSection('pagos')"><span class="icon">💰</span> Pagos<span class="badge"
+                                id="badge-pendientes">0</span></button></li>
+                    <li><button onclick="showSection('facturacion')"><span class="icon">🧾</span> Facturación</button>
+                    </li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-section">
                 <div class="sidebar-title">Servicios</div>
                 <ul class="sidebar-menu">
-                    <li><button onclick="showSection('peluqueria')"><span class="icon">✂️</span> Peluquería</button></li>
+                    <li><button onclick="showSection('peluqueria')"><span class="icon">✂️</span> Peluquería</button>
+                    </li>
                     <li><button onclick="showSection('hotel')"><span class="icon">🏨</span> Hotel</button></li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-section">
                 <div class="sidebar-title">Inventario</div>
                 <ul class="sidebar-menu">
-                    <li><button onclick="showSection('stock')"><span class="icon">📦</span> Stock<span class="badge" id="badge-alertas">0</span></button></li>
+                    <li><button onclick="showSection('stock')"><span class="icon">📦</span> Stock<span class="badge"
+                                id="badge-alertas">0</span></button></li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-section">
                 <div class="sidebar-title">Sistema</div>
                 <ul class="sidebar-menu">
@@ -819,7 +1201,7 @@
                 </ul>
             </div>
         </aside>
-        
+
         <main class="main-content">
             <!-- DASHBOARD -->
             <section id="section-dashboard" class="section active">
@@ -834,7 +1216,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="kpi-grid">
                     <div class="kpi-card" onclick="showSection('fichas')">
                         <div class="kpi-icon blue">🐕</div>
@@ -887,7 +1269,7 @@
                         <span class="arrow">→</span>
                     </div>
                 </div>
-                
+
                 <div class="grid-2">
                     <div class="card">
                         <div class="card-header">
@@ -900,7 +1282,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <span class="card-title">💳 Pagos Pendientes</span>
@@ -913,7 +1295,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="grid-2">
                     <div class="card">
                         <div class="card-header">
@@ -936,7 +1318,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <span class="card-title">📦 Alertas de Stock</span>
@@ -950,24 +1332,25 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- FICHAS / PACIENTES -->
             <section id="section-fichas" class="section">
                 <div class="page-header">
                     <h2 class="page-title">🐾 Fichas de Pacientes</h2>
                     <button class="btn btn-primary" onclick="abrirModalPaciente()">➕ Nuevo Paciente</button>
                 </div>
-                
+
                 <div class="tabs">
                     <button class="tab active" onclick="showFichasTab('activos')">Activos</button>
                     <button class="tab" onclick="showFichasTab('todos')">Todos</button>
                     <button class="tab" onclick="showFichasTab('fallecidos')">Fallecidos 🕊️</button>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="search-box">
-                            <input type="text" id="buscar-paciente" placeholder="🔍 Buscar por nombre, especie, tutor...">
+                            <input type="text" id="buscar-paciente"
+                                placeholder="🔍 Buscar por nombre, especie, tutor...">
                             <select id="filtro-especie">
                                 <option value="">Todas las especies</option>
                                 <option value="Perro">Perros</option>
@@ -976,7 +1359,7 @@
                             </select>
                             <button class="btn btn-primary" onclick="buscarPacientes()">Buscar</button>
                         </div>
-                        
+
                         <div class="table-container">
                             <table>
                                 <thead>
@@ -993,25 +1376,26 @@
                                 <tbody id="tabla-pacientes"></tbody>
                             </table>
                         </div>
-                        <p id="info-pacientes" style="margin-top: 1rem; color: var(--gray-500); font-size: 0.85rem;"></p>
+                        <p id="info-pacientes" style="margin-top: 1rem; color: var(--gray-500); font-size: 0.85rem;">
+                        </p>
                     </div>
                 </div>
             </section>
-            
+
             <!-- TUTORES -->
             <section id="section-tutores" class="section">
                 <div class="page-header">
                     <h2 class="page-title">👥 Tutores / Clientes</h2>
                     <button class="btn btn-primary" onclick="abrirModalTutor()">➕ Nuevo Tutor</button>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="search-box">
                             <input type="text" id="buscar-tutor" placeholder="🔍 Buscar por nombre, RUT, teléfono...">
                             <button class="btn btn-primary" onclick="buscarTutores()">Buscar</button>
                         </div>
-                        
+
                         <div class="table-container">
                             <table>
                                 <thead>
@@ -1031,20 +1415,20 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- AGENDA -->
             <section id="section-agenda" class="section">
                 <div class="page-header">
                     <h2 class="page-title">📅 Agenda de Citas</h2>
                     <button class="btn btn-primary" onclick="abrirModalCita()">➕ Nueva Cita</button>
                 </div>
-                
+
                 <div class="tabs">
                     <button class="tab active" onclick="showAgendaTab('hoy')">Hoy</button>
                     <button class="tab" onclick="showAgendaTab('semana')">Esta Semana</button>
                     <button class="tab" onclick="showAgendaTab('historico')">Histórico</button>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="search-box">
@@ -1059,7 +1443,7 @@
                             </select>
                             <button class="btn btn-primary" onclick="cargarAgenda()">Filtrar</button>
                         </div>
-                        
+
                         <div class="table-container">
                             <table>
                                 <thead>
@@ -1079,22 +1463,23 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- CONSULTAS -->
             <section id="section-consultas" class="section">
                 <div class="page-header">
                     <h2 class="page-title">🩺 Historial de Consultas</h2>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="search-box">
-                            <input type="text" id="buscar-consulta" placeholder="🔍 Buscar por paciente, diagnóstico...">
+                            <input type="text" id="buscar-consulta"
+                                placeholder="🔍 Buscar por paciente, diagnóstico...">
                             <input type="date" id="fecha-desde">
                             <input type="date" id="fecha-hasta">
                             <button class="btn btn-primary" onclick="buscarConsultas()">Buscar</button>
                         </div>
-                        
+
                         <div class="table-container">
                             <table>
                                 <thead>
@@ -1114,13 +1499,13 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- PAGOS -->
             <section id="section-pagos" class="section">
                 <div class="page-header">
                     <h2 class="page-title">💰 Gestión de Pagos</h2>
                 </div>
-                
+
                 <div class="kpi-grid" style="margin-bottom: 1.5rem;">
                     <div class="kpi-card">
                         <div class="kpi-icon green">✅</div>
@@ -1144,13 +1529,13 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="tabs">
                     <button class="tab active" onclick="showPagosTab('pendientes')">Pendientes</button>
                     <button class="tab" onclick="showPagosTab('realizados')">Realizados</button>
                     <button class="tab" onclick="showPagosTab('por-tutor')">Por Tutor</button>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-container">
@@ -1172,7 +1557,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- FACTURACIÓN -->
             <section id="section-facturacion" class="section">
                 <div class="page-header">
@@ -1181,18 +1566,19 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <p style="color: var(--gray-500); text-align: center;">Módulo de facturación en desarrollo...</p>
+                        <p style="color: var(--gray-500); text-align: center;">Módulo de facturación en desarrollo...
+                        </p>
                     </div>
                 </div>
             </section>
-            
+
             <!-- PELUQUERÍA -->
             <section id="section-peluqueria" class="section">
                 <div class="page-header">
                     <h2 class="page-title">✂️ Peluquería</h2>
                     <button class="btn btn-primary" onclick="abrirModalPeluqueria()">➕ Nueva Cita</button>
                 </div>
-                
+
                 <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
                     <div class="kpi-card">
                         <div class="kpi-icon purple">📅</div>
@@ -1223,7 +1609,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title">Agenda de Peluquería - Hoy</span>
@@ -1250,7 +1636,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- HOTEL -->
             <section id="section-hotel" class="section">
                 <div class="page-header">
@@ -1262,14 +1648,14 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- STOCK -->
             <section id="section-stock" class="section">
                 <div class="page-header">
                     <h2 class="page-title">📦 Resumen de Inventario</h2>
                     <a href="inventario.html" class="btn btn-primary">Ir a Gestión Completa →</a>
                 </div>
-                
+
                 <div class="kpi-grid">
                     <div class="kpi-card">
                         <div class="kpi-icon red">🚫</div>
@@ -1300,7 +1686,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="grid-2">
                     <div class="card">
                         <div class="card-header">
@@ -1320,14 +1706,14 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- USUARIOS -->
             <section id="section-usuarios" class="section">
                 <div class="page-header">
                     <h2 class="page-title">👤 Gestión de Usuarios</h2>
                     <button class="btn btn-primary">➕ Nuevo Usuario</button>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-container">
@@ -1349,13 +1735,13 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- REPORTES -->
             <section id="section-reportes" class="section">
                 <div class="page-header">
                     <h2 class="page-title">📈 Reportes y Estadísticas</h2>
                 </div>
-                
+
                 <div class="grid-3">
                     <div class="stat-mini">
                         <h4 id="rep-consultas-mes">0</h4>
@@ -1370,7 +1756,7 @@
                         <p>Vacunas aplicadas</p>
                     </div>
                 </div>
-                
+
                 <div class="card" style="margin-top: 1.5rem;">
                     <div class="card-header">
                         <span class="card-title">Generar Reportes</span>
@@ -1380,24 +1766,26 @@
                             <button class="btn btn-secondary" style="padding: 1rem;">📊 Ingresos Mensuales</button>
                             <button class="btn btn-secondary" style="padding: 1rem;">🐾 Pacientes por Especie</button>
                             <button class="btn btn-secondary" style="padding: 1rem;">💊 Medicamentos más Usados</button>
-                            <button class="btn btn-secondary" style="padding: 1rem;">👨‍⚕️ Consultas por Veterinario</button>
+                            <button class="btn btn-secondary" style="padding: 1rem;">👨‍⚕️ Consultas por
+                                Veterinario</button>
                             <button class="btn btn-secondary" style="padding: 1rem;">📅 Citas por Día/Hora</button>
                             <button class="btn btn-secondary" style="padding: 1rem;">💰 Pagos Pendientes</button>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <!-- BACKUPS -->
             <section id="section-backups" class="section">
                 <div class="page-header">
                     <h2 class="page-title">💾 Copias de Seguridad</h2>
                     <div style="display: flex; gap: 0.5rem;">
                         <button class="btn btn-primary" onclick="crearBackup()">➕ Crear Backup</button>
-                        <button class="btn btn-secondary" onclick="descargarBackupInstantaneo()">⬇️ Descargar Ahora</button>
+                        <button class="btn btn-secondary" onclick="descargarBackupInstantaneo()">⬇️ Descargar
+                            Ahora</button>
                     </div>
                 </div>
-                
+
                 <div class="grid-3">
                     <div class="stat-mini">
                         <h4>🕛 00:00</h4>
@@ -1412,7 +1800,7 @@
                         <p>Retención de backups</p>
                     </div>
                 </div>
-                
+
                 <div class="card" style="margin-top: 1.5rem;">
                     <div class="card-header">
                         <span class="card-title">📁 Backups Disponibles</span>
@@ -1430,13 +1818,16 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tabla-backups">
-                                    <tr><td colspan="4" style="text-align: center; padding: 2rem; color: #888;">Cargando backups...</td></tr>
+                                    <tr>
+                                        <td colspan="4" style="text-align: center; padding: 2rem; color: #888;">Cargando
+                                            backups...</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card" style="margin-top: 1rem;">
                     <div class="card-header">
                         <span class="card-title">ℹ️ Información del Sistema de Backups</span>
@@ -1445,15 +1836,17 @@
                         <ul style="color: #666; line-height: 1.8;">
                             <li>✅ <strong>Backup automático:</strong> Se ejecuta todos los días a las 00:00</li>
                             <li>✅ <strong>Retención:</strong> Se mantienen los últimos 7 backups</li>
-                            <li>✅ <strong>Contenido:</strong> Incluye pacientes, consultas, inventario, usuarios y configuraciones</li>
-                            <li>⚠️ <strong>Restaurar:</strong> Crea un backup antes de restaurar para evitar pérdida de datos</li>
+                            <li>✅ <strong>Contenido:</strong> Incluye pacientes, consultas, inventario, usuarios y
+                                configuraciones</li>
+                            <li>⚠️ <strong>Restaurar:</strong> Crea un backup antes de restaurar para evitar pérdida de
+                                datos</li>
                         </ul>
                     </div>
                 </div>
             </section>
         </main>
     </div>
-    
+
     <!-- Modal Paciente -->
     <div class="modal-overlay" id="modal-paciente">
         <div class="modal" style="max-width: 800px;">
@@ -1466,7 +1859,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nombre *</label>
-                        <input type="text" class="form-control" id="pac-nombre" placeholder="Nombre de la mascota" required>
+                        <input type="text" class="form-control" id="pac-nombre" placeholder="Nombre de la mascota"
+                            required>
                     </div>
                     <div class="form-group">
                         <label>Especie *</label>
@@ -1519,14 +1913,18 @@
                 </div>
                 <div class="form-group">
                     <label>Alergias / Observaciones</label>
-                    <textarea class="form-control" id="pac-alergias" rows="2" placeholder="Alergias conocidas o condiciones especiales..."></textarea>
+                    <textarea class="form-control" id="pac-alergias" rows="2"
+                        placeholder="Alergias conocidas o condiciones especiales..."></textarea>
                 </div>
-                
-                <h4 style="color: var(--primary); margin: 1.5rem 0 1rem; font-size: 1rem; padding-top: 1rem; border-top: 2px solid var(--gray-200);">Datos del Tutor</h4>
+
+                <h4
+                    style="color: var(--primary); margin: 1.5rem 0 1rem; font-size: 1rem; padding-top: 1rem; border-top: 2px solid var(--gray-200);">
+                    Datos del Tutor</h4>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nombre Completo *</label>
-                        <input type="text" class="form-control" id="tutor-nombre" placeholder="Nombre del dueño" required>
+                        <input type="text" class="form-control" id="tutor-nombre" placeholder="Nombre del dueño"
+                            required>
                     </div>
                     <div class="form-group">
                         <label>RUT</label>
@@ -1536,7 +1934,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Teléfono *</label>
-                        <input type="tel" class="form-control" id="tutor-telefono" placeholder="+56 9 1234 5678" required>
+                        <input type="tel" class="form-control" id="tutor-telefono" placeholder="+56 9 1234 5678"
+                            required>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
@@ -1560,7 +1959,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Modal Cita Peluquería -->
     <div class="modal-overlay" id="modal-peluqueria">
         <div class="modal">
@@ -1615,19 +2014,19 @@
             </div>
         </div>
     </div>
-    
+
     <script>
-        const API_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:5000' 
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
             : window.location.origin;
-        
+
         // Auth check
         const user = JSON.parse(localStorage.getItem('vetclinic_user') || 'null');
         if (!user || (user.rol !== 'administracion' && user.rol !== 'admin' && user.rol !== 'superadmin')) {
             alert('Acceso denegado. Solo administradores.');
             window.location.href = 'login.html';
         }
-        
+
         // Fecha/hora en header
         function actualizarFechaHora() {
             const now = new Date();
@@ -1637,12 +2036,12 @@
         }
         actualizarFechaHora();
         setInterval(actualizarFechaHora, 60000);
-        
+
         // Navigation
         function showSection(section) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('section-' + section).classList.add('active');
-            
+
             // Actualizar sidebar activo
             document.querySelectorAll('.sidebar-menu button').forEach(b => {
                 b.classList.remove('active');
@@ -1650,9 +2049,9 @@
                     b.classList.add('active');
                 }
             });
-            
+
             // Cargar datos según sección
-            switch(section) {
+            switch (section) {
                 case 'dashboard': cargarDashboard(); break;
                 case 'fichas': cargarPacientes(); break;
                 case 'tutores': cargarTutores(); break;
@@ -1666,17 +2065,17 @@
                 case 'backups': cargarBackups(); break;
             }
         }
-        
+
         // Cargar reportes
         async function cargarReportes() {
             try {
                 const statsRes = await fetch(`${API_URL}/api/dashboard/estadisticas`);
                 const stats = await statsRes.json();
-                
+
                 if (stats.exito) {
                     document.getElementById('rep-consultas-mes').textContent = stats.estadisticas.consultas_mes || 0;
                 }
-                
+
                 // Pacientes nuevos este mes (simulado por ahora)
                 document.getElementById('rep-nuevos-pacientes').textContent = Math.floor(Math.random() * 10) + 5;
                 document.getElementById('rep-vacunas').textContent = Math.floor(Math.random() * 20) + 10;
@@ -1684,17 +2083,17 @@
                 console.error('Error:', error);
             }
         }
-        
+
         // ==================== SISTEMA DE BACKUPS ====================
-        
+
         // Cargar lista de backups
         async function cargarBackups() {
             try {
                 const res = await fetch(`${API_URL}/api/backup/lista`);
                 const data = await res.json();
-                
+
                 const tbody = document.getElementById('tabla-backups');
-                
+
                 if (data.exito && data.backups.length > 0) {
                     document.getElementById('total-backups').textContent = data.backups.length;
                     tbody.innerHTML = data.backups.map(backup => `
@@ -1721,15 +2120,15 @@
                 document.getElementById('tabla-backups').innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem; color: #e74c3c;">Error al cargar los backups</td></tr>';
             }
         }
-        
+
         // Crear nuevo backup
         async function crearBackup() {
             if (!confirm('¿Crear una nueva copia de seguridad?')) return;
-            
+
             try {
                 const res = await fetch(`${API_URL}/api/backup/crear`, { method: 'POST' });
                 const data = await res.json();
-                
+
                 if (data.exito) {
                     alert(`✅ Backup creado: ${data.archivo}`);
                     cargarBackups();
@@ -1741,25 +2140,25 @@
                 console.error(error);
             }
         }
-        
+
         // Descargar backup específico
         function descargarBackup(nombre) {
             window.open(`${API_URL}/api/backup/descargar/${nombre}`, '_blank');
         }
-        
+
         // Descargar backup instantáneo
         function descargarBackupInstantaneo() {
             window.open(`${API_URL}/api/backup/descargar-ahora`, '_blank');
         }
-        
+
         // Restaurar backup
         async function restaurarBackup(nombre) {
             if (!confirm(`⚠️ ¿Restaurar el backup "${nombre}"?\n\nEsto reemplazará todos los datos actuales. Se creará un backup de seguridad antes de restaurar.`)) return;
-            
+
             try {
                 const res = await fetch(`${API_URL}/api/backup/restaurar/${nombre}`, { method: 'POST' });
                 const data = await res.json();
-                
+
                 if (data.exito) {
                     alert('✅ ' + data.mensaje);
                     location.reload();
@@ -1771,7 +2170,7 @@
                 console.error(error);
             }
         }
-        
+
         // Dashboard
         async function cargarDashboard() {
             try {
@@ -1782,31 +2181,31 @@
                     fetch(`${API_URL}/api/consultas/por-cobrar`),
                     fetch(`${API_URL}/api/dashboard/estadisticas`)
                 ]);
-                
+
                 const pacientes = await pacientesRes.json();
                 const alertas = await alertasRes.json();
                 const consultas = await consultasRes.json();
                 const stats = await statsRes.json();
-                
+
                 // KPIs con datos reales
                 document.getElementById('kpi-pacientes').textContent = pacientes.pacientes?.length || 0;
                 document.getElementById('badge-pacientes').textContent = pacientes.pacientes?.length || 0;
-                
+
                 if (stats.exito) {
                     const s = stats.estadisticas;
                     document.getElementById('kpi-citas-hoy').textContent = s.citas_hoy || 0;
                     document.getElementById('kpi-ingresos').textContent = '$' + (s.ingresos_mes || 0).toLocaleString();
                     document.getElementById('kpi-peluqueria').textContent = s.peluqueria_hoy || 0;
                 }
-                
+
                 document.getElementById('kpi-pendientes').textContent = consultas.consultas?.length || 0;
                 document.getElementById('badge-pendientes').textContent = consultas.consultas?.length || 0;
-                
+
                 if (alertas.exito) {
                     const totalAlertas = alertas.alertas.resumen.agotados + alertas.alertas.resumen.stock_bajo;
                     document.getElementById('kpi-alertas-stock').textContent = totalAlertas;
                     document.getElementById('badge-alertas').textContent = totalAlertas;
-                    
+
                     // Alertas stock resumen
                     const alertasHtml = alertas.alertas.agotados.slice(0, 5).map(p => `
                         <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);">
@@ -1816,7 +2215,7 @@
                     `).join('') || '<p style="color: var(--gray-500);">Sin alertas</p>';
                     document.getElementById('alertas-stock-resumen').innerHTML = alertasHtml;
                 }
-                
+
                 // Pagos pendientes
                 const pagosHtml = (consultas.consultas || []).slice(0, 5).map(c => `
                     <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);">
@@ -1828,7 +2227,7 @@
                     </div>
                 `).join('') || '<p style="color: var(--gray-500);">Sin pagos pendientes</p>';
                 document.getElementById('pagos-pendientes-lista').innerHTML = pagosHtml;
-                
+
                 // Próximas citas (simulado)
                 document.getElementById('proximas-citas').innerHTML = `
                     <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);">
@@ -1844,18 +2243,18 @@
                         <span class="badge badge-info">Confirmada</span>
                     </div>
                 `;
-                
+
             } catch (error) {
                 console.error('Error cargando dashboard:', error);
             }
         }
-        
+
         // Pacientes
         async function cargarPacientes() {
             try {
                 const res = await fetch(`${API_URL}/api/pacientes`);
                 const data = await res.json();
-                
+
                 if (data.exito) {
                     const tbody = document.getElementById('tabla-pacientes');
                     tbody.innerHTML = data.pacientes.map(p => `
@@ -1881,20 +2280,20 @@
                             </td>
                         </tr>
                     `).join('') || '<tr><td colspan="7" style="text-align: center; color: var(--gray-500);">No hay pacientes</td></tr>';
-                    
+
                     document.getElementById('info-pacientes').textContent = `Total: ${data.pacientes.length} pacientes`;
                 }
             } catch (error) {
                 console.error('Error:', error);
             }
         }
-        
+
         // Tutores
         async function cargarTutores() {
             try {
                 const res = await fetch(`${API_URL}/api/pacientes`);
                 const data = await res.json();
-                
+
                 // Agrupar por tutor
                 const tutores = {};
                 (data.pacientes || []).forEach(p => {
@@ -1906,7 +2305,7 @@
                         tutores[key].mascotas.push(p.nombre);
                     }
                 });
-                
+
                 const tbody = document.getElementById('tabla-tutores');
                 tbody.innerHTML = Object.values(tutores).map(t => `
                     <tr>
@@ -1919,12 +2318,12 @@
                         <td><button class="btn btn-sm btn-secondary">👁️ Ver</button></td>
                     </tr>
                 `).join('') || '<tr><td colspan="7" style="text-align: center;">No hay tutores</td></tr>';
-                
+
             } catch (error) {
                 console.error('Error:', error);
             }
         }
-        
+
         // Pagos
         async function cargarPagos() {
             try {
@@ -1933,10 +2332,10 @@
                     fetch(`${API_URL}/api/consultas/por-cobrar`),
                     fetch(`${API_URL}/api/dashboard/estadisticas`)
                 ]);
-                
+
                 const data = await porCobrarRes.json();
                 const stats = await statsRes.json();
-                
+
                 // Renderizar tabla de pagos pendientes
                 const tbody = document.getElementById('tabla-pagos');
                 tbody.innerHTML = (data.consultas || []).map(c => {
@@ -1955,7 +2354,7 @@
                         </tr>
                     `;
                 }).join('') || '<tr><td colspan="7" style="text-align: center;">No hay pagos pendientes 🎉</td></tr>';
-                
+
                 // Actualizar KPIs con datos reales del endpoint de estadísticas
                 if (stats.exito) {
                     const s = stats.estadisticas;
@@ -1963,12 +2362,12 @@
                     document.getElementById('total-pendiente').textContent = '$' + (s.total_pendiente || 0).toLocaleString();
                     document.getElementById('promedio-ticket').textContent = '$' + (s.promedio_ticket || 0).toLocaleString();
                 }
-                
+
             } catch (error) {
                 console.error('Error cargando pagos:', error);
             }
         }
-        
+
         // Función para cobrar consulta
         async function cobrarConsulta(consultaId) {
             if (confirm('¿Confirmar cobro de esta consulta?')) {
@@ -1991,27 +2390,27 @@
                 }
             }
         }
-        
+
         // Stock
         async function cargarStock() {
             try {
                 const res = await fetch(`${API_URL}/api/admin/alertas-stock`);
                 const data = await res.json();
-                
+
                 if (data.exito) {
                     const r = data.alertas.resumen;
                     document.getElementById('stock-agotados').textContent = r.agotados;
                     document.getElementById('stock-bajo').textContent = r.stock_bajo;
                     document.getElementById('stock-vencidos').textContent = r.vencidos;
                     document.getElementById('stock-por-vencer').textContent = r.por_vencer;
-                    
+
                     document.getElementById('lista-agotados').innerHTML = data.alertas.agotados.slice(0, 8).map(p => `
                         <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);">
                             <span style="font-size: 0.85rem;">${p.nombre.substring(0, 35)}...</span>
                             <span class="badge badge-danger">0</span>
                         </div>
                     `).join('') || '<p style="color: var(--gray-500);">Sin productos agotados</p>';
-                    
+
                     document.getElementById('lista-por-vencer').innerHTML = data.alertas.por_vencer.slice(0, 8).map(p => `
                         <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);">
                             <span style="font-size: 0.85rem;">${p.nombre.substring(0, 30)}...</span>
@@ -2023,14 +2422,14 @@
                 console.error('Error:', error);
             }
         }
-        
+
         // Peluquería (simulado)
         function cargarPeluqueria() {
             document.getElementById('peluqueria-hoy').textContent = 6;
             document.getElementById('peluqueria-completadas').textContent = 3;
             document.getElementById('peluqueria-espera').textContent = 2;
             document.getElementById('peluqueria-ingresos').textContent = '$' + (85000).toLocaleString();
-            
+
             document.getElementById('tabla-peluqueria').innerHTML = `
                 <tr>
                     <td>09:00</td>
@@ -2074,7 +2473,7 @@
                 </tr>
             `;
         }
-        
+
         // Usuarios
         function cargarUsuarios() {
             document.getElementById('tabla-usuarios').innerHTML = `
@@ -2116,23 +2515,23 @@
                 </tr>
             `;
         }
-        
+
         // Tabs
         function showFichasTab(tab) {
             document.querySelectorAll('#section-fichas .tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
         }
-        
+
         function showAgendaTab(tab) {
             document.querySelectorAll('#section-agenda .tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
         }
-        
+
         function showPagosTab(tab) {
             document.querySelectorAll('#section-pagos .tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
         }
-        
+
         // Modales
         function abrirModalPaciente() {
             document.getElementById('modal-paciente').classList.add('active');
@@ -2142,30 +2541,30 @@
                 else el.value = '';
             });
         }
-        
+
         function abrirModalPeluqueria() {
             document.getElementById('modal-peluqueria').classList.add('active');
             document.getElementById('pelu-fecha').value = new Date().toISOString().split('T')[0];
         }
-        
+
         function cerrarModal(tipo) {
             document.getElementById('modal-' + tipo).classList.remove('active');
         }
-        
+
         // Cargar razas según especie
         async function cargarRazas() {
             const especie = document.getElementById('pac-especie').value;
             const selectRaza = document.getElementById('pac-raza');
-            
+
             if (!especie || especie === 'Otro') {
                 selectRaza.innerHTML = '<option value="">Sin razas disponibles</option>';
                 return;
             }
-            
+
             try {
                 const res = await fetch(`${API_URL}/api/razas/${especie.toLowerCase()}`);
                 const data = await res.json();
-                
+
                 if (data.exito && data.razas) {
                     selectRaza.innerHTML = '<option value="">Seleccionar raza...</option>' +
                         data.razas.map(r => `<option value="${r}">${r}</option>`).join('');
@@ -2174,19 +2573,19 @@
                 selectRaza.innerHTML = '<option value="">Error cargando razas</option>';
             }
         }
-        
+
         // Guardar nuevo paciente
         async function guardarPaciente() {
             const nombre = document.getElementById('pac-nombre').value.trim();
             const especie = document.getElementById('pac-especie').value;
             const tutorNombre = document.getElementById('tutor-nombre').value.trim();
             const tutorTelefono = document.getElementById('tutor-telefono').value.trim();
-            
+
             if (!nombre || !especie || !tutorNombre || !tutorTelefono) {
                 alert('Por favor complete los campos obligatorios: Nombre, Especie, Nombre del Tutor y Teléfono');
                 return;
             }
-            
+
             const paciente = {
                 nombre: nombre,
                 especie: especie,
@@ -2206,16 +2605,16 @@
                     comuna: document.getElementById('tutor-comuna').value || ''
                 }
             };
-            
+
             try {
                 const res = await fetch(`${API_URL}/api/pacientes`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(paciente)
                 });
-                
+
                 const data = await res.json();
-                
+
                 if (data.exito) {
                     alert('✅ Paciente registrado exitosamente con ID: ' + data.paciente.id);
                     cerrarModal('paciente');
@@ -2229,51 +2628,51 @@
                 alert('Error de conexión al servidor');
             }
         }
-        
+
         function verFicha(id) {
             // Mostrar ficha del paciente
             window.open(`ficha_paciente.html?id=${id}`, '_blank');
         }
-        
+
         function buscarPacientes() {
             const termino = document.getElementById('buscar-paciente').value.toLowerCase();
             const especie = document.getElementById('filtro-especie').value;
             cargarPacientes(termino, especie);
         }
-        
+
         // Cargar pacientes con filtros
         async function cargarPacientesConFiltro() {
             const termino = document.getElementById('buscar-paciente').value.toLowerCase();
             const especie = document.getElementById('filtro-especie').value;
-            
+
             try {
                 const res = await fetch(`${API_URL}/api/pacientes`);
                 const data = await res.json();
-                
+
                 if (data.exito) {
                     let pacientes = data.pacientes;
-                    
+
                     // Filtrar por término de búsqueda
                     if (termino) {
-                        pacientes = pacientes.filter(p => 
+                        pacientes = pacientes.filter(p =>
                             p.nombre.toLowerCase().includes(termino) ||
                             (p.tutor?.nombre || '').toLowerCase().includes(termino) ||
                             (p.raza || '').toLowerCase().includes(termino)
                         );
                     }
-                    
+
                     // Filtrar por especie
                     if (especie) {
                         pacientes = pacientes.filter(p => p.especie === especie);
                     }
-                    
+
                     renderizarTablaPacientes(pacientes);
                 }
             } catch (error) {
                 console.error('Error:', error);
             }
         }
-        
+
         function renderizarTablaPacientes(pacientes) {
             const tbody = document.getElementById('tabla-pacientes');
             tbody.innerHTML = pacientes.map(p => `
@@ -2299,10 +2698,10 @@
                     </td>
                 </tr>
             `).join('') || '<tr><td colspan="7" style="text-align: center; color: var(--gray-500);">No hay pacientes</td></tr>';
-            
+
             document.getElementById('info-pacientes').textContent = `Total: ${pacientes.length} pacientes`;
         }
-        
+
         function calcularEdad(fechaNacimiento) {
             if (!fechaNacimiento) return '';
             const hoy = new Date();
@@ -2310,18 +2709,18 @@
             let edad = hoy.getFullYear() - nacimiento.getFullYear();
             const mes = hoy.getMonth() - nacimiento.getMonth();
             if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) edad--;
-            
+
             if (edad < 1) {
                 const meses = (hoy.getMonth() + 12 - nacimiento.getMonth()) % 12;
                 return meses + ' meses';
             }
             return edad + ' años';
         }
-        
+
         function buscarTutores() {
             cargarTutores();
         }
-        
+
         // Toggle menú móvil
         function toggleMobileMenu() {
             const sidebar = document.querySelector('.sidebar');
@@ -2344,13 +2743,13 @@
             localStorage.removeItem('vetclinic_user');
             window.location.href = 'login.html';
         }
-        
+
         // Cargar consultas historial
         async function cargarConsultasHistorial() {
             try {
                 const res = await fetch(`${API_URL}/api/consultas/todas`);
                 const data = await res.json();
-                
+
                 const tbody = document.getElementById('tabla-consultas-historial');
                 if (data.exito && data.consultas) {
                     tbody.innerHTML = data.consultas.slice(0, 50).map(c => {
@@ -2375,17 +2774,17 @@
                 console.error('Error:', error);
             }
         }
-        
+
         // Cargar agenda con consultas reales
         async function cargarAgenda() {
             try {
                 const res = await fetch(`${API_URL}/api/consultas/pendientes`);
                 const data = await res.json();
-                
+
                 const tbody = document.getElementById('tabla-agenda');
                 if (data.exito && data.consultas) {
                     tbody.innerHTML = data.consultas.map(c => {
-                        const hora = c.fecha_registro ? new Date(c.fecha_registro).toLocaleTimeString('es-CL', {hour: '2-digit', minute: '2-digit'}) : 'N/A';
+                        const hora = c.fecha_registro ? new Date(c.fecha_registro).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' }) : 'N/A';
                         return `
                             <tr>
                                 <td><strong>${hora}</strong></td>
@@ -2401,23 +2800,23 @@
                 } else {
                     tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hay citas pendientes</td></tr>';
                 }
-                
+
                 // También actualizar próximas citas en dashboard
                 actualizarProximasCitas(data.consultas || []);
             } catch (error) {
                 console.error('Error:', error);
             }
         }
-        
+
         function actualizarProximasCitas(consultas) {
             const container = document.getElementById('proximas-citas');
             if (consultas.length === 0) {
                 container.innerHTML = '<p style="color: var(--gray-500); text-align: center;">No hay citas pendientes hoy</p>';
                 return;
             }
-            
+
             container.innerHTML = consultas.slice(0, 5).map(c => {
-                const hora = c.fecha_registro ? new Date(c.fecha_registro).toLocaleTimeString('es-CL', {hour: '2-digit', minute: '2-digit'}) : 'N/A';
+                const hora = c.fecha_registro ? new Date(c.fecha_registro).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' }) : 'N/A';
                 return `
                     <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);">
                         <div><strong>${hora}</strong> - ${c.paciente?.nombre || 'Paciente'} (${c.tipo_consulta || 'Consulta'})</div>
@@ -2426,11 +2825,14 @@
                 `;
             }).join('');
         }
-        
+
         // Init
         cargarDashboard();
     </script>
 </body>
+
 </html>
+
+
 
 

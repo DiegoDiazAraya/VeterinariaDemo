@@ -20,8 +20,8 @@ except ImportError:
 # Configurar ruta del frontend
 FRONTEND_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'frontend')
 
-app = Flask(__name__, static_folder=FRONTEND_FOLDER)
-app.secret_key = 'betterdoctor_secret_key_2024'
+app = Flask(__name__, static_folder=FRONTEND_FOLDER, static_url_path='')
+app.secret_key = 'DP Sistemas_secret_key_2024'
 CORS(app, supports_credentials=True)
 
 app.register_blueprint(bot_api)
@@ -1039,11 +1039,11 @@ def generar_boleta(consulta_id):
         'numero_boleta': f"BOL-{consulta['numero_ticket']}",
         'fecha': consulta.get('fecha_cierre') or datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
         'clinica': {
-            'nombre': 'BetterDoctor',
+            'nombre': 'DP Sistemas',
             'subtitulo': 'Clínica Veterinaria',
             'direccion': 'Av. Principal #123, Ciudad',
             'telefono': '(555) 123-4567',
-            'email': 'contacto@betterdoctor.com'
+            'email': 'contacto@DP Sistemas.com'
         },
         'paciente': consulta['paciente'],
         'atencion': {
@@ -1090,11 +1090,11 @@ def generar_receta(consulta_id):
         'numero_receta': f"RX-{consulta['numero_ticket']}",
         'fecha': consulta.get('fecha_atencion') or datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
         'clinica': {
-            'nombre': 'BetterDoctor',
+            'nombre': 'DP Sistemas',
             'subtitulo': 'Clínica Veterinaria',
             'direccion': 'Av. Principal #123, Ciudad',
             'telefono': '(555) 123-4567',
-            'email': 'contacto@betterdoctor.com'
+            'email': 'contacto@DP Sistemas.com'
         },
         'doctor': {
             'nombre': doctor_nombre,
@@ -2681,7 +2681,7 @@ def serve_landing_page():
 def api_info():
     """Información de la API."""
     return jsonify({
-        'mensaje': 'BetterDoctor API - Sistema Veterinario',
+        'mensaje': 'DP Sistemas API - Sistema Veterinario',
         'version': '7.0',
         'descripcion': 'Sistema de Gestión Veterinaria con diagnóstico asistido',
         'endpoints': {
@@ -2986,7 +2986,7 @@ scheduler.add_job(
 
 # Iniciar el scheduler
 scheduler.start()
-print("[BACKUP] 📅 Sistema de backup automático configurado (00:00 diario)")
+print("[BACKUP] [AUTO] Sistema de backup automático configurado (00:00 diario)")
 
 # Asegurar que el scheduler se detenga cuando la app se cierre
 atexit.register(lambda: scheduler.shutdown())
@@ -2994,7 +2994,7 @@ atexit.register(lambda: scheduler.shutdown())
 
 if __name__ == '__main__':
     print("=" * 50)
-    print("[+] BetterDoctor API v6.0")
+    print("[+] DP Sistemas API v6.0")
     print("=" * 50)
     print("[*] http://localhost:5000")
     print("\n[*] Usuarios de prueba:")
@@ -3007,3 +3007,4 @@ if __name__ == '__main__':
     print("    - Descargar: GET /api/backup/descargar-ahora")
     print("=" * 50)
     app.run(debug=True, port=5000, host='0.0.0.0', use_reloader=False)
+
